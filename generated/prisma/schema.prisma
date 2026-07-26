@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  FULFILLED
+  CANCELLED
+  REFUNDED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model GalleryPost {
+  id          String    @id @default(cuid())
+  title       String    @db.VarChar(160)
+  slug        String    @unique @db.VarChar(120)
+  excerpt     String?   @db.VarChar(320)
+  description String?   @db.Text
+  imageUrl    String    @unique @db.VarChar(500)
+  imageAlt    String    @db.VarChar(250)
+  medium      String?   @db.VarChar(160)
+  dimensions  String?   @db.VarChar(120)
+  year        Int?
+  featured    Boolean   @default(false)
+  published   Boolean   @default(false)
+  sortOrder   Int       @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published, sortOrder, publishedAt])
+  @@index([featured, published])
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  slug        String      @unique @db.VarChar(120)
+  name        String      @db.VarChar(160)
+  description String?     @db.Text
+  imageUrl    String?     @db.VarChar(500)
+  priceCents  Int
+  currency    String      @default("EUR") @db.VarChar(3)
+  active      Boolean     @default(true)
+  inventory   Int?
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+
+  @@index([active, sortOrder, createdAt])
+}
+
+model Order {
+  id                      String      @id @default(cuid())
+  email                   String      @db.VarChar(320)
+  customerName            String?     @db.VarChar(160)
+  shippingAddress         Json?
+  shippingPhone           String?     @db.VarChar(40)
+  status                  OrderStatus @default(PENDING)
+  currency                String      @default("EUR") @db.VarChar(3)
+  totalCents              Int
+  stripeCheckoutSessionId String?     @unique @db.VarChar(255)
+  stripePaymentIntentId   String?     @unique @db.VarChar(255)
+  createdAt               DateTime    @default(now())
+  updatedAt               DateTime    @updatedAt
+  items                   OrderItem[]
+
+  @@index([status, createdAt])
+  @@index([email, createdAt])
+  @@index([email, status, createdAt])
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  productId      String?
+  productName    String   @db.VarChar(160)
+  unitPriceCents Int
+  quantity       Int
+  lineTotalCents Int
+  createdAt      DateTime @default(now())
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  service         String        @db.VarChar(160)
+  startAt         DateTime
+  durationMinutes Int
+  name            String        @db.VarChar(160)
+  email           String        @db.VarChar(320)
+  phone           String?       @db.VarChar(40)
+  notes           String?       @db.Text
+  status          BookingStatus @default(PENDING)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status, startAt])
+  @@index([startAt, durationMinutes])
+  @@index([email, createdAt])
+  @@index([email, status, createdAt])
+}
+
+// Auth.js Prisma adapter models. Sessions remain present for adapter compatibility;
+// JWT session strategy does not require Session rows.
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
