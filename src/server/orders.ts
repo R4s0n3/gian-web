@@ -305,6 +305,16 @@ export async function recordCheckoutSession(
   const orderId = orderIdForSession(session);
   validateCheckoutSession(session, await requireOrder(orderId));
 
+  if (
+    markPaid &&
+    (session.status !== "complete" || session.payment_status !== "paid")
+  ) {
+    throw new OrderOperationError(
+      "SESSION_MISMATCH",
+      "Stripe Checkout Session is not complete and paid",
+    );
+  }
+
   if (!markPaid) {
     await db.order.updateMany({
       where: {

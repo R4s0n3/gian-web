@@ -61,7 +61,6 @@ export const env = createEnv({
     ADMIN_PASSWORD: z.string().min(16).optional(),
     DATABASE_URL: z.string().url(),
     STRIPE_SECRET_KEY: z.string().optional(),
-    STRIPE_WEBHOOK_SECRET: z.string().optional(),
     STRIPE_ALLOWED_SHIPPING_COUNTRIES: z.string().optional(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -90,7 +89,6 @@ export const env = createEnv({
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
     DATABASE_URL: process.env.DATABASE_URL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
-    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     STRIPE_ALLOWED_SHIPPING_COUNTRIES:
       process.env.STRIPE_ALLOWED_SHIPPING_COUNTRIES,
     NODE_ENV: process.env.NODE_ENV,

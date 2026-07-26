@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TRPCError } from "@trpc/server";
 
 import { SiteFooter } from "@/app/_components/site-footer";
 import { SiteHeader } from "@/app/_components/site-header";
-import { db } from "@/server/db";
+import { api } from "@/trpc/server";
 
 export const metadata: Metadata = {
   title: "Bestellung erhalten",
@@ -22,22 +23,15 @@ type ConfirmationState =
 async function confirmationState(
   sessionId: string | undefined,
 ): Promise<ConfirmationState> {
-  if (!sessionId || sessionId.length > 255) return "invalid";
-
   try {
-    const order = await db.order.findUnique({
-      where: { stripeCheckoutSessionId: sessionId },
-      select: { status: true },
+    const result = await api.checkout.confirmSession({
+      sessionId,
     });
-
-    if (!order) return "invalid";
-    if (["PAID", "PROCESSING", "FULFILLED"].includes(order.status)) {
-      return "paid";
+    return result.state;
+  } catch (error) {
+    if (error instanceof TRPCError && error.code === "BAD_REQUEST") {
+      return "invalid";
     }
-    if (order.status === "PENDING") return "processing";
-    if (order.status === "REFUNDED") return "refunded";
-    return "cancelled";
-  } catch {
     return "unavailable";
   }
 }
@@ -64,7 +58,7 @@ const content: Record<
       </>
     ),
     description:
-      "Stripe hat dich zum Studio zurückgeführt, während die Zahlungsbestätigung noch eintrifft. Deine Bestellung bleibt reserviert; der Beleg folgt per E-Mail.",
+      "Stripe meldet die Zahlung noch nicht als abgeschlossen. Deine Bestellung bleibt reserviert; lade diese Seite in einem Moment erneut, um den Status serverseitig zu prüfen.",
   },
   cancelled: {
     eyebrow: "Checkout nicht abgeschlossen",

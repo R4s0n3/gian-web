@@ -1,15 +1,23 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
+import { isTRPCClientError } from "@trpc/client";
 import { useState } from "react";
 
 import { formatMoney, type ProductItem } from "@/app/_lib/content-shared";
+import type { AppRouter } from "@/server/api/root";
+import { api } from "@/trpc/react";
 
-type CheckoutResponse = {
-  url?: string;
-  orderId?: string;
-  error?: string;
-};
+function checkoutErrorMessage(error: unknown): string {
+  if (isTRPCClientError<AppRouter>(error)) {
+    if (error.data?.code === "BAD_REQUEST") {
+      return "Bitte prüfe deine E-Mail-Adresse und die gewünschte Stückzahl.";
+    }
+    return error.message;
+  }
+
+  return "Der Checkout konnte nicht gestartet werden. Bitte versuche es erneut.";
+}
 
 export function ShopClient({ products }: { products: ProductItem[] }) {
   const [email, setEmail] = useState("");
@@ -19,6 +27,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
     tone: "error" | "info";
     text: string;
   } | null>(null);
+  const createCheckout = api.checkout.createSession.useMutation();
 
   function quantityFor(productId: string) {
     return quantities[productId] ?? 1;
@@ -26,55 +35,24 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
 
   async function checkout(product: ProductItem) {
     setMessage(null);
-
-    if (!email.trim()) {
-      setMessage({
-        tone: "error",
-        text: "Gib oben deine E-Mail-Adresse ein, damit das Studio dir den Beleg senden kann.",
-      });
-      return;
-    }
-
-    if (product.id.startsWith("fallback-")) {
-      setMessage({
-        tone: "info",
-        text: "Dies ist eine Vorschau-Edition. Der Kauf wird möglich, sobald das Studio den Bestand veröffentlicht.",
-      });
-      return;
-    }
-
     setLoadingId(product.id);
 
     try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email.trim(),
-          items: [
-            {
-              productId: product.id,
-              quantity: quantityFor(product.id),
-            },
-          ],
-        }),
+      const result = await createCheckout.mutateAsync({
+        email,
+        items: [
+          {
+            productId: product.id,
+            quantity: quantityFor(product.id),
+          },
+        ],
       });
-      const result = (await response.json()) as CheckoutResponse;
-
-      if (!response.ok || !result.url) {
-        throw new Error(
-          result.error ?? "Der Checkout konnte nicht gestartet werden.",
-        );
-      }
 
       window.location.assign(result.url);
     } catch (error) {
       setMessage({
         tone: "error",
-        text:
-          error instanceof Error
-            ? error.message
-            : "Der Checkout konnte nicht gestartet werden. Bitte versuche es erneut.",
+        text: checkoutErrorMessage(error),
       });
       setLoadingId(null);
     }

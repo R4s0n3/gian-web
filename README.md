@@ -7,15 +7,15 @@ practice. It includes:
 - **The Black Index**, an original first-person Canvas raycasting exhibition at
   `/doom/`;
 - a private admin dashboard for gallery posts, products, orders, and bookings;
-- server-priced Stripe Checkout with signed webhook handling and inventory
-  reservation;
+- server-priced Stripe Checkout with return-time server verification and
+  inventory reservation;
 - tattoo, artwork, and collaboration appointment requests.
 
 ## Requirements
 
 - [Bun](https://bun.sh/)
 - PostgreSQL
-- a Stripe account and the Stripe CLI for live checkout testing
+- a Stripe account
 
 ## Local setup
 
@@ -43,7 +43,6 @@ bundled original artworks and three purchasable studio editions.
 | `ADMIN_PASSWORD`                    | Shared admin password (minimum 16 characters); keep it server-side |
 | `NEXT_PUBLIC_SITE_URL`              | Trusted canonical origin for metadata and Stripe redirects         |
 | `STRIPE_SECRET_KEY`                 | Stripe secret API key used only on the server                      |
-| `STRIPE_WEBHOOK_SECRET`             | Signing secret for `/api/stripe/webhook`                           |
 | `STRIPE_ALLOWED_SHIPPING_COUNTRIES` | Comma-separated shipping destinations; defaults to `DE`            |
 
 Admin authentication is deliberately disabled if `AUTH_SECRET`,
@@ -59,8 +58,8 @@ per-email reservation limits remain the durable checkout and booking guard.
 Auth.js also trusts the proxy-provided host, so the proxy must replace
 untrusted `Host`/`X-Forwarded-Host` values with the public application host.
 Production builds require `NEXT_PUBLIC_SITE_URL` to use a non-local HTTPS
-origin. Development and test environments may use HTTP; checkout can fall back
-to the request origin when the variable is unset.
+origin. Development and test environments may use HTTP; checkout falls back to
+`http://localhost:$PORT` when the variable is unset.
 
 ## Public language and legal details
 
@@ -72,27 +71,31 @@ email address, and phone number. Add register or VAT details to
 
 ## Stripe
 
-Checkout prices and inventory are always read from PostgreSQL; the browser
-cannot provide its own price. A pending order and inventory reservation are
-created before redirecting to Stripe. Prices are stored and charged in euro
-cents; the dashboard intentionally fixes the catalogue currency to EUR.
+`checkout.createSession` validates the browser input in a public tRPC procedure,
+reads prices and inventory from PostgreSQL, reserves stock, and creates the
+Stripe-hosted Checkout Session. The browser can submit only an email address,
+product IDs, and quantities; it cannot provide prices, totals, currency, or
+redirect URLs. Prices are stored and charged in euro cents, and the dashboard
+intentionally fixes the catalogue currency to EUR.
 
-For local webhook testing:
+After Stripe redirects to the success page, the server calls the
+`checkout.confirmSession` tRPC procedure. It retrieves the session and expanded
+PaymentIntent directly from Stripe, then verifies the application and order
+metadata, order reference, email, amount, currency, and succeeded payment
+status before marking the order paid. No payment state from the browser is
+trusted.
 
-```sh
-stripe listen --forward-to localhost:3000/api/stripe/webhook
-```
+This integration intentionally does not expose a Stripe webhook endpoint.
+Checkout is restricted to immediate card payments, including card-backed
+wallets, because delayed payment methods need asynchronous notification.
+Checkout also requires billing details, a phone number, and a shipping address
+for the configured destination countries.
 
-Copy the reported signing secret into `STRIPE_WEBHOOK_SECRET`. The webhook
-marks completed payments as paid and releases reserved inventory when a
-Checkout Session expires or an asynchronous payment fails.
-
-Checkout requires billing details, a phone number, and a shipping address for
-the configured destination countries.
-
-Monitor webhook delivery in Stripe. If an expiry event is ever missed, cancel
-the stale `PENDING` order from `/admin/orders`; this expires any open Checkout
-Session and releases its reserved inventory safely.
+Without webhooks, an order is confirmed only when its Stripe success URL is
+loaded. If a customer closes the tab before the redirect, inspect the stale
+`PENDING` order in Stripe before acting on it. Cancelling it from
+`/admin/orders` retrieves the Checkout Session server-side, refuses to cancel a
+paid session, and otherwise expires the session and safely releases inventory.
 
 ## Admin
 

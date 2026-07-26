@@ -1,4 +1,5 @@
 import { bookingRouter } from "@/server/api/routers/booking";
+import { checkoutRouter } from "@/server/api/routers/checkout";
 import { galleryRouter } from "@/server/api/routers/gallery";
 import { orderRouter } from "@/server/api/routers/order";
 import { productRouter } from "@/server/api/routers/product";
@@ -11,6 +12,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   booking: bookingRouter,
+  checkout: checkoutRouter,
   gallery: galleryRouter,
   order: orderRouter,
   product: productRouter,
