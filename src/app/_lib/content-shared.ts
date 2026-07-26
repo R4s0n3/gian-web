@@ -25,7 +25,7 @@ export type ProductItem = {
   sortOrder: number;
 };
 
-export function formatMoney(cents: number, currency: string, locale = "en") {
+export function formatMoney(cents: number, currency: string, locale = "de-DE") {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,

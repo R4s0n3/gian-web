@@ -39,7 +39,7 @@ export async function GET() {
   } catch (error) {
     console.error("Could not load public gallery", error);
     return NextResponse.json(
-      { error: "Gallery is temporarily unavailable" },
+      { error: "Die Galerie ist vorübergehend nicht verfügbar" },
       { status: 503 },
     );
   }

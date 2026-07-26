@@ -54,11 +54,11 @@
 
   const rooms = [
     { x1: 0, y1: 0, x2: 17, y2: 3, label: "FOYER / 01" },
-    { x1: 0, y1: 3, x2: 7, y2: 8, label: "BONE ROOM / 02" },
-    { x1: 7, y1: 3, x2: 17, y2: 9, label: "SIGNAL HALL / 03" },
-    { x1: 0, y1: 8, x2: 10, y2: 14, label: "ARCHIVE / 04" },
-    { x1: 10, y1: 8, x2: 17, y2: 15, label: "RELIQUARY / 05" },
-    { x1: 0, y1: 14, x2: 17, y2: 17, label: "LOWER SALON / 06" },
+    { x1: 0, y1: 3, x2: 7, y2: 8, label: "KNOCHENRAUM / 02" },
+    { x1: 7, y1: 3, x2: 17, y2: 9, label: "SIGNALHALLE / 03" },
+    { x1: 0, y1: 8, x2: 10, y2: 14, label: "ARCHIV / 04" },
+    { x1: 10, y1: 8, x2: 17, y2: 15, label: "RELIQUIAR / 05" },
+    { x1: 0, y1: 14, x2: 17, y2: 17, label: "UNTERER SALON / 06" },
   ];
 
   const fallbackWorks = [
@@ -66,34 +66,35 @@
       title: "Threshold I",
       slug: "threshold-i",
       imageUrl: "assets/threshold-i.webp",
-      imageAlt: "Abstract black, bone, and red painting centered on a doorway",
-      medium: "Mixed media on linen",
+      imageAlt:
+        "Abstraktes schwarzes, knochenfarbenes und rotes Gemälde mit einem zentralen Durchgang",
+      medium: "Mixed Media auf Leinen",
       dimensions: "120 × 150 cm",
       year: 2026,
       description:
-        "A threshold is both wound and invitation. Graphite anatomies gather around a red field that refuses to resolve into an entrance or an exit.",
+        "Eine Schwelle ist Wunde und Einladung zugleich. Anatomien aus Graphit sammeln sich um ein rotes Feld, das sich weder als Eingang noch als Ausgang auflösen lässt.",
     },
     {
       title: "Blue Reliquary",
       slug: "blue-reliquary",
       imageUrl: "assets/blue-reliquary.webp",
-      imageAlt: "Cobalt vessel form suspended on a black field",
-      medium: "Ink, wax pencil, mineral pigment",
+      imageAlt: "Kobaltblaues Gefäß, schwebend auf schwarzem Grund",
+      medium: "Tusche, Wachsstift, Mineralpigment",
       dimensions: "100 × 125 cm",
       year: 2026,
       description:
-        "An imagined vessel for signals that outlive their sender. Orbital marks turn the object into a diagram, icon, and impossible instrument.",
+        "Ein imaginäres Gefäß für Signale, die ihre Absender überdauern. Kreisende Spuren verwandeln das Objekt in Diagramm, Ikone und unmögliches Instrument.",
     },
     {
       title: "Signal Bloom",
       slug: "signal-bloom",
       imageUrl: "assets/signal-bloom.webp",
-      imageAlt: "Ochre and black botanical abstraction",
-      medium: "Mineral pigment and charcoal",
+      imageAlt: "Ockerfarbene und schwarze botanische Abstraktion",
+      medium: "Mineralpigment und Kohle",
       dimensions: "110 × 138 cm",
       year: 2026,
       description:
-        "Botanical force meets technical notation. The bloom expands beyond its own edges, held for a moment between specimen and event.",
+        "Botanische Kraft trifft auf technische Notation. Die Blüte wächst über ihre eigenen Ränder hinaus, für einen Moment zwischen Präparat und Ereignis gehalten.",
     },
   ];
 
@@ -289,7 +290,7 @@
     fctx.fillStyle = "#6e665c";
     fctx.font = "9px monospace";
     fctx.fillText(
-      `${work.year} / WORK ${String(work.index + 1).padStart(2, "0")}`,
+      `${work.year} / ARBEIT ${String(work.index + 1).padStart(2, "0")}`,
       30,
       327,
     );
@@ -616,8 +617,8 @@
     document.exitPointerLock?.();
     ui.modalImage.src = work.imageUrl;
     ui.modalImage.alt = work.imageAlt;
-    ui.modalIndex.textContent = `WORK ${String(work.index + 1).padStart(2, "0")}`;
-    ui.modalKicker.textContent = `ARCHIVE / ${work.medium || "ORIGINAL WORK"}`;
+    ui.modalIndex.textContent = `ARBEIT ${String(work.index + 1).padStart(2, "0")}`;
+    ui.modalKicker.textContent = `ARCHIV / ${work.medium || "ORIGINALARBEIT"}`;
     ui.modalTitle.textContent = work.title;
     ui.modalMeta.textContent = [work.year, work.medium, work.dimensions]
       .filter(Boolean)

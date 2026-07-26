@@ -62,6 +62,14 @@ Production builds require `NEXT_PUBLIC_SITE_URL` to use a non-local HTTPS
 origin. Development and test environments may use HTTP; checkout can fall back
 to the request origin when the variable is unset.
 
+## Public language and legal details
+
+The public visitor experience is written in German; the private administration
+interface remains in English. Before publishing, replace every placeholder in
+`src/app/_lib/legal.ts` with the provider's real legal name, service address,
+email address, and phone number. Add register or VAT details to
+`src/app/impressum/page.tsx` if they apply to the business.
+
 ## Stripe
 
 Checkout prices and inventory are always read from PostgreSQL; the browser

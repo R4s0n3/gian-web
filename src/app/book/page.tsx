@@ -5,9 +5,9 @@ import { SiteFooter } from "@/app/_components/site-footer";
 import { SiteHeader } from "@/app/_components/site-header";
 
 export const metadata: Metadata = {
-  title: "Book a Project",
+  title: "Projekt anfragen",
   description:
-    "Request a tattoo consultation, artwork commission, or creative collaboration with Gian.",
+    "Tattoo-Beratung, Auftragsarbeit oder kreative Zusammenarbeit mit Gian anfragen.",
 };
 
 type BookPageProps = {
@@ -24,34 +24,37 @@ export default async function BookPage({ searchParams }: BookPageProps) {
         <section className="page-hero">
           <div className="site-shell page-hero__grid">
             <div>
-              <p className="eyebrow">Tattoo / artwork / collaboration</p>
-              <h1 className="display">Start with a conversation.</h1>
+              <p className="eyebrow">Tattoo / Kunst / Zusammenarbeit</p>
+              <h1 className="display">Am Anfang steht ein Gespräch.</h1>
             </div>
             <div className="page-hero__aside">
               <p>
-                Strong projects begin with a clear exchange. Share what you
-                know, leave room for what you don’t, and the studio will shape a
-                direction with you.
+                Starke Projekte beginnen mit einem klaren Austausch. Teile, was
+                du schon weißt, lass Raum für das Unbekannte und entwickle
+                gemeinsam mit dem Studio eine Richtung.
               </p>
-              <span className="eyebrow">Every request reviewed personally</span>
+              <span className="eyebrow">
+                Jede Anfrage wird persönlich gelesen
+              </span>
             </div>
           </div>
         </section>
 
         <div className="site-shell booking-layout">
           <aside className="booking-intro">
-            <p className="eyebrow">Before you send</p>
-            <h2 className="display">Your idea does not need to be finished.</h2>
+            <p className="eyebrow">Vor dem Absenden</p>
+            <h2 className="display">Deine Idee muss noch nicht fertig sein.</h2>
             <p>
-              A mood, memory, placement, or material can be enough to begin. The
-              studio will reply with availability, next steps, and any questions
-              needed to build the work properly.
+              Eine Stimmung, Erinnerung, Platzierung oder ein Material kann als
+              Anfang genügen. Das Studio antwortet mit Verfügbarkeiten, den
+              nächsten Schritten und allen Fragen, die für die Arbeit wichtig
+              sind.
             </p>
             <hr className="rule" style={{ margin: "2rem 0" }} />
             <p className="form-note">
-              Tattoo requests typically begin with a consultation. Dates shown
-              are preferences and remain unconfirmed until you hear directly
-              from the studio.
+              Tattoo-Anfragen beginnen in der Regel mit einer Beratung.
+              Angegebene Termine sind Wünsche und erst bestätigt, wenn du eine
+              persönliche Rückmeldung vom Studio erhältst.
             </p>
           </aside>
 

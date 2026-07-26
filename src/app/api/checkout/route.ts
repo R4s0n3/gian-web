@@ -212,7 +212,10 @@ export async function POST(request: Request) {
       error instanceof CheckoutConfigurationError
     ) {
       console.error("Checkout configuration is invalid", error);
-      return errorResponse("Checkout is temporarily unavailable", 503);
+      return errorResponse(
+        "Der Checkout ist vorübergehend nicht verfügbar",
+        503,
+      );
     }
     throw error;
   }
@@ -221,13 +224,13 @@ export async function POST(request: Request) {
   try {
     json = await request.json();
   } catch {
-    return errorResponse("Request body must be valid JSON", 400);
+    return errorResponse("Die Anfrage enthält ungültige Daten", 400);
   }
 
   const parsed = checkoutSchema.safeParse(json);
   if (!parsed.success) {
     return errorResponse(
-      "Invalid checkout request",
+      "Ungültige Checkout-Anfrage",
       400,
       parsed.error.flatten(),
     );
@@ -254,7 +257,7 @@ export async function POST(request: Request) {
   const blockedLimits = limits.filter((limit) => !limit.allowed);
   if (blockedLimits.length > 0) {
     return rateLimitResponse(
-      "Too many checkout attempts. Please try again later.",
+      "Zu viele Checkout-Versuche. Bitte versuche es später erneut.",
       Math.max(...blockedLimits.map((limit) => limit.retryAfterSeconds)),
     );
   }
@@ -268,7 +271,7 @@ export async function POST(request: Request) {
     )
   ) {
     return errorResponse(
-      "Checkout redirect URLs must use this site's origin",
+      "Die Checkout-Weiterleitung muss diese Website verwenden",
       400,
     );
   }
@@ -290,7 +293,7 @@ export async function POST(request: Request) {
       return errorResponse(error.message, 409);
     }
     console.error("Could not create checkout order", error);
-    return errorResponse("Checkout is temporarily unavailable", 503);
+    return errorResponse("Der Checkout ist vorübergehend nicht verfügbar", 503);
   }
 
   let createdSessionId: string | undefined;
@@ -298,6 +301,7 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create(
       {
         mode: "payment",
+        locale: "de",
         billing_address_collection: "required",
         phone_number_collection: { enabled: true },
         shipping_address_collection: {
@@ -367,7 +371,7 @@ export async function POST(request: Request) {
       console.error("Could not cancel failed checkout order", cleanupError);
     }
     console.error("Could not create Stripe Checkout Session", error);
-    return errorResponse("Could not start checkout", 502);
+    return errorResponse("Der Checkout konnte nicht gestartet werden", 502);
   }
 }
 
@@ -390,7 +394,7 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
       if (activeReservations.length >= ACTIVE_EMAIL_RESERVATION_LIMIT) {
         const oldest = activeReservations[0]?.createdAt.getTime() ?? Date.now();
         throw new CheckoutRateLimitError(
-          "Too many active checkouts for this email address.",
+          "Für diese E-Mail-Adresse sind bereits zu viele Checkouts aktiv.",
           Math.max(
             1,
             Math.ceil((oldest + CHECKOUT_EMAIL_WINDOW_MS - Date.now()) / 1_000),
@@ -412,7 +416,7 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
 
       if (products.length !== input.items.length) {
         throw new CheckoutValidationError(
-          "One or more products are unavailable",
+          "Ein oder mehrere Produkte sind nicht verfügbar",
         );
       }
 
@@ -425,19 +429,21 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
 
       if (products.some((product) => product.currency !== "EUR")) {
         throw new CheckoutValidationError(
-          "One or more products use an unsupported currency",
+          "Ein oder mehrere Produkte verwenden eine nicht unterstützte Währung",
         );
       }
 
       if (currencies.size !== 1) {
         throw new CheckoutValidationError(
-          "All checkout items must use the same currency",
+          "Alle Checkout-Artikel müssen dieselbe Währung verwenden",
         );
       }
 
       const currency = currencies.values().next().value;
       if (!currency) {
-        throw new CheckoutValidationError("Checkout currency is unavailable");
+        throw new CheckoutValidationError(
+          "Die Checkout-Währung ist nicht verfügbar",
+        );
       }
 
       let totalCents = 0;
@@ -451,7 +457,7 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
           product.priceCents <= 0
         ) {
           throw new CheckoutValidationError(
-            "One or more products have an invalid price",
+            "Ein oder mehrere Produkte haben einen ungültigen Preis",
           );
         }
 
@@ -460,7 +466,7 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
           product.inventory < requestedItem.quantity
         ) {
           throw new CheckoutValidationError(
-            `${product.name} does not have enough inventory`,
+            `${product.name} ist nicht in ausreichender Stückzahl verfügbar`,
           );
         }
 
@@ -480,7 +486,7 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
 
         if (reserved.count !== 1) {
           throw new CheckoutValidationError(
-            `${product.name} is no longer available in that quantity`,
+            `${product.name} ist in dieser Stückzahl nicht mehr verfügbar`,
           );
         }
 
@@ -489,14 +495,14 @@ async function createPendingOrder(input: z.infer<typeof checkoutSchema>) {
           !Number.isSafeInteger(lineTotalCents) ||
           lineTotalCents > MAX_DATABASE_INT
         ) {
-          throw new CheckoutValidationError("Checkout total is too large");
+          throw new CheckoutValidationError("Der Gesamtbetrag ist zu hoch");
         }
         totalCents += lineTotalCents;
         if (
           !Number.isSafeInteger(totalCents) ||
           totalCents > MAX_DATABASE_INT
         ) {
-          throw new CheckoutValidationError("Checkout total is too large");
+          throw new CheckoutValidationError("Der Gesamtbetrag ist zu hoch");
         }
 
         orderItems.push({

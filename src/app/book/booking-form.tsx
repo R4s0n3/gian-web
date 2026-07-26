@@ -25,7 +25,7 @@ const initialState: BookingFormState = {
   name: "",
   email: "",
   phone: "",
-  service: "Tattoo consultation",
+  service: "Tattoo-Beratung",
   preferredDate: "",
   preferredTime: "11:00",
   placement: "",
@@ -44,10 +44,8 @@ export function BookingForm({
   const [form, setForm] = useState<BookingFormState>(() => ({
     ...initialState,
     service:
-      initialService === "artwork"
-        ? "Artwork commission"
-        : "Tattoo consultation",
-    notes: referencedWork ? `I'm interested in: ${referencedWork}` : "",
+      initialService === "artwork" ? "Kunst-Auftragsarbeit" : "Tattoo-Beratung",
+    notes: referencedWork ? `Ich interessiere mich für: ${referencedWork}` : "",
   }));
   const [submitted, setSubmitted] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -69,20 +67,20 @@ export function BookingForm({
   if (submitted) {
     return (
       <div className="booking-form" role="status">
-        <p className="eyebrow">Request received</p>
+        <p className="eyebrow">Anfrage erhalten</p>
         <h2 className="display" style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}>
-          Thank you.
+          Vielen Dank.
         </h2>
         <p style={{ color: "var(--bone-dim)", margin: 0 }}>
-          Your idea is with the studio. You’ll receive a personal reply after
-          the request and preferred date have been reviewed.
+          Deine Idee ist im Studio angekommen. Sobald Anfrage und Wunschtermin
+          geprüft wurden, erhältst du eine persönliche Antwort.
         </p>
         <button
           className="button"
           onClick={() => setSubmitted(false)}
           type="button"
         >
-          Send another request
+          Weitere Anfrage senden
         </button>
       </div>
     );
@@ -109,12 +107,12 @@ export function BookingForm({
           setValidationError(
             error instanceof Error
               ? error.message
-              : "Choose a valid studio date and time",
+              : "Wähle ein gültiges Datum und eine gültige Uhrzeit",
           );
           return;
         }
         const detailLines = [
-          form.placement && `Placement / format: ${form.placement}`,
+          form.placement && `Platzierung / Format: ${form.placement}`,
           form.budget && `Budget: ${form.budget}`,
           form.notes,
         ].filter(Boolean);
@@ -131,10 +129,10 @@ export function BookingForm({
       }}
     >
       <div className="booking-form__head">
-        <h2>Tell the studio what you have in mind</h2>
+        <h2>Erzähl dem Studio von deiner Idee</h2>
         <p>
-          This is a request, not an automatic confirmation. Gian reviews every
-          project personally.
+          Dies ist eine Anfrage, keine automatische Bestätigung. Gian prüft
+          jedes Projekt persönlich.
         </p>
       </div>
 
@@ -146,14 +144,14 @@ export function BookingForm({
             className="form-input"
             id="booking-name"
             onChange={(event) => update("name", event.target.value)}
-            placeholder="Your name"
+            placeholder="Dein Name"
             required
             type="text"
             value={form.name}
           />
         </div>
         <div className="form-field">
-          <label htmlFor="booking-email">Email</label>
+          <label htmlFor="booking-email">E-Mail</label>
           <input
             autoComplete="email"
             className="form-input"
@@ -166,7 +164,7 @@ export function BookingForm({
           />
         </div>
         <div className="form-field">
-          <label htmlFor="booking-phone">Phone / WhatsApp (optional)</label>
+          <label htmlFor="booking-phone">Telefon / WhatsApp (optional)</label>
           <input
             autoComplete="tel"
             className="form-input"
@@ -178,22 +176,22 @@ export function BookingForm({
           />
         </div>
         <div className="form-field">
-          <label htmlFor="booking-service">Project type</label>
+          <label htmlFor="booking-service">Art des Projekts</label>
           <select
             className="form-select"
             id="booking-service"
             onChange={(event) => update("service", event.target.value)}
             value={form.service}
           >
-            <option>Tattoo consultation</option>
-            <option>Tattoo session</option>
-            <option>Artwork commission</option>
-            <option>Commercial collaboration</option>
+            <option>Tattoo-Beratung</option>
+            <option>Tattoo-Termin</option>
+            <option>Kunst-Auftragsarbeit</option>
+            <option>Kommerzielle Zusammenarbeit</option>
           </select>
         </div>
         <div className="form-field">
           <label htmlFor="booking-date">
-            Preferred date ({STUDIO_TIME_ZONE_LABEL})
+            Wunschtermin ({STUDIO_TIME_ZONE_LABEL})
           </label>
           <input
             className="form-input"
@@ -206,7 +204,7 @@ export function BookingForm({
         </div>
         <div className="form-field">
           <label htmlFor="booking-time">
-            Preferred time ({STUDIO_TIME_ZONE_LABEL})
+            Wunschzeit ({STUDIO_TIME_ZONE_LABEL})
           </label>
           <input
             className="form-input"
@@ -218,34 +216,34 @@ export function BookingForm({
           />
         </div>
         <div className="form-field">
-          <label htmlFor="booking-placement">Placement / format</label>
+          <label htmlFor="booking-placement">Platzierung / Format</label>
           <input
             className="form-input"
             id="booking-placement"
             onChange={(event) => update("placement", event.target.value)}
-            placeholder="e.g. upper arm, 15 cm"
+            placeholder="z. B. Oberarm, 15 cm"
             type="text"
             value={form.placement}
           />
         </div>
         <div className="form-field">
-          <label htmlFor="booking-budget">Budget range (optional)</label>
+          <label htmlFor="booking-budget">Budgetrahmen (optional)</label>
           <input
             className="form-input"
             id="booking-budget"
             onChange={(event) => update("budget", event.target.value)}
-            placeholder="Your comfortable range"
+            placeholder="Dein gewünschter Rahmen"
             type="text"
             value={form.budget}
           />
         </div>
         <div className="form-field span-full">
-          <label htmlFor="booking-notes">Idea, story, and references</label>
+          <label htmlFor="booking-notes">Idee, Geschichte und Referenzen</label>
           <textarea
             className="form-textarea"
             id="booking-notes"
             onChange={(event) => update("notes", event.target.value)}
-            placeholder="Describe the piece, mood, size, and anything the studio should know."
+            placeholder="Beschreibe Motiv, Stimmung, Größe und alles, was das Studio wissen sollte."
             value={form.notes}
           />
         </div>
@@ -257,8 +255,8 @@ export function BookingForm({
             type="checkbox"
           />
           <span>
-            I agree that the studio may use these details to respond to my
-            request. No mailing list, no automated booking.
+            Ich stimme zu, dass das Studio diese Angaben zur Bearbeitung meiner
+            Anfrage verwenden darf. Kein Newsletter, keine automatische Buchung.
           </span>
         </label>
       </div>
@@ -271,7 +269,7 @@ export function BookingForm({
         >
           {validationError ??
             createBooking.error?.message ??
-            "The request could not be sent. Please try again."}
+            "Die Anfrage konnte nicht gesendet werden. Bitte versuche es erneut."}
         </p>
       )}
 
@@ -281,8 +279,8 @@ export function BookingForm({
         type="submit"
       >
         {createBooking.isPending
-          ? "Sending request…"
-          : "Send booking request →"}
+          ? "Anfrage wird gesendet…"
+          : "Anfrage senden →"}
       </button>
     </form>
   );

@@ -30,7 +30,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
     if (!email.trim()) {
       setMessage({
         tone: "error",
-        text: "Add your email above so the studio can send your receipt.",
+        text: "Gib oben deine E-Mail-Adresse ein, damit das Studio dir den Beleg senden kann.",
       });
       return;
     }
@@ -38,7 +38,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
     if (product.id.startsWith("fallback-")) {
       setMessage({
         tone: "info",
-        text: "This is a preview edition. Checkout becomes available as soon as the studio publishes inventory.",
+        text: "Dies ist eine Vorschau-Edition. Der Kauf wird möglich, sobald das Studio den Bestand veröffentlicht.",
       });
       return;
     }
@@ -62,7 +62,9 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
       const result = (await response.json()) as CheckoutResponse;
 
       if (!response.ok || !result.url) {
-        throw new Error(result.error ?? "Checkout could not be started.");
+        throw new Error(
+          result.error ?? "Der Checkout konnte nicht gestartet werden.",
+        );
       }
 
       window.location.assign(result.url);
@@ -72,7 +74,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
         text:
           error instanceof Error
             ? error.message
-            : "Checkout could not be started. Please try again.",
+            : "Der Checkout konnte nicht gestartet werden. Bitte versuche es erneut.",
       });
       setLoadingId(null);
     }
@@ -91,7 +93,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
         }}
       >
         <div className="form-field">
-          <label htmlFor="checkout-email">Receipt email</label>
+          <label htmlFor="checkout-email">E-Mail für den Beleg</label>
           <input
             autoComplete="email"
             className="form-input"
@@ -103,7 +105,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
             value={email}
           />
         </div>
-        <span className="eyebrow">Secure Stripe checkout</span>
+        <span className="eyebrow">Sicherer Stripe-Checkout</span>
       </div>
 
       {message && (
@@ -133,7 +135,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
             <article className="shop-card" key={product.id}>
               <div className="shop-card__image">
                 <img
-                  alt={`${product.name}, a studio edition by Gian`}
+                  alt={`${product.name}, eine Studio-Edition von Gian`}
                   loading="lazy"
                   src={product.imageUrl}
                 />
@@ -148,7 +150,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
                 <p>{product.description}</p>
                 <div className="shop-card__actions">
                   <label className="sr-only" htmlFor={`quantity-${product.id}`}>
-                    Quantity for {product.name}
+                    Anzahl für {product.name}
                   </label>
                   <input
                     className="quantity-input"
@@ -177,10 +179,10 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
                     type="button"
                   >
                     {soldOut
-                      ? "Sold out"
+                      ? "Ausverkauft"
                       : loadingId === product.id
-                        ? "Opening checkout…"
-                        : "Buy with Stripe →"}
+                        ? "Checkout wird geöffnet…"
+                        : "Mit Stripe kaufen →"}
                   </button>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 export const STUDIO_TIME_ZONE = "Europe/Berlin";
-export const STUDIO_TIME_ZONE_LABEL = "Berlin time (CET/CEST)";
+export const STUDIO_TIME_ZONE_LABEL = "Berliner Zeit (MEZ/MESZ)";
 
 function wallTimeParts(date: Date, timeZone: string) {
   const parts = new Intl.DateTimeFormat("en-CA", {
@@ -46,12 +46,12 @@ function offsetAt(date: Date, timeZone: string) {
  */
 export function studioLocalTimeToIso(date: string, time: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) {
-    throw new Error("Choose a valid studio date and time");
+    throw new Error("Wähle ein gültiges Datum und eine gültige Uhrzeit");
   }
 
   const wallClockAsUtc = new Date(`${date}T${time}:00.000Z`);
   if (Number.isNaN(wallClockAsUtc.getTime())) {
-    throw new Error("Choose a valid studio date and time");
+    throw new Error("Wähle ein gültiges Datum und eine gültige Uhrzeit");
   }
 
   const firstOffset = offsetAt(wallClockAsUtc, STUDIO_TIME_ZONE);
@@ -75,7 +75,7 @@ export function studioLocalTimeToIso(date: string, time: string) {
 
   if (roundTripDate !== date || roundTripTime !== time) {
     throw new Error(
-      `That wall time does not exist in ${STUDIO_TIME_ZONE_LABEL}; choose another time`,
+      `Diese Uhrzeit existiert in ${STUDIO_TIME_ZONE_LABEL} nicht; wähle eine andere Zeit`,
     );
   }
 

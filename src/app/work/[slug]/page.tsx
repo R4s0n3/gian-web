@@ -22,7 +22,7 @@ export async function generateMetadata({
   const artwork = gallery.find((item) => item.slug === slug);
 
   if (!artwork) {
-    return { title: "Work not found" };
+    return { title: "Arbeit nicht gefunden" };
   }
 
   return {
@@ -57,11 +57,11 @@ export default async function WorkPage({ params }: WorkPageProps) {
           <div className="site-shell">
             <div className="work-detail__topline">
               <Link className="text-link" href="/#work">
-                ← Selected work
+                ← Ausgewählte Arbeiten
               </Link>
               {nextArtwork && (
                 <Link className="text-link" href={`/work/${nextArtwork.slug}`}>
-                  Next work →
+                  Nächste Arbeit →
                 </Link>
               )}
             </div>
@@ -73,7 +73,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
             <div className="work-detail__info">
               <div>
                 <p className="eyebrow">
-                  Work {String(artworkIndex + 1).padStart(2, "0")}
+                  Arbeit {String(artworkIndex + 1).padStart(2, "0")}
                 </p>
                 <h1 className="display work-detail__title">{artwork.title}</h1>
                 <p className="work-detail__description">
@@ -84,20 +84,20 @@ export default async function WorkPage({ params }: WorkPageProps) {
               <div>
                 <dl className="meta-list">
                   <div>
-                    <dt>Year</dt>
+                    <dt>Jahr</dt>
                     <dd>{artwork.year}</dd>
                   </div>
                   <div>
-                    <dt>Medium</dt>
+                    <dt>Material</dt>
                     <dd>{artwork.medium}</dd>
                   </div>
                   <div>
-                    <dt>Dimensions</dt>
+                    <dt>Maße</dt>
                     <dd>{artwork.dimensions}</dd>
                   </div>
                   <div>
                     <dt>Edition</dt>
-                    <dd>Original work</dd>
+                    <dd>Originalarbeit</dd>
                   </div>
                 </dl>
 
@@ -112,10 +112,10 @@ export default async function WorkPage({ params }: WorkPageProps) {
                     className="button button--ember"
                     href={`/book?service=artwork&work=${encodeURIComponent(artwork.title)}`}
                   >
-                    Enquire about this work
+                    Diese Arbeit anfragen
                   </Link>
                   <Link className="button" href="/doom">
-                    View in digital gallery ↗
+                    In der digitalen Galerie ansehen ↗
                   </Link>
                 </div>
               </div>
@@ -130,9 +130,9 @@ export default async function WorkPage({ params }: WorkPageProps) {
           >
             <div className="site-shell">
               <div className="section-head">
-                <p className="eyebrow">Continue looking</p>
+                <p className="eyebrow">Weitersehen</p>
                 <h2 className="display section-head__title" id="related-title">
-                  From the same studio.
+                  Aus demselben Studio.
                 </h2>
               </div>
               <div className="artwork-grid">

@@ -6,9 +6,9 @@ import { getPublicProducts } from "@/app/_lib/content";
 import { ShopClient } from "@/app/shop/shop-client";
 
 export const metadata: Metadata = {
-  title: "Studio Editions",
+  title: "Studio-Editionen",
   description:
-    "Signed prints, original studies, and small-run studio objects by Gian.",
+    "Signierte Drucke, originale Studien und Studio-Objekte in kleinen Auflagen von Gian.",
 };
 
 export const dynamic = "force-dynamic";
@@ -23,16 +23,20 @@ export default async function ShopPage() {
         <section className="page-hero">
           <div className="site-shell page-hero__grid">
             <div>
-              <p className="eyebrow">Studio editions / limited releases</p>
-              <h1 className="display">Objects with a pulse.</h1>
+              <p className="eyebrow">
+                Studio-Editionen / Limitierte Veröffentlichungen
+              </p>
+              <h1 className="display">Objekte mit Puls.</h1>
             </div>
             <div className="page-hero__aside">
               <p>
-                Signed prints, one-off studies, and small-run objects made close
-                to the original work. New releases arrive quietly and in limited
-                quantities.
+                Signierte Drucke, Einzelstudien und Objekte in kleinen Auflagen,
+                nah am Original gefertigt. Neue Editionen erscheinen leise und
+                in begrenzter Stückzahl.
               </p>
-              <span className="eyebrow">Worldwide enquiries welcome</span>
+              <span className="eyebrow">
+                Internationale Anfragen willkommen
+              </span>
             </div>
           </div>
         </section>
@@ -43,9 +47,10 @@ export default async function ShopPage() {
               <ShopClient products={products} />
             ) : (
               <div className="public-empty">
-                <p className="eyebrow">The edition shelf is currently empty.</p>
+                <p className="eyebrow">Das Editionsregal ist zurzeit leer.</p>
                 <p>
-                  New studio objects will appear here when they are released.
+                  Neue Studio-Objekte erscheinen hier mit ihrer
+                  Veröffentlichung.
                 </p>
               </div>
             )}

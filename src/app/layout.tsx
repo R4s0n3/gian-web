@@ -8,39 +8,40 @@ import { TRPCReactProvider } from "@/trpc/react";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "Gian — Contemporary Art & Tattoo",
+    default: "Gian — Zeitgenössische Kunst & Tattoo",
     template: "%s — Gian",
   },
   description:
-    "Contemporary art, tattoo work, limited objects, and an immersive digital gallery by Gian.",
+    "Zeitgenössische Kunst, Tattoos, limitierte Objekte und eine immersive digitale Galerie von Gian.",
   applicationName: "Gian Studio",
   authors: [{ name: "Gian" }],
   keywords: [
-    "contemporary artist",
-    "tattoo artist",
-    "fine art",
-    "artist portfolio",
-    "immersive gallery",
+    "zeitgenössische Kunst",
+    "Tätowierer",
+    "Kunst",
+    "Künstlerportfolio",
+    "immersive Galerie",
   ],
   openGraph: {
-    title: "Gian — Contemporary Art & Tattoo",
+    title: "Gian — Zeitgenössische Kunst & Tattoo",
     description:
-      "Original work across canvas, skin, objects, and digital space.",
+      "Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen Raum.",
     type: "website",
+    locale: "de_DE",
     images: [
       {
         url: "/artworks/threshold-i.webp",
         width: 1122,
         height: 1402,
-        alt: "Threshold I, an original mixed-media artwork by Gian",
+        alt: "Threshold I, eine originale Mixed-Media-Arbeit von Gian",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gian — Contemporary Art & Tattoo",
+    title: "Gian — Zeitgenössische Kunst & Tattoo",
     description:
-      "Original work across canvas, skin, objects, and digital space.",
+      "Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen Raum.",
     images: ["/artworks/threshold-i.webp"],
   },
   icons: [{ rel: "icon", url: "/favicon.ico" }],
@@ -55,10 +56,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="de">
       <body className="site-body">
         <a className="skip-link" href="#main-content">
-          Skip to content
+          Zum Inhalt springen
         </a>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>

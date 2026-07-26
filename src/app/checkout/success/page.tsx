@@ -6,7 +6,7 @@ import { SiteHeader } from "@/app/_components/site-header";
 import { db } from "@/server/db";
 
 export const metadata: Metadata = {
-  title: "Order Received",
+  title: "Bestellung erhalten",
   robots: { index: false, follow: false },
 };
 
@@ -47,64 +47,64 @@ const content: Record<
   { eyebrow: string; title: React.ReactNode; description: string }
 > = {
   paid: {
-    eyebrow: "Payment received",
+    eyebrow: "Zahlung erhalten",
     title: (
       <>
-        The work is <em>yours.</em>
+        Die Arbeit gehört <em>dir.</em>
       </>
     ),
     description:
-      "Thank you for supporting an independent studio. Your receipt is on its way, and the studio will send another note when the edition is ready to leave.",
+      "Danke, dass du ein unabhängiges Studio unterstützt. Dein Beleg ist unterwegs. Das Studio meldet sich erneut, sobald die Edition versandbereit ist.",
   },
   processing: {
-    eyebrow: "Payment processing",
+    eyebrow: "Zahlung wird verarbeitet",
     title: (
       <>
-        We’re confirming <em>the signal.</em>
+        Wir bestätigen <em>das Signal.</em>
       </>
     ),
     description:
-      "Stripe has returned you to the studio and the payment confirmation is still arriving. Your order remains reserved; watch your inbox for the receipt.",
+      "Stripe hat dich zum Studio zurückgeführt, während die Zahlungsbestätigung noch eintrifft. Deine Bestellung bleibt reserviert; der Beleg folgt per E-Mail.",
   },
   cancelled: {
-    eyebrow: "Checkout incomplete",
+    eyebrow: "Checkout nicht abgeschlossen",
     title: (
       <>
-        Nothing was <em>charged.</em>
+        Es wurde nichts <em>berechnet.</em>
       </>
     ),
     description:
-      "This Checkout Session did not complete. Return to the editions page whenever you are ready to try again.",
+      "Diese Checkout-Sitzung wurde nicht abgeschlossen. Kehre zu den Editionen zurück, wenn du es erneut versuchen möchtest.",
   },
   refunded: {
-    eyebrow: "Order refunded",
+    eyebrow: "Bestellung erstattet",
     title: (
       <>
-        Funds are on their <em>way back.</em>
+        Das Geld ist auf dem <em>Rückweg.</em>
       </>
     ),
     description:
-      "The studio has refunded this order through Stripe. Your bank may need several business days to show the credit.",
+      "Das Studio hat die Bestellung über Stripe erstattet. Je nach Bank kann die Gutschrift einige Werktage dauern.",
   },
   invalid: {
-    eyebrow: "Order not found",
+    eyebrow: "Bestellung nicht gefunden",
     title: (
       <>
-        This link has no <em>order.</em>
+        Dieser Link enthält keine <em>Bestellung.</em>
       </>
     ),
     description:
-      "A valid Stripe Checkout Session was not found for this page. No payment status is being claimed.",
+      "Für diese Seite wurde keine gültige Stripe-Checkout-Sitzung gefunden. Es wird kein Zahlungsstatus bestätigt.",
   },
   unavailable: {
-    eyebrow: "Confirmation unavailable",
+    eyebrow: "Bestätigung nicht verfügbar",
     title: (
       <>
-        Keep your <em>receipt.</em>
+        Bewahre deinen <em>Beleg auf.</em>
       </>
     ),
     description:
-      "The studio cannot verify this order right now. Your Stripe receipt remains authoritative; please contact the studio if you need help.",
+      "Das Studio kann diese Bestellung gerade nicht verifizieren. Maßgeblich bleibt dein Stripe-Beleg; wende dich bei Fragen an das Studio.",
   },
 };
 
@@ -125,10 +125,10 @@ export default async function CheckoutSuccessPage({
           <p>{message.description}</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
             <Link className="button button--ember" href="/">
-              Return to the portfolio
+              Zurück zum Portfolio
             </Link>
             <Link className="button" href="/doom">
-              Enter the digital gallery ↗
+              Digitale Galerie betreten ↗
             </Link>
           </div>
         </div>

@@ -68,7 +68,7 @@ export const bookingRouter = createTRPCRouter({
       if (input.startAt <= now) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: "Please choose a future appointment time",
+          message: "Bitte wähle einen Termin in der Zukunft",
         });
       }
 
@@ -82,7 +82,7 @@ export const bookingRouter = createTRPCRouter({
         if (!ipLimit.allowed) {
           throw new TRPCError({
             code: "TOO_MANY_REQUESTS",
-            message: `Too many booking requests. Try again in ${ipLimit.retryAfterSeconds} seconds.`,
+            message: `Zu viele Terminanfragen. Bitte versuche es in ${ipLimit.retryAfterSeconds} Sekunden erneut.`,
           });
         }
       }
@@ -109,7 +109,7 @@ export const bookingRouter = createTRPCRouter({
               throw new TRPCError({
                 code: "TOO_MANY_REQUESTS",
                 message:
-                  "You already have three pending requests. Please wait for the studio to respond.",
+                  "Du hast bereits drei offene Anfragen. Bitte warte auf eine Antwort des Studios.",
               });
             }
 
@@ -133,7 +133,7 @@ export const bookingRouter = createTRPCRouter({
             if (overlaps) {
               throw new TRPCError({
                 code: "CONFLICT",
-                message: "That appointment time is no longer available",
+                message: "Dieser Termin ist nicht mehr verfügbar",
               });
             }
 
@@ -158,7 +158,7 @@ export const bookingRouter = createTRPCRouter({
               throw new TRPCError({
                 code: "CONFLICT",
                 message:
-                  "Another booking request was submitted at the same time. Please try again.",
+                  "Gleichzeitig wurde eine weitere Anfrage gesendet. Bitte versuche es erneut.",
               });
             }
             throw retryError;

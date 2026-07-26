@@ -6,12 +6,13 @@ const galleryPosts = [
   {
     slug: "threshold-i",
     title: "Threshold I",
-    excerpt: "A study of light gathering at the edge of a passage.",
+    excerpt:
+      "Eine Studie über Licht, das sich am Rand eines Durchgangs sammelt.",
     description:
-      "Threshold I explores the moment where an interior gives way to an unknown landscape.",
+      "Threshold I erforscht den Moment, in dem ein Innenraum in eine unbekannte Landschaft übergeht.",
     imageUrl: "/artworks/threshold-i.webp",
-    imageAlt: "Abstract artwork titled Threshold I",
-    medium: "Mixed media on canvas",
+    imageAlt: "Abstrakte Arbeit mit dem Titel Threshold I",
+    medium: "Mixed Media auf Leinwand",
     dimensions: "100 × 80 cm",
     year: 2025,
     featured: true,
@@ -22,12 +23,12 @@ const galleryPosts = [
   {
     slug: "blue-reliquary",
     title: "Blue Reliquary",
-    excerpt: "An imagined vessel holding traces of memory in blue.",
+    excerpt: "Ein imaginäres Gefäß, das Spuren von Erinnerung in Blau bewahrt.",
     description:
-      "Blue Reliquary layers luminous pigment and weathered forms into a quiet, devotional object.",
+      "Blue Reliquary schichtet leuchtende Pigmente und verwitterte Formen zu einem stillen Andachtsobjekt.",
     imageUrl: "/artworks/blue-reliquary.webp",
-    imageAlt: "Blue abstract artwork titled Blue Reliquary",
-    medium: "Oil and cold wax on panel",
+    imageAlt: "Blaue abstrakte Arbeit mit dem Titel Blue Reliquary",
+    medium: "Öl und Kaltwachs auf Holz",
     dimensions: "80 × 60 cm",
     year: 2025,
     featured: true,
@@ -38,12 +39,12 @@ const galleryPosts = [
   {
     slug: "signal-bloom",
     title: "Signal Bloom",
-    excerpt: "A radiant signal taking organic form.",
+    excerpt: "Ein strahlendes Signal, das organische Form annimmt.",
     description:
-      "Signal Bloom brings electronic rhythm and botanical growth together in a field of saturated color.",
+      "Signal Bloom verbindet elektronischen Rhythmus und botanisches Wachstum in einem Feld gesättigter Farbe.",
     imageUrl: "/artworks/signal-bloom.webp",
-    imageAlt: "Colorful abstract artwork titled Signal Bloom",
-    medium: "Acrylic and pigment on canvas",
+    imageAlt: "Farbige abstrakte Arbeit mit dem Titel Signal Bloom",
+    medium: "Acryl und Pigment auf Leinwand",
     dimensions: "120 × 90 cm",
     year: 2026,
     featured: false,
@@ -56,9 +57,9 @@ const galleryPosts = [
 const products = [
   {
     slug: "threshold-i-archival-print",
-    name: "Threshold I — Archival Print",
+    name: "Threshold I — Archivdruck",
     description:
-      "Signed, museum-quality giclée print on heavyweight cotton paper.",
+      "Signierter Giclée-Druck in Museumsqualität auf schwerem Baumwollpapier.",
     imageUrl: "/artworks/threshold-i.webp",
     priceCents: 8500,
     currency: "EUR",
@@ -68,9 +69,9 @@ const products = [
   },
   {
     slug: "blue-reliquary-archival-print",
-    name: "Blue Reliquary — Archival Print",
+    name: "Blue Reliquary — Archivdruck",
     description:
-      "Signed, museum-quality giclée print on heavyweight cotton paper.",
+      "Signierter Giclée-Druck in Museumsqualität auf schwerem Baumwollpapier.",
     imageUrl: "/artworks/blue-reliquary.webp",
     priceCents: 8500,
     currency: "EUR",
@@ -80,9 +81,9 @@ const products = [
   },
   {
     slug: "signal-bloom-archival-print",
-    name: "Signal Bloom — Archival Print",
+    name: "Signal Bloom — Archivdruck",
     description:
-      "Signed, limited-edition giclée print on heavyweight cotton paper.",
+      "Signierter, limitierter Giclée-Druck auf schwerem Baumwollpapier.",
     imageUrl: "/artworks/signal-bloom.webp",
     priceCents: 11000,
     currency: "EUR",

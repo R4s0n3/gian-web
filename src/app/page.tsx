@@ -10,11 +10,11 @@ import { formatMoney } from "@/app/_lib/content-shared";
 export const dynamic = "force-dynamic";
 
 const tickerItems = [
-  "Contemporary art",
-  "Tattoo projects",
-  "Limited editions",
-  "Private commissions",
-  "Digital exhibition",
+  "Zeitgenössische Kunst",
+  "Tattoo-Projekte",
+  "Limitierte Editionen",
+  "Private Auftragsarbeiten",
+  "Digitale Ausstellung",
 ];
 
 export default async function Home() {
@@ -35,27 +35,27 @@ export default async function Home() {
             className={`site-shell home-hero__grid${heroArtwork ? "" : "home-hero__grid--empty"}`}
           >
             <div className="home-hero__copy">
-              <p className="eyebrow">Gian / contemporary art & tattoo</p>
+              <p className="eyebrow">Gian / Zeitgenössische Kunst & Tattoo</p>
               <h1 className="display home-hero__title" id="hero-title">
-                Marks for
-                <span className="indent outline">temporary</span>
+                Spuren für
+                <span className="indent outline">vergängliche</span>
                 <span>
-                  <em>bodies.</em>
+                  <em>Körper.</em>
                 </span>
               </h1>
 
               <div className="home-hero__footer">
                 <p className="home-hero__lede">
-                  Original work across canvas, skin, objects, and digital
-                  space—built from ritual, interference, and the beauty of a
-                  deliberate mark.
+                  Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen
+                  Raum – geprägt von Ritual, Störung und der Schönheit einer
+                  bewussten Spur.
                 </p>
                 <div className="home-hero__actions">
                   <Link className="button button--ember" href="#work">
-                    View selected work
+                    Arbeiten ansehen
                   </Link>
                   <Link className="button" href="/doom">
-                    Enter exhibition <span aria-hidden="true">↗</span>
+                    Ausstellung betreten <span aria-hidden="true">↗</span>
                   </Link>
                 </div>
               </div>
@@ -65,7 +65,7 @@ export default async function Home() {
               <Link
                 className="hero-art"
                 href={`/work/${heroArtwork.slug}`}
-                aria-label={`View ${heroArtwork.title}`}
+                aria-label={`${heroArtwork.title} ansehen`}
               >
                 <div className="hero-art__frame">
                   <img
@@ -75,11 +75,11 @@ export default async function Home() {
                   />
                 </div>
                 <span className="hero-art__tag">
-                  Selected work
+                  Ausgewählte Arbeit
                   <br />
                   {heroArtwork.year}
                   <br />
-                  View piece →
+                  Werk ansehen →
                 </span>
                 <span className="hero-art__index" aria-hidden="true">
                   01
@@ -102,19 +102,19 @@ export default async function Home() {
         <section className="section" id="work" aria-labelledby="work-title">
           <div className="site-shell">
             <div className="section-head">
-              <p className="eyebrow">01 / Selected work</p>
+              <p className="eyebrow">01 / Ausgewählte Arbeiten</p>
               <div>
                 <h2 className="display section-head__title" id="work-title">
-                  Built to resist a quick look.
+                  Gemacht für den zweiten Blick.
                 </h2>
                 <div className="section-head__aside">
                   <p>
-                    A living selection from the studio. Each work begins with a
-                    system, then makes room for accident, abrasion, and the
-                    intelligence of the hand.
+                    Eine lebendige Auswahl aus dem Studio. Jedes Werk beginnt
+                    mit einem System und öffnet dann Raum für Zufall, Abrieb und
+                    die Intelligenz der Hand.
                   </p>
                   <Link className="text-link" href="/doom">
-                    See the work in another dimension ↗
+                    Arbeiten in einer anderen Dimension erleben ↗
                   </Link>
                 </div>
               </div>
@@ -132,8 +132,10 @@ export default async function Home() {
               </div>
             ) : (
               <div className="public-empty">
-                <p className="eyebrow">The archive is between exhibitions.</p>
-                <p>New published work will appear here soon.</p>
+                <p className="eyebrow">
+                  Das Archiv befindet sich zwischen zwei Ausstellungen.
+                </p>
+                <p>Neue veröffentlichte Arbeiten erscheinen bald hier.</p>
               </div>
             )}
           </div>
@@ -142,24 +144,25 @@ export default async function Home() {
         <section className="statement section" id="studio">
           <div className="site-shell statement__grid">
             <blockquote className="statement__quote">
-              “I make images that feel discovered rather than designed—
-              <mark> evidence of a threshold</mark> between control and
-              instinct.”
+              „Ich erschaffe Bilder, die eher entdeckt als entworfen wirken –
+              <mark> Spuren einer Schwelle</mark> zwischen Kontrolle und
+              Instinkt.“
             </blockquote>
 
             <div className="statement__copy">
-              <p className="eyebrow">02 / Studio statement</p>
+              <p className="eyebrow">02 / Über das Studio</p>
               <p>
-                Gian’s practice moves between contemporary image-making and
-                tattooing. Architecture, ritual objects, signal noise, and
-                bodily memory form a shared visual language across both.
+                Gians Praxis bewegt sich zwischen zeitgenössischer Bildkunst und
+                Tattoo. Architektur, rituelle Objekte, Signalrauschen und
+                körperliche Erinnerung bilden eine gemeinsame visuelle Sprache.
               </p>
               <p>
-                The result is precise but never sterile: work that holds
-                tension, texture, and a trace of the process that made it.
+                Das Ergebnis ist präzise, aber nie steril: Arbeiten, die
+                Spannung, Textur und eine Spur ihres Entstehungsprozesses
+                bewahren.
               </p>
               <Link className="text-link" href="/book?service=artwork">
-                Start a commission →
+                Auftragsarbeit anfragen →
               </Link>
             </div>
           </div>
@@ -167,39 +170,40 @@ export default async function Home() {
 
         <section className="section" aria-labelledby="process-title">
           <div className="site-shell">
-            <p className="eyebrow">03 / The approach</p>
+            <p className="eyebrow">03 / Der Prozess</p>
             <h2
               className="display section-head__title"
               id="process-title"
               style={{ marginTop: "1.5rem" }}
             >
-              One visual language. Different surfaces.
+              Eine visuelle Sprache. Verschiedene Oberflächen.
             </h2>
 
             <div className="process-grid">
               <article className="process-card">
                 <span className="process-card__number">01</span>
-                <h3 className="display">Listen closely</h3>
+                <h3 className="display">Genau zuhören</h3>
                 <p>
-                  Every commission begins with context: your references, the
-                  space or body, and what the finished work should carry.
+                  Jede Auftragsarbeit beginnt mit dem Kontext: deinen
+                  Referenzen, dem Raum oder Körper und dem, was das fertige Werk
+                  tragen soll.
                 </p>
               </article>
               <article className="process-card">
                 <span className="process-card__number">02</span>
-                <h3 className="display">Build a system</h3>
+                <h3 className="display">Ein System entwickeln</h3>
                 <p>
-                  Composition, rhythm, and material create the rules. Sketches
-                  become a distinct direction—not a copy of something already
-                  seen.
+                  Komposition, Rhythmus und Material schaffen die Regeln. Aus
+                  Skizzen entsteht eine eigenständige Richtung – keine Kopie von
+                  etwas bereits Gesehenem.
                 </p>
               </article>
               <article className="process-card">
                 <span className="process-card__number">03</span>
-                <h3 className="display">Leave a trace</h3>
+                <h3 className="display">Spuren hinterlassen</h3>
                 <p>
-                  The final work preserves evidence of touch: pressure, texture,
-                  variation, and the productive risk of making it by hand.
+                  Das fertige Werk bewahrt Spuren der Berührung: Druck, Textur,
+                  Variation und das produktive Risiko der Handarbeit.
                 </p>
               </article>
             </div>
@@ -209,22 +213,22 @@ export default async function Home() {
         <section className="experience" aria-labelledby="experience-title">
           <div className="site-shell experience__grid">
             <h2 className="display experience__title" id="experience-title">
-              Don’t scroll. <em>Step inside.</em>
+              Nicht scrollen. <em>Eintreten.</em>
             </h2>
             <div className="experience__aside">
               <p>
-                Walk through an original browser-built exhibition where the
-                portfolio becomes architecture. Explore the rooms, approach the
-                work, and look at your own pace.
+                Geh durch eine eigens für den Browser entwickelte Ausstellung,
+                in der das Portfolio zur Architektur wird. Erkunde die Räume,
+                nähere dich den Arbeiten und nimm dir Zeit.
               </p>
               <Link className="button" href="/doom">
-                Launch the art gallery <span aria-hidden="true">↗</span>
+                Kunstgalerie starten <span aria-hidden="true">↗</span>
               </Link>
               <p className="experience__note">
                 <span aria-hidden="true">◎</span>
                 <span>
-                  Use a keyboard and mouse on desktop, or the on-screen touch
-                  controls on mobile. Sound is optional.
+                  Am Desktop mit Tastatur und Maus, mobil mit der
+                  Touch-Steuerung. Ton ist optional.
                 </span>
               </p>
             </div>
@@ -237,18 +241,18 @@ export default async function Home() {
         >
           <div className="site-shell">
             <div className="section-head">
-              <p className="eyebrow">04 / Studio editions</p>
+              <p className="eyebrow">04 / Studio-Editionen</p>
               <div>
                 <h2 className="display section-head__title" id="editions-title">
-                  Art that can leave the studio.
+                  Kunst, die das Studio verlassen kann.
                 </h2>
                 <div className="section-head__aside">
                   <p>
-                    Signed prints, studies, and small-run objects. Produced
-                    carefully, released infrequently.
+                    Signierte Drucke, Studien und Objekte in kleinen Auflagen.
+                    Sorgfältig gefertigt und selten veröffentlicht.
                   </p>
                   <Link className="text-link" href="/shop">
-                    Visit the shop →
+                    Zum Shop →
                   </Link>
                 </div>
               </div>
@@ -258,10 +262,13 @@ export default async function Home() {
               <div className="product-grid">
                 {featuredProducts.map((product) => (
                   <article className="product-card" key={product.id}>
-                    <Link href="/shop" aria-label={`Shop ${product.name}`}>
+                    <Link
+                      href="/shop"
+                      aria-label={`${product.name} im Shop ansehen`}
+                    >
                       <div className="product-card__image">
                         <img
-                          alt={`${product.name}, a studio edition by Gian`}
+                          alt={`${product.name}, eine Studio-Edition von Gian`}
                           loading="lazy"
                           src={product.imageUrl}
                         />
@@ -281,8 +288,12 @@ export default async function Home() {
               </div>
             ) : (
               <div className="public-empty">
-                <p className="eyebrow">No editions are currently available.</p>
-                <p>Return for the studio’s next small release.</p>
+                <p className="eyebrow">
+                  Zurzeit sind keine Editionen verfügbar.
+                </p>
+                <p>
+                  Schau zur nächsten kleinen Veröffentlichung wieder vorbei.
+                </p>
               </div>
             )}
           </div>
@@ -292,14 +303,14 @@ export default async function Home() {
           <div className="site-shell booking-banner__inner">
             <div>
               <p className="eyebrow" style={{ color: "var(--ink)" }}>
-                Tattoo & private commissions
+                Tattoo & private Auftragsarbeiten
               </p>
               <h2 className="display" id="booking-title">
-                Bring an idea. Leave with a mark.
+                Bring eine Idee. Geh mit einer Spur.
               </h2>
             </div>
             <Link className="button" href="/book">
-              Request an appointment →
+              Termin anfragen →
             </Link>
           </div>
         </section>

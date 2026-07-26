@@ -11,13 +11,13 @@ const fallbackGallery: GalleryItem[] = [
     slug: "threshold-i",
     title: "Threshold I",
     excerpt:
-      "A scorched passage held between architectural memory and a living mark.",
+      "Ein versengter Durchgang zwischen architektonischer Erinnerung und lebendiger Spur.",
     description:
-      "Threshold I studies the point where structure gives way to instinct. Scraped bone tones, an ember core, and repeated mechanical traces hold the image in a state between invitation and warning.",
+      "Threshold I untersucht den Punkt, an dem Struktur dem Instinkt weicht. Abgeschabte Knochentöne, ein glühender Kern und wiederkehrende mechanische Spuren halten das Bild zwischen Einladung und Warnung.",
     imageUrl: "/artworks/threshold-i.webp",
     imageAlt:
-      "Abstract dark mixed-media artwork with a bone-colored arch and ember-red doorway",
-    medium: "Mixed media on panel",
+      "Dunkle abstrakte Mixed-Media-Arbeit mit knochenfarbenem Bogen und glutrotem Durchgang",
+    medium: "Mixed Media auf Holz",
     dimensions: "112 × 140 cm",
     year: "2026",
     featured: true,
@@ -28,13 +28,13 @@ const fallbackGallery: GalleryItem[] = [
     slug: "signal-bloom",
     title: "Signal Bloom",
     excerpt:
-      "Ochre growth, blackened ground, and a signal taking root like a remembered organism.",
+      "Ockerfarbenes Wachstum, geschwärzter Grund und ein Signal, das wie ein erinnerter Organismus Wurzeln schlägt.",
     description:
-      "Signal Bloom treats transmission as something physical. Botanical traces rise through an ochre field and scorched black ground, creating a frequency that feels excavated, organic, and insistently alive.",
+      "Signal Bloom begreift Übertragung als etwas Körperliches. Botanische Spuren steigen durch ein ockerfarbenes Feld und versengten schwarzen Grund und erzeugen eine Frequenz, die ausgegraben, organisch und beharrlich lebendig wirkt.",
     imageUrl: "/artworks/signal-bloom.webp",
     imageAlt:
-      "Ochre and black abstract artwork with pale botanical, root-like markings",
-    medium: "Pigment, charcoal & oil",
+      "Ockerfarbene und schwarze abstrakte Arbeit mit hellen botanischen, wurzelartigen Spuren",
+    medium: "Pigment, Kohle & Öl",
     dimensions: "90 × 120 cm",
     year: "2026",
     featured: true,
@@ -45,13 +45,13 @@ const fallbackGallery: GalleryItem[] = [
     slug: "blue-reliquary",
     title: "Blue Reliquary",
     excerpt:
-      "A vessel for fragments: devotional geometry disturbed by hand-made noise.",
+      "Ein Gefäß für Fragmente: hingebungsvolle Geometrie, gestört von handgemachtem Rauschen.",
     description:
-      "Blue Reliquary holds a collection of visual remnants inside a strict, saturated field. The work borrows the posture of a devotional object while refusing a single stable symbol.",
+      "Blue Reliquary bewahrt visuelle Überreste in einem strengen, gesättigten Feld. Die Arbeit übernimmt die Haltung eines Andachtsobjekts und verweigert zugleich ein einzelnes stabiles Symbol.",
     imageUrl: "/artworks/blue-reliquary.webp",
     imageAlt:
-      "Dark contemporary artwork dominated by cobalt blue and pale ritual-like linework",
-    medium: "Acrylic & transfer on canvas",
+      "Dunkle zeitgenössische Arbeit in Kobaltblau mit hellen, rituell anmutenden Linien",
+    medium: "Acryl & Transfer auf Leinwand",
     dimensions: "100 × 125 cm",
     year: "2025",
     featured: false,
@@ -63,8 +63,9 @@ const fallbackProducts: ProductItem[] = [
   {
     id: "fallback-print-threshold",
     slug: "threshold-i-archival-print",
-    name: "Threshold I / Archival print",
-    description: "Numbered pigment print on 310gsm cotton rag. Edition of 25.",
+    name: "Threshold I / Archivdruck",
+    description:
+      "Nummerierter Pigmentdruck auf 310-g-Baumwollpapier. Auflage von 25.",
     imageUrl: "/artworks/threshold-i.webp",
     priceCents: 14500,
     currency: "EUR",
@@ -74,9 +75,9 @@ const fallbackProducts: ProductItem[] = [
   {
     id: "fallback-print-signal",
     slug: "signal-bloom-study",
-    name: "Signal Bloom / Studio study",
+    name: "Signal Bloom / Studiostudie",
     description:
-      "Signed A3 studio edition with hand-finished ochre and charcoal details.",
+      "Signierte A3-Studioedition mit handgearbeiteten Ocker- und Kohledetails.",
     imageUrl: "/artworks/signal-bloom.webp",
     priceCents: 8500,
     currency: "EUR",
@@ -88,7 +89,7 @@ const fallbackProducts: ProductItem[] = [
     slug: "blue-reliquary-object",
     name: "Blue Reliquary / Object 01",
     description:
-      "Small-batch cast object, individually marked and boxed by the studio.",
+      "Gussobjekt in kleiner Auflage, im Studio einzeln markiert und verpackt.",
     imageUrl: "/artworks/blue-reliquary.webp",
     priceCents: 22000,
     currency: "EUR",
@@ -107,16 +108,16 @@ function normalizeGallery(
     excerpt:
       row.excerpt ??
       row.description ??
-      "An original work from Gian’s current studio practice.",
+      "Eine Originalarbeit aus Gians aktueller Studiopraxis.",
     description:
       row.description ??
       row.excerpt ??
-      "An original work from Gian’s current studio practice.",
+      "Eine Originalarbeit aus Gians aktueller Studiopraxis.",
     imageUrl: row.imageUrl,
     imageAlt: row.imageAlt,
-    medium: row.medium ?? "Mixed media",
-    dimensions: row.dimensions ?? "Unique work",
-    year: row.year?.toString() ?? "Current",
+    medium: row.medium ?? "Mixed Media",
+    dimensions: row.dimensions ?? "Unikat",
+    year: row.year?.toString() ?? "Aktuell",
     featured: row.featured,
     sortOrder: row.sortOrder,
   };
@@ -130,7 +131,7 @@ function normalizeProduct(
     slug: row.slug,
     name: row.name,
     description:
-      row.description ?? "A limited studio edition, prepared by Gian.",
+      row.description ?? "Eine limitierte, von Gian gefertigte Studio-Edition.",
     imageUrl: row.imageUrl ?? "/artworks/blue-reliquary.webp",
     priceCents: row.priceCents,
     currency: row.currency,
