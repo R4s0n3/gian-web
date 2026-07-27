@@ -30,7 +30,7 @@ model GalleryPost {
   slug        String    @unique @db.VarChar(120)
   excerpt     String?   @db.VarChar(320)
   description String?   @db.Text
-  imageUrl    String    @unique @db.VarChar(500)
+  imageUrl    String    @db.VarChar(500)
   imageAlt    String    @db.VarChar(250)
   medium      String?   @db.VarChar(160)
   dimensions  String?   @db.VarChar(120)

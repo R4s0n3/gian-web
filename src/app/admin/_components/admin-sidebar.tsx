@@ -5,9 +5,10 @@ import { SignOutButton } from "@/app/admin/_components/sign-out-button";
 const adminNavigation = [
   { href: "/admin", label: "Overview", index: "01" },
   { href: "/admin/gallery", label: "Gallery", index: "02" },
-  { href: "/admin/products", label: "Products", index: "03" },
-  { href: "/admin/orders", label: "Orders", index: "04" },
-  { href: "/admin/bookings", label: "Bookings", index: "05" },
+  { href: "/admin/media", label: "Media", index: "03" },
+  { href: "/admin/products", label: "Products", index: "04" },
+  { href: "/admin/orders", label: "Orders", index: "05" },
+  { href: "/admin/bookings", label: "Bookings", index: "06" },
 ];
 
 export function AdminSidebar({ email }: { email: string }) {

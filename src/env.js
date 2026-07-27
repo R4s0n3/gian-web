@@ -60,6 +60,11 @@ export const env = createEnv({
     ALLOWED_ADMIN_MAILS: z.string().optional(),
     ADMIN_PASSWORD: z.string().min(16).optional(),
     DATABASE_URL: z.string().url(),
+    R2_S3_ENDPOINT: z.string().url().optional(),
+    R2_BUCKET_NAME: z.string().trim().min(1).optional(),
+    R2_ACCESS_KEY_ID: z.string().min(1).optional(),
+    R2_SECRET_ACCESS_KEY: z.string().min(1).optional(),
+    R2_PUBLIC_BASE_URL: z.string().url().optional(),
     STRIPE_SECRET_KEY: z.string().optional(),
     STRIPE_ALLOWED_SHIPPING_COUNTRIES: z.string().optional(),
     NODE_ENV: z
@@ -88,6 +93,11 @@ export const env = createEnv({
     ALLOWED_ADMIN_MAILS: process.env.ALLOWED_ADMIN_MAILS,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
     DATABASE_URL: process.env.DATABASE_URL,
+    R2_S3_ENDPOINT: process.env.R2_S3_ENDPOINT,
+    R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
+    R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
+    R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
+    R2_PUBLIC_BASE_URL: process.env.R2_PUBLIC_BASE_URL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_ALLOWED_SHIPPING_COUNTRIES:
       process.env.STRIPE_ALLOWED_SHIPPING_COUNTRIES,

@@ -12230,13 +12230,13 @@ export namespace Prisma {
   export type GalleryPostWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     slug?: string
-    imageUrl?: string
     AND?: GalleryPostWhereInput | GalleryPostWhereInput[]
     OR?: GalleryPostWhereInput[]
     NOT?: GalleryPostWhereInput | GalleryPostWhereInput[]
     title?: StringFilter<"GalleryPost"> | string
     excerpt?: StringNullableFilter<"GalleryPost"> | string | null
     description?: StringNullableFilter<"GalleryPost"> | string | null
+    imageUrl?: StringFilter<"GalleryPost"> | string
     imageAlt?: StringFilter<"GalleryPost"> | string
     medium?: StringNullableFilter<"GalleryPost"> | string | null
     dimensions?: StringNullableFilter<"GalleryPost"> | string | null
@@ -12247,7 +12247,7 @@ export namespace Prisma {
     publishedAt?: DateTimeNullableFilter<"GalleryPost"> | Date | string | null
     createdAt?: DateTimeFilter<"GalleryPost"> | Date | string
     updatedAt?: DateTimeFilter<"GalleryPost"> | Date | string
-  }, "id" | "slug" | "imageUrl">
+  }, "id" | "slug">
 
   export type GalleryPostOrderByWithAggregationInput = {
     id?: SortOrder

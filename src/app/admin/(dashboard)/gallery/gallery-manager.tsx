@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 
+import { ImageUrlField } from "@/app/admin/_components/image-url-field";
 import { api } from "@/trpc/react";
 
 type GalleryFormState = {
@@ -48,6 +49,7 @@ export function GalleryManager() {
   const gallery = api.gallery.adminList.useQuery();
   const [form, setForm] = useState<GalleryFormState>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [imageUploading, setImageUploading] = useState(false);
 
   const finishMutation = async () => {
     await utils.gallery.adminList.invalidate();
@@ -71,6 +73,7 @@ export function GalleryManager() {
 
   const pending =
     createPost.isPending || updatePost.isPending || deletePost.isPending;
+  const busy = pending || imageUploading;
   const mutationError =
     createPost.error ?? updatePost.error ?? deletePost.error;
 
@@ -89,6 +92,7 @@ export function GalleryManager() {
           {editingId && (
             <button
               className="admin-icon-button"
+              disabled={imageUploading}
               onClick={() => {
                 setEditingId(null);
                 setForm(emptyForm);
@@ -160,17 +164,17 @@ export function GalleryManager() {
                 value={form.slug}
               />
             </div>
-            <div className="form-field">
-              <label htmlFor="gallery-image">Image URL</label>
-              <input
-                className="form-input"
-                id="gallery-image"
-                onChange={(event) => update("imageUrl", event.target.value)}
-                placeholder="/artworks/work-name.webp"
-                required
-                value={form.imageUrl}
-              />
-            </div>
+            <ImageUrlField
+              disabled={pending}
+              id="gallery-image"
+              key={editingId ?? "new"}
+              label="Image URL"
+              onBusyChange={setImageUploading}
+              onChange={(value) => update("imageUrl", value)}
+              placeholder="/artworks/work-name.webp"
+              required
+              value={form.imageUrl}
+            />
             <div className="form-field">
               <label htmlFor="gallery-alt">Image description</label>
               <input
@@ -277,14 +281,16 @@ export function GalleryManager() {
 
             <button
               className="button button--ember"
-              disabled={pending}
+              disabled={busy}
               type="submit"
             >
-              {pending
-                ? "Saving…"
-                : editingId
-                  ? "Update gallery post"
-                  : "Create gallery post"}
+              {imageUploading
+                ? "Uploading image…"
+                : pending
+                  ? "Saving…"
+                  : editingId
+                    ? "Update gallery post"
+                    : "Create gallery post"}
             </button>
           </form>
         </div>
@@ -343,7 +349,7 @@ export function GalleryManager() {
                       <div className="admin-actions">
                         <button
                           className="admin-icon-button"
-                          disabled={pending}
+                          disabled={busy}
                           onClick={() => {
                             setEditingId(item.id);
                             setForm({
@@ -368,7 +374,7 @@ export function GalleryManager() {
                         </button>
                         <button
                           className="admin-icon-button"
-                          disabled={pending}
+                          disabled={busy}
                           onClick={() =>
                             updatePost.mutate({
                               id: item.id,
@@ -381,7 +387,7 @@ export function GalleryManager() {
                         </button>
                         <button
                           className="admin-icon-button admin-icon-button--danger"
-                          disabled={pending}
+                          disabled={busy}
                           onClick={() => {
                             if (
                               window.confirm(

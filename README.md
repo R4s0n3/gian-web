@@ -16,6 +16,7 @@ practice. It includes:
 - [Bun](https://bun.sh/)
 - PostgreSQL
 - a Stripe account
+- a Cloudflare R2 bucket for dashboard media uploads
 
 ## Local setup
 
@@ -44,6 +45,11 @@ bundled original artworks and three purchasable studio editions.
 | `NEXT_PUBLIC_SITE_URL`              | Trusted canonical origin for metadata and Stripe redirects         |
 | `STRIPE_SECRET_KEY`                 | Stripe secret API key used only on the server                      |
 | `STRIPE_ALLOWED_SHIPPING_COUNTRIES` | Comma-separated shipping destinations; defaults to `DE`            |
+| `R2_S3_ENDPOINT`                    | Account-scoped R2 S3 endpoint containing the Cloudflare Account ID |
+| `R2_BUCKET_NAME`                    | Bucket used for admin media                                        |
+| `R2_ACCESS_KEY_ID`                  | Server-only R2 API-token access key                                |
+| `R2_SECRET_ACCESS_KEY`              | Server-only R2 API-token secret key                                |
+| `R2_PUBLIC_BASE_URL`                | Public custom-domain origin used to build permanent media URLs     |
 
 Admin authentication is deliberately disabled if `AUTH_SECRET`,
 `ALLOWED_ADMIN_MAILS`, or `ADMIN_PASSWORD` is missing. Email matching is
@@ -103,9 +109,45 @@ Visit `/admin/login` and sign in with an email present in
 `ALLOWED_ADMIN_MAILS` plus `ADMIN_PASSWORD`.
 
 - `/admin/gallery` — create, edit, order, feature, publish, and delete work
+- `/admin/media` — upload, browse, copy, and delete images stored in R2
 - `/admin/products` — manage products, prices, stock, and visibility
 - `/admin/orders` — inspect line items and update fulfilment status
 - `/admin/bookings` — review client requests and update appointment status
+
+## Cloudflare R2 media
+
+[Create an R2 API token](https://developers.cloudflare.com/r2/api/tokens/) with
+**Object Read & Write** permission restricted to the single media bucket. Put
+the token's access key ID and secret access key in the server environment; they
+must never be exposed through a `NEXT_PUBLIC_` variable. `R2_S3_ENDPOINT` is the
+account-scoped S3 endpoint shown by Cloudflare, normally
+`https://<ACCOUNT_ID>.r2.cloudflarestorage.com`.
+
+[Attach a public custom domain](https://developers.cloudflare.com/r2/buckets/public-buckets/)
+to the bucket and use its HTTPS origin for `R2_PUBLIC_BASE_URL`, for example
+`https://media.example.com`. Cloudflare's `r2.dev` public URL is suitable only
+for development and must not be used for production delivery.
+
+The browser uploads directly to short-lived presigned PUT URLs. Configure the
+bucket's [CORS policy](https://developers.cloudflare.com/r2/buckets/cors/) with
+the exact deployed application origin and the local development origin. Replace
+`https://studio.example.com` below with the origin used by
+`NEXT_PUBLIC_SITE_URL`; do not use a wildcard:
+
+```json
+[
+  {
+    "AllowedOrigins": ["https://studio.example.com", "http://localhost:3000"],
+    "AllowedMethods": ["PUT"],
+    "AllowedHeaders": ["Content-Type", "Cache-Control"],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
+
+All five R2 variables are required together for media management. If the R2
+configuration is absent or incomplete, the rest of the application continues
+to work and the Media page reports the configuration problem.
 
 ## The Black Index
 
@@ -121,6 +163,7 @@ database is unavailable.
 ## Verification
 
 ```sh
+bun test
 bun run typecheck
 bun run lint
 bun run format:check

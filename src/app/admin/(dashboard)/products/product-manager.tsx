@@ -4,6 +4,7 @@
 import { useState } from "react";
 
 import { formatMoney } from "@/app/_lib/content-shared";
+import { ImageUrlField } from "@/app/admin/_components/image-url-field";
 import { api } from "@/trpc/react";
 
 type ProductFormState = {
@@ -41,6 +42,7 @@ export function ProductManager() {
   const products = api.product.adminList.useQuery();
   const [form, setForm] = useState<ProductFormState>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [imageUploading, setImageUploading] = useState(false);
 
   const finishMutation = async () => {
     await utils.product.adminList.invalidate();
@@ -66,6 +68,7 @@ export function ProductManager() {
     createProduct.isPending ||
     updateProduct.isPending ||
     deleteProduct.isPending;
+  const busy = pending || imageUploading;
   const mutationError =
     createProduct.error ?? updateProduct.error ?? deleteProduct.error;
 
@@ -84,6 +87,7 @@ export function ProductManager() {
           {editingId && (
             <button
               className="admin-icon-button"
+              disabled={imageUploading}
               onClick={() => {
                 setEditingId(null);
                 setForm(emptyForm);
@@ -153,16 +157,16 @@ export function ProductManager() {
                 value={form.slug}
               />
             </div>
-            <div className="form-field">
-              <label htmlFor="product-image">Image URL (optional)</label>
-              <input
-                className="form-input"
-                id="product-image"
-                onChange={(event) => update("imageUrl", event.target.value)}
-                placeholder="/artworks/threshold-i.webp"
-                value={form.imageUrl}
-              />
-            </div>
+            <ImageUrlField
+              disabled={pending}
+              id="product-image"
+              key={editingId ?? "new"}
+              label="Image URL (optional)"
+              onBusyChange={setImageUploading}
+              onChange={(value) => update("imageUrl", value)}
+              placeholder="/artworks/threshold-i.webp"
+              value={form.imageUrl}
+            />
             <div className="form-field">
               <label htmlFor="product-description">Description</label>
               <textarea
@@ -241,14 +245,16 @@ export function ProductManager() {
 
             <button
               className="button button--ember"
-              disabled={pending}
+              disabled={busy}
               type="submit"
             >
-              {pending
-                ? "Saving…"
-                : editingId
-                  ? "Update product"
-                  : "Create product"}
+              {imageUploading
+                ? "Uploading image…"
+                : pending
+                  ? "Saving…"
+                  : editingId
+                    ? "Update product"
+                    : "Create product"}
             </button>
           </form>
         </div>
@@ -311,7 +317,7 @@ export function ProductManager() {
                       <div className="admin-actions">
                         <button
                           className="admin-icon-button"
-                          disabled={pending}
+                          disabled={busy}
                           onClick={() => {
                             setEditingId(product.id);
                             setForm({
@@ -332,7 +338,7 @@ export function ProductManager() {
                         </button>
                         <button
                           className="admin-icon-button"
-                          disabled={pending}
+                          disabled={busy}
                           onClick={() =>
                             updateProduct.mutate({
                               id: product.id,
@@ -345,7 +351,7 @@ export function ProductManager() {
                         </button>
                         <button
                           className="admin-icon-button admin-icon-button--danger"
-                          disabled={pending}
+                          disabled={busy}
                           onClick={() => {
                             if (
                               window.confirm(
