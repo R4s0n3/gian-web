@@ -6,11 +6,11 @@
  * the business.
  */
 export const legalDetails = {
-  providerName: "BITTE VOLLSTÄNDIGEN NAMEN EINTRAGEN",
-  streetAddress: "BITTE STRASSE UND HAUSNUMMER EINTRAGEN",
-  postalCodeAndCity: "BITTE PLZ UND ORT EINTRAGEN",
-  email: "BITTE E-MAIL-ADRESSE EINTRAGEN",
-  phone: "BITTE TELEFONNUMMER EINTRAGEN",
+  providerName: "Gian-Luca Blasius",
+  streetAddress: "Saarlouis",
+  postalCodeAndCity: "Roden",
+  email: "anfrage@gian-luca.art",
+  phone: "",
   vatId: "",
   registerName: "",
   registerNumber: "",
