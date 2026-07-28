@@ -10,7 +10,6 @@ const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/___gianluca.b";
  * Add, remove, or reorder entries here to manage the buttons site-wide.
  */
 export function getSocialLinks(): SocialLink[] {
-
   return [
     {
       label: "Instagram",

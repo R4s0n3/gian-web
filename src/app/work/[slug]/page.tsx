@@ -8,7 +8,6 @@ import { PublicSite } from "@/app/_components/public-site";
 import { getPublicGallery } from "@/app/_lib/content";
 import { galleryCategoryPresentation } from "@/app/_lib/gallery-categories";
 import { getSocialLinks } from "@/app/_lib/social-links";
-import { env } from "@/env";
 
 export const dynamic = "force-dynamic";
 
@@ -68,14 +67,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
     categoryGallery.length > 1
       ? categoryGallery[(categoryArtworkIndex + 1) % categoryGallery.length]
       : undefined;
-  const siteUrl = env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const artworkUrl = new URL(`/work/${artwork.slug}`, siteUrl).toString();
-  const artworkImageUrl = new URL(artwork.imageUrl, siteUrl).toString();
-  const socialLinks = getSocialLinks({
-    title: artwork.title,
-    url: artworkUrl,
-    imageUrl: artworkImageUrl,
-  });
+  const socialLinks = getSocialLinks();
   const artworkImages = [
     { url: artwork.imageUrl, alt: artwork.imageAlt },
     ...artwork.images,
