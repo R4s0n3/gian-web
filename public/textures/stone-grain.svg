@@ -1,8 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720">
-  <filter id="stone" x="-20%" y="-20%" width="140%" height="140%">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600">
+  <filter
+    id="stone"
+    x="0"
+    y="0"
+    width="1600"
+    height="1600"
+    filterUnits="userSpaceOnUse"
+    primitiveUnits="userSpaceOnUse"
+    color-interpolation-filters="sRGB"
+  >
     <feTurbulence
       type="fractalNoise"
-      baseFrequency="0.012 0.055"
+      baseFrequency="0.011875 0.055625"
       numOctaves="4"
       seed="27"
       stitchTiles="stitch"
@@ -38,5 +47,5 @@
     />
     <feBlend in="mineral" in2="grain" mode="screen" />
   </filter>
-  <rect width="720" height="720" filter="url(#stone)" />
+  <rect width="1600" height="1600" filter="url(#stone)" />
 </svg>

@@ -28,6 +28,9 @@
   --ember: #ef4c23;
   --cobalt: #2448ff;
   --dust: #aa9e8c;
+  --stone-tile-size: clamp(70rem, 112vw, 120rem);
+  --stone-overlay-width: clamp(47rem, 79vw, 83rem);
+  --stone-overlay-height: clamp(53rem, 83vw, 89rem);
   --positive: #96e072;
   --danger: #ff684f;
 }
@@ -77,8 +80,11 @@ body::before {
       transparent 0.85px
     );
   background-size:
-    720px 720px,
+    var(--stone-overlay-width) var(--stone-overlay-height),
     9px 9px;
+  background-position:
+    13vw -17rem,
+    0 0;
   mix-blend-mode: soft-light;
 }
 
@@ -479,7 +485,12 @@ img {
     100% 100%,
     100% 100%,
     100% 100%,
-    720px 720px;
+    var(--stone-tile-size) var(--stone-tile-size);
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    -11rem 7rem;
   content: "";
   opacity: 0.62;
   mix-blend-mode: screen;
@@ -833,7 +844,10 @@ img {
     url("/textures/stone-grain.svg");
   background-size:
     100% 100%,
-    720px 720px;
+    var(--stone-tile-size) var(--stone-tile-size);
+  background-position:
+    0 0,
+    19rem -13rem;
   color: var(--ink);
 }
 
@@ -919,8 +933,12 @@ img {
     url("/textures/stone-grain.svg"), var(--cobalt);
   background-size:
     100% 100%,
-    720px 720px,
+    var(--stone-tile-size) var(--stone-tile-size),
     100% 100%;
+  background-position:
+    0 0,
+    -23rem 17rem,
+    0 0;
   color: #fff;
 }
 
@@ -1006,8 +1024,12 @@ img {
     url("/textures/stone-grain.svg"), var(--ink-soft);
   background-size:
     100% 100%,
-    720px 720px,
+    var(--stone-tile-size) var(--stone-tile-size),
     100% 100%;
+  background-position:
+    0 0,
+    31rem -19rem,
+    0 0;
 }
 
 .product-grid {
