@@ -108,11 +108,11 @@ function normalizeGallery(
     excerpt:
       row.excerpt ??
       row.description ??
-      "Eine Originalarbeit aus Gians aktueller Studiopraxis.",
+      "Eine Originalarbeit aus der aktuellen Studiopraxis von GIAN-LUCA.",
     description:
       row.description ??
       row.excerpt ??
-      "Eine Originalarbeit aus Gians aktueller Studiopraxis.",
+      "Eine Originalarbeit aus der aktuellen Studiopraxis von GIAN-LUCA.",
     imageUrl: row.imageUrl,
     imageAlt: row.imageAlt,
     medium: row.medium ?? "Mixed Media",
@@ -131,7 +131,8 @@ function normalizeProduct(
     slug: row.slug,
     name: row.name,
     description:
-      row.description ?? "Eine limitierte, von Gian gefertigte Studio-Edition.",
+      row.description ??
+      "Eine limitierte, von GIAN-LUCA gefertigte Studio-Edition.",
     imageUrl: row.imageUrl ?? "/artworks/blue-reliquary.webp",
     priceCents: row.priceCents,
     currency: row.currency,

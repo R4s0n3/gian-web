@@ -6,7 +6,7 @@ import { legalDetails, legalDetailsComplete } from "@/app/_lib/legal";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Anbieterkennzeichnung und Kontaktdaten von Gian Studio.",
+  description: "Anbieterkennzeichnung und Kontaktdaten von GIAN-LUCA Studio.",
 };
 
 export default function ImpressumPage() {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const navigation = [
@@ -9,12 +10,22 @@ const navigation = [
 
 export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
   return (
-    <header className={`site-header${overlay ? "site-header--overlay" : ""}`}>
+    <header
+      className={overlay ? "site-header site-header--overlay" : "site-header"}
+    >
       <div className="site-shell site-header__inner">
-        <Link className="site-logo" href="/" aria-label="Gian, Startseite">
-          <span className="site-logo__mark">Gian</span>
-          <span className="site-logo__descriptor">
-            Zeitgenössische Kunst & Tattoo
+        <Link className="site-logo" href="/" aria-label="GIAN-LUCA, Startseite">
+          <Image
+            alt=""
+            aria-hidden="true"
+            className="site-logo__image"
+            height="184"
+            src="/logo.svg"
+            width="227"
+          />
+          <span className="site-logo__copy">
+            <span className="site-logo__mark">GIAN-LUCA</span>
+            <span className="site-logo__descriptor">Fine Art</span>
           </span>
         </Link>
 

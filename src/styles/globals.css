@@ -1,7 +1,15 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/montserrat-latin-variable.woff2") format("woff2");
+}
+
 @theme {
-  --font-sans: "Helvetica Neue", "Arial Nova", Arial, sans-serif;
+  --font-sans: "Montserrat", "Gotham", "Avenir Next", Arial, sans-serif;
   --font-display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --color-ink: #0a0a08;
   --color-ink-soft: #171714;
@@ -19,6 +27,7 @@
   --line: rgba(242, 235, 220, 0.22);
   --ember: #ef4c23;
   --cobalt: #2448ff;
+  --dust: #aa9e8c;
   --positive: #96e072;
   --danger: #ff684f;
 }
@@ -34,9 +43,20 @@ html {
 
 body {
   margin: 0;
-  background: var(--ink);
+  background:
+    radial-gradient(
+      ellipse at 12% 18%,
+      rgba(170, 158, 140, 0.07),
+      transparent 32rem
+    ),
+    radial-gradient(
+      ellipse at 88% 64%,
+      rgba(170, 158, 140, 0.045),
+      transparent 38rem
+    ),
+    var(--ink);
   color: var(--bone);
-  font-family: "Helvetica Neue", "Arial Nova", Arial, sans-serif;
+  font-family: "Montserrat", "Gotham", "Avenir Next", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
@@ -44,27 +64,53 @@ body {
 
 body::before {
   position: fixed;
-  z-index: 100;
+  z-index: 10;
   inset: 0;
   pointer-events: none;
   content: "";
-  opacity: 0.12;
+  opacity: 0.34;
   background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255, 255, 255, 0.025) 3px
-    ),
+    url("/textures/stone-grain.svg"),
     radial-gradient(
       circle at 17% 29%,
-      rgba(255, 255, 255, 0.06) 0 0.7px,
-      transparent 0.8px
+      rgba(255, 255, 255, 0.1) 0 0.65px,
+      transparent 0.85px
     );
   background-size:
-    100% 4px,
-    7px 7px;
+    720px 720px,
+    9px 9px;
   mix-blend-mode: soft-light;
+}
+
+body::after {
+  position: fixed;
+  z-index: 9;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.16;
+  background-image:
+    repeating-linear-gradient(
+      103deg,
+      transparent 0 96px,
+      rgba(242, 235, 220, 0.11) 97px,
+      transparent 98px 183px
+    ),
+    radial-gradient(
+      circle at 25% 18%,
+      rgba(242, 235, 220, 0.17) 0 0.6px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 72% 68%,
+      rgba(242, 235, 220, 0.13) 0 0.8px,
+      transparent 1.2px
+    );
+  background-size:
+    100% 100%,
+    29px 31px,
+    43px 47px;
+  mix-blend-mode: screen;
 }
 
 ::selection {
@@ -286,27 +332,36 @@ img {
 .site-logo {
   display: inline-flex;
   width: fit-content;
-  align-items: baseline;
-  gap: 0.65rem;
+  align-items: center;
+  gap: 0.7rem;
   color: var(--bone);
   text-decoration: none;
 }
 
+.site-logo__image {
+  width: auto;
+  height: 2.15rem;
+  flex: 0 0 auto;
+}
+
+.site-logo__copy {
+  display: grid;
+  gap: 0.2rem;
+}
+
 .site-logo__mark {
-  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-  font-size: 1.55rem;
-  font-weight: 950;
-  letter-spacing: -0.08em;
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .site-logo__descriptor {
-  max-width: 7rem;
   color: var(--bone-dim);
   font-size: 0.52rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
   line-height: 1.25;
   text-transform: uppercase;
 }
@@ -399,7 +454,57 @@ img {
   border-bottom: 1px solid var(--line);
 }
 
+.home-hero::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      115deg,
+      rgba(10, 10, 8, 0.22),
+      rgba(10, 10, 8, 0.9) 57%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse at 17% 52%,
+      rgba(170, 158, 140, 0.15),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 67% 10%,
+      rgba(239, 76, 35, 0.055),
+      transparent 28%
+    ),
+    url("/textures/stone-grain.svg");
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    720px 720px;
+  content: "";
+  opacity: 0.62;
+  mix-blend-mode: screen;
+}
+
+.home-hero::after {
+  position: absolute;
+  top: 18%;
+  bottom: 9%;
+  left: 41%;
+  width: 1px;
+  transform: rotate(7deg);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(242, 235, 220, 0.2) 22%,
+    rgba(242, 235, 220, 0.04) 72%,
+    transparent
+  );
+  content: "";
+}
+
 .home-hero__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   min-height: min(920px, 100svh);
   grid-template-columns: minmax(0, 1.25fr) minmax(350px, 0.75fr);
@@ -418,20 +523,38 @@ img {
   z-index: 2;
 }
 
-.home-hero__title {
-  max-width: 11ch;
-  margin-top: 1.8rem;
-  font-size: clamp(4rem, 10.8vw, 11rem);
+.home-hero__brand {
+  position: relative;
+  width: fit-content;
+  margin: clamp(2rem, 4vw, 4rem) 0 0;
+  line-height: 0;
 }
 
-.home-hero__title .indent {
-  display: block;
-  margin-left: 0.7em;
+.home-hero__brand::before {
+  position: absolute;
+  top: -9%;
+  right: -18%;
+  width: 64%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(242, 235, 220, 0.16);
+  border-radius: 50%;
+  content: "";
 }
 
-.home-hero__title .outline {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--bone);
+.home-hero__brand-mark {
+  position: relative;
+  width: clamp(13rem, 24vw, 24rem);
+  height: auto;
+  filter: drop-shadow(0 1.4rem 2.8rem rgba(0, 0, 0, 0.34));
+}
+
+.home-hero__artist-name {
+  margin: 1.15rem 0 0;
+  font-size: clamp(1.05rem, 1.85vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: 0.31em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .home-hero__footer {
@@ -702,8 +825,15 @@ img {
 }
 
 .statement {
+  position: relative;
+  overflow: hidden;
   border-block: 1px solid var(--line);
-  background: var(--bone);
+  background:
+    linear-gradient(rgba(242, 235, 220, 0.9), rgba(242, 235, 220, 0.9)),
+    url("/textures/stone-grain.svg");
+  background-size:
+    100% 100%,
+    720px 720px;
   color: var(--ink);
 }
 
@@ -784,7 +914,13 @@ img {
 .experience {
   position: relative;
   overflow: hidden;
-  background: var(--cobalt);
+  background:
+    linear-gradient(rgba(36, 72, 255, 0.88), rgba(36, 72, 255, 0.88)),
+    url("/textures/stone-grain.svg"), var(--cobalt);
+  background-size:
+    100% 100%,
+    720px 720px,
+    100% 100%;
   color: #fff;
 }
 
@@ -865,7 +1001,13 @@ img {
 }
 
 .shop-preview {
-  background: var(--ink-soft);
+  background:
+    linear-gradient(rgba(23, 23, 20, 0.9), rgba(23, 23, 20, 0.9)),
+    url("/textures/stone-grain.svg"), var(--ink-soft);
+  background-size:
+    100% 100%,
+    720px 720px,
+    100% 100%;
 }
 
 .product-grid {
@@ -2107,12 +2249,24 @@ img {
 }
 
 @media (max-width: 760px) {
+  body::before {
+    opacity: 0.26;
+  }
+
+  body::after {
+    display: none;
+  }
+
   .site-shell {
     padding-inline: 1rem;
   }
 
   .site-logo__descriptor {
     display: none;
+  }
+
+  .site-logo__image {
+    height: 1.8rem;
   }
 
   .site-header__inner {
@@ -2135,9 +2289,22 @@ img {
     display: contents;
   }
 
-  .home-hero__title {
+  .home-hero__brand,
+  .home-hero__artist-name {
     order: 1;
-    font-size: clamp(3.8rem, 20vw, 7rem);
+  }
+
+  .home-hero__brand {
+    margin-top: 2rem;
+  }
+
+  .home-hero__brand-mark {
+    width: min(62vw, 16rem);
+  }
+
+  .home-hero__artist-name {
+    font-size: clamp(0.95rem, 4.6vw, 1.25rem);
+    letter-spacing: 0.24em;
   }
 
   .home-hero .eyebrow {
@@ -2231,6 +2398,11 @@ img {
 
   .site-footer__base {
     flex-direction: column;
+  }
+
+  .site-footer__name {
+    font-size: clamp(3.6rem, 18vw, 5rem);
+    white-space: nowrap;
   }
 
   .form-grid {

@@ -8,7 +8,7 @@ import { ShopClient } from "@/app/shop/shop-client";
 export const metadata: Metadata = {
   title: "Studio-Editionen",
   description:
-    "Signierte Drucke, originale Studien und Studio-Objekte in kleinen Auflagen von Gian.",
+    "Signierte Drucke, originale Studien und Studio-Objekte in kleinen Auflagen von GIAN-LUCA.",
 };
 
 export const dynamic = "force-dynamic";

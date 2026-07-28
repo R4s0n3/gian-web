@@ -131,7 +131,7 @@ export function BookingForm({
       <div className="booking-form__head">
         <h2>Erzähl dem Studio von deiner Idee</h2>
         <p>
-          Dies ist eine Anfrage, keine automatische Bestätigung. Gian prüft
+          Dies ist eine Anfrage, keine automatische Bestätigung. GIAN-LUCA prüft
           jedes Projekt persönlich.
         </p>
       </div>

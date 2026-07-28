@@ -6,8 +6,8 @@ export function SiteFooter() {
       <div className="site-shell site-footer__main">
         <div className="site-footer__brand">
           <p className="eyebrow">Unabhängige künstlerische Praxis</p>
-          <p className="display site-footer__name" aria-label="Gian">
-            Gian
+          <p className="display site-footer__name" aria-label="GIAN-LUCA">
+            GIAN-LUCA
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export function SiteFooter() {
       </div>
 
       <div className="site-shell site-footer__base">
-        <span>© {new Date().getFullYear()} Gian Studio</span>
+        <span>© {new Date().getFullYear()} GIAN-LUCA Studio</span>
         <span>Originalarbeiten · Für genaues Hinsehen</span>
       </div>
     </footer>

@@ -7,7 +7,7 @@ import { SiteHeader } from "@/app/_components/site-header";
 export const metadata: Metadata = {
   title: "Projekt anfragen",
   description:
-    "Tattoo-Beratung, Auftragsarbeit oder kreative Zusammenarbeit mit Gian anfragen.",
+    "Tattoo-Beratung, Auftragsarbeit oder kreative Zusammenarbeit mit GIAN-LUCA anfragen.",
 };
 
 type BookPageProps = {

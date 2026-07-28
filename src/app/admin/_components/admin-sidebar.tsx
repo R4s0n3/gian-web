@@ -16,7 +16,7 @@ export function AdminSidebar({ email }: { email: string }) {
     <aside className="admin-sidebar">
       <div className="admin-sidebar__head">
         <Link className="site-logo" href="/admin">
-          <span className="site-logo__mark">Gian</span>
+          <span className="site-logo__mark">GIAN-LUCA</span>
         </Link>
         <span>Studioverwaltung / privat</span>
       </div>

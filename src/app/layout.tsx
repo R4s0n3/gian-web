@@ -8,13 +8,13 @@ import { TRPCReactProvider } from "@/trpc/react";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "Gian — Zeitgenössische Kunst & Tattoo",
-    template: "%s — Gian",
+    default: "GIAN-LUCA — Fine Art",
+    template: "%s — GIAN-LUCA",
   },
   description:
-    "Zeitgenössische Kunst, Tattoos, limitierte Objekte und eine immersive digitale Galerie von Gian.",
-  applicationName: "Gian Studio",
-  authors: [{ name: "Gian" }],
+    "Fine Art, Tattoos, limitierte Objekte und eine immersive digitale Galerie von GIAN-LUCA.",
+  applicationName: "GIAN-LUCA Studio",
+  authors: [{ name: "GIAN-LUCA" }],
   keywords: [
     "zeitgenössische Kunst",
     "Tätowierer",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "immersive Galerie",
   ],
   openGraph: {
-    title: "Gian — Zeitgenössische Kunst & Tattoo",
+    title: "GIAN-LUCA — Fine Art",
     description:
       "Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen Raum.",
     type: "website",
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
         url: "/artworks/threshold-i.webp",
         width: 1122,
         height: 1402,
-        alt: "Threshold I, eine originale Mixed-Media-Arbeit von Gian",
+        alt: "Threshold I, eine originale Mixed-Media-Arbeit von GIAN-LUCA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Gian — Zeitgenössische Kunst & Tattoo",
+    title: "GIAN-LUCA — Fine Art",
     description:
       "Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen Raum.",
     images: ["/artworks/threshold-i.webp"],

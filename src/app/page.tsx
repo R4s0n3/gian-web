@@ -10,7 +10,7 @@ import { formatMoney } from "@/app/_lib/content-shared";
 export const dynamic = "force-dynamic";
 
 const tickerItems = [
-  "Zeitgenössische Kunst",
+  "Fine Art",
   "Tattoo-Projekte",
   "Limitierte Editionen",
   "Private Auftragsarbeiten",
@@ -32,17 +32,28 @@ export default async function Home() {
       <main id="main-content">
         <section className="home-hero" aria-labelledby="hero-title">
           <div
-            className={`site-shell home-hero__grid${heroArtwork ? "" : "home-hero__grid--empty"}`}
+            className={
+              heroArtwork
+                ? "site-shell home-hero__grid"
+                : "site-shell home-hero__grid home-hero__grid--empty"
+            }
           >
             <div className="home-hero__copy">
-              <p className="eyebrow">Gian / Zeitgenössische Kunst & Tattoo</p>
-              <h1 className="display home-hero__title" id="hero-title">
-                Spuren für
-                <span className="indent outline">vergängliche</span>
-                <span>
-                  <em>Körper.</em>
-                </span>
+              <p className="eyebrow">Fine Art</p>
+              <h1 className="home-hero__brand" id="hero-title">
+                <span className="sr-only">GIAN-LUCA — Fine Art</span>
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="home-hero__brand-mark"
+                  height="184"
+                  src="/logo.svg"
+                  width="227"
+                />
               </h1>
+              <p className="home-hero__artist-name" aria-hidden="true">
+                GIAN-LUCA
+              </p>
 
               <div className="home-hero__footer">
                 <p className="home-hero__lede">
@@ -152,9 +163,10 @@ export default async function Home() {
             <div className="statement__copy">
               <p className="eyebrow">02 / Über das Studio</p>
               <p>
-                Gians Praxis bewegt sich zwischen zeitgenössischer Bildkunst und
-                Tattoo. Architektur, rituelle Objekte, Signalrauschen und
-                körperliche Erinnerung bilden eine gemeinsame visuelle Sprache.
+                Die Praxis von GIAN-LUCA bewegt sich zwischen zeitgenössischer
+                Bildkunst und Tattoo. Architektur, rituelle Objekte,
+                Signalrauschen und körperliche Erinnerung bilden eine gemeinsame
+                visuelle Sprache.
               </p>
               <p>
                 Das Ergebnis ist präzise, aber nie steril: Arbeiten, die
@@ -268,7 +280,7 @@ export default async function Home() {
                     >
                       <div className="product-card__image">
                         <img
-                          alt={`${product.name}, eine Studio-Edition von Gian`}
+                          alt={`${product.name}, eine Studio-Edition von GIAN-LUCA`}
                           loading="lazy"
                           src={product.imageUrl}
                         />

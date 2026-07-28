@@ -113,7 +113,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
             <article className="shop-card" key={product.id}>
               <div className="shop-card__image">
                 <img
-                  alt={`${product.name}, eine Studio-Edition von Gian`}
+                  alt={`${product.name}, eine Studio-Edition von GIAN-LUCA`}
                   loading="lazy"
                   src={product.imageUrl}
                 />

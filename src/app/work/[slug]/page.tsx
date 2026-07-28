@@ -29,7 +29,7 @@ export async function generateMetadata({
     title: artwork.title,
     description: artwork.excerpt,
     openGraph: {
-      title: `${artwork.title} — Gian`,
+      title: `${artwork.title} — GIAN-LUCA`,
       description: artwork.excerpt,
       images: [{ url: artwork.imageUrl, alt: artwork.imageAlt }],
     },

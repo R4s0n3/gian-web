@@ -55,7 +55,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
 
       <div className="admin-login__panel">
         <Link className="site-logo" href="/" aria-label="Zurück zum Portfolio">
-          <span className="site-logo__mark">Gian</span>
+          <span className="site-logo__mark">GIAN-LUCA</span>
           <span className="site-logo__descriptor">Zurück zum Portfolio</span>
         </Link>
         <p className="eyebrow" style={{ marginTop: "4rem" }}>
