@@ -5,10 +5,10 @@ export default function AdminGalleryPage() {
     <>
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">Portfolio content</p>
-          <h1 className="display">Gallery archive.</h1>
+          <p className="eyebrow">Portfolioinhalte</p>
+          <h1 className="display">Galeriearchiv.</h1>
         </div>
-        <span className="status-pill status-pill--active">Live feed</span>
+        <span className="status-pill status-pill--active">Live-Ansicht</span>
       </header>
       <GalleryManager />
     </>

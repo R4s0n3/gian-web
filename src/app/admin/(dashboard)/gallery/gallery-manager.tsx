@@ -88,7 +88,11 @@ export function GalleryManager() {
     <div className="admin-grid">
       <section className="admin-panel">
         <div className="admin-panel__head">
-          <h2>{editingId ? "Edit gallery post" : "Add gallery post"}</h2>
+          <h2>
+            {editingId
+              ? "Galeriebeitrag bearbeiten"
+              : "Galeriebeitrag hinzufügen"}
+          </h2>
           {editingId && (
             <button
               className="admin-icon-button"
@@ -99,7 +103,7 @@ export function GalleryManager() {
               }}
               type="button"
             >
-              Cancel edit
+              Bearbeitung abbrechen
             </button>
           )}
         </div>
@@ -131,7 +135,7 @@ export function GalleryManager() {
             }}
           >
             <div className="form-field">
-              <label htmlFor="gallery-title">Title</label>
+              <label htmlFor="gallery-title">Titel</label>
               <input
                 className="form-input"
                 id="gallery-title"
@@ -153,7 +157,7 @@ export function GalleryManager() {
               />
             </div>
             <div className="form-field">
-              <label htmlFor="gallery-slug">URL slug</label>
+              <label htmlFor="gallery-slug">URL-Kürzel</label>
               <input
                 className="form-input"
                 id="gallery-slug"
@@ -168,7 +172,7 @@ export function GalleryManager() {
               disabled={pending}
               id="gallery-image"
               key={editingId ?? "new"}
-              label="Image URL"
+              label="Bild-URL"
               onBusyChange={setImageUploading}
               onChange={(value) => update("imageUrl", value)}
               placeholder="/artworks/work-name.webp"
@@ -176,51 +180,53 @@ export function GalleryManager() {
               value={form.imageUrl}
             />
             <div className="form-field">
-              <label htmlFor="gallery-alt">Image description</label>
+              <label htmlFor="gallery-alt">Bildbeschreibung</label>
               <input
                 className="form-input"
                 id="gallery-alt"
                 onChange={(event) => update("imageAlt", event.target.value)}
-                placeholder="Describe the artwork for screen readers"
+                placeholder="Beschreibe das Werk für Screenreader"
                 required
                 value={form.imageAlt}
               />
             </div>
             <div className="form-field">
-              <label htmlFor="gallery-excerpt">Short introduction</label>
+              <label htmlFor="gallery-excerpt">Kurze Einführung</label>
               <textarea
                 className="form-textarea"
                 id="gallery-excerpt"
                 maxLength={320}
                 onChange={(event) => update("excerpt", event.target.value)}
-                placeholder="A short line used on the portfolio."
+                placeholder="Ein kurzer Text für das Portfolio."
                 style={{ minHeight: "5rem" }}
                 value={form.excerpt}
               />
             </div>
             <div className="form-field">
-              <label htmlFor="gallery-description">Full description</label>
+              <label htmlFor="gallery-description">
+                Ausführliche Beschreibung
+              </label>
               <textarea
                 className="form-textarea"
                 id="gallery-description"
                 onChange={(event) => update("description", event.target.value)}
-                placeholder="Materials, context, and the story of the work."
+                placeholder="Materialien, Kontext und die Geschichte des Werks."
                 value={form.description}
               />
             </div>
             <div className="form-grid">
               <div className="form-field">
-                <label htmlFor="gallery-medium">Medium</label>
+                <label htmlFor="gallery-medium">Technik</label>
                 <input
                   className="form-input"
                   id="gallery-medium"
                   onChange={(event) => update("medium", event.target.value)}
-                  placeholder="Mixed media"
+                  placeholder="Mischtechnik"
                   value={form.medium}
                 />
               </div>
               <div className="form-field">
-                <label htmlFor="gallery-dimensions">Dimensions</label>
+                <label htmlFor="gallery-dimensions">Maße</label>
                 <input
                   className="form-input"
                   id="gallery-dimensions"
@@ -230,7 +236,7 @@ export function GalleryManager() {
                 />
               </div>
               <div className="form-field">
-                <label htmlFor="gallery-year">Year</label>
+                <label htmlFor="gallery-year">Jahr</label>
                 <input
                   className="form-input"
                   id="gallery-year"
@@ -242,7 +248,7 @@ export function GalleryManager() {
                 />
               </div>
               <div className="form-field">
-                <label htmlFor="gallery-order">Sort order</label>
+                <label htmlFor="gallery-order">Sortierreihenfolge</label>
                 <input
                   className="form-input"
                   id="gallery-order"
@@ -259,7 +265,7 @@ export function GalleryManager() {
                   onChange={(event) => update("featured", event.target.checked)}
                   type="checkbox"
                 />
-                <span>Feature prominently on the portfolio.</span>
+                <span>Im Portfolio prominent hervorheben.</span>
               </label>
               <label className="checkbox">
                 <input
@@ -269,7 +275,7 @@ export function GalleryManager() {
                   }
                   type="checkbox"
                 />
-                <span>Publish publicly when saved.</span>
+                <span>Beim Speichern öffentlich veröffentlichen.</span>
               </label>
             </div>
 
@@ -285,12 +291,12 @@ export function GalleryManager() {
               type="submit"
             >
               {imageUploading
-                ? "Uploading image…"
+                ? "Bild wird hochgeladen…"
                 : pending
-                  ? "Saving…"
+                  ? "Wird gespeichert…"
                   : editingId
-                    ? "Update gallery post"
-                    : "Create gallery post"}
+                    ? "Galeriebeitrag aktualisieren"
+                    : "Galeriebeitrag erstellen"}
             </button>
           </form>
         </div>
@@ -298,11 +304,11 @@ export function GalleryManager() {
 
       <section className="admin-panel">
         <div className="admin-panel__head">
-          <h2>All gallery posts</h2>
-          <span className="status-pill">{gallery.data?.length ?? 0} works</span>
+          <h2>Alle Galeriebeiträge</h2>
+          <span className="status-pill">{gallery.data?.length ?? 0} Werke</span>
         </div>
         {gallery.isLoading ? (
-          <div className="admin-loading">Loading the archive…</div>
+          <div className="admin-loading">Archiv wird geladen…</div>
         ) : gallery.error ? (
           <div className="admin-empty">{gallery.error.message}</div>
         ) : gallery.data?.length ? (
@@ -310,11 +316,11 @@ export function GalleryManager() {
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Work</th>
-                  <th>Year</th>
-                  <th>Visibility</th>
-                  <th>Order</th>
-                  <th>Actions</th>
+                  <th>Werk</th>
+                  <th>Jahr</th>
+                  <th>Sichtbarkeit</th>
+                  <th>Reihenfolge</th>
+                  <th>Aktionen</th>
                 </tr>
               </thead>
               <tbody>
@@ -341,7 +347,7 @@ export function GalleryManager() {
                       <span
                         className={`status-pill status-pill--${item.published ? "active" : "draft"}`}
                       >
-                        {item.published ? "Published" : "Draft"}
+                        {item.published ? "Veröffentlicht" : "Entwurf"}
                       </span>
                     </td>
                     <td>{item.sortOrder}</td>
@@ -370,7 +376,7 @@ export function GalleryManager() {
                           }}
                           type="button"
                         >
-                          Edit
+                          Bearbeiten
                         </button>
                         <button
                           className="admin-icon-button"
@@ -383,7 +389,7 @@ export function GalleryManager() {
                           }
                           type="button"
                         >
-                          {item.published ? "Unpublish" : "Publish"}
+                          {item.published ? "Zurückziehen" : "Veröffentlichen"}
                         </button>
                         <button
                           className="admin-icon-button admin-icon-button--danger"
@@ -391,7 +397,7 @@ export function GalleryManager() {
                           onClick={() => {
                             if (
                               window.confirm(
-                                `Permanently delete “${item.title}”?`,
+                                `„${item.title}“ dauerhaft löschen?`,
                               )
                             ) {
                               deletePost.mutate({ id: item.id });
@@ -399,7 +405,7 @@ export function GalleryManager() {
                           }}
                           type="button"
                         >
-                          Delete
+                          Löschen
                         </button>
                       </div>
                     </td>
@@ -410,7 +416,7 @@ export function GalleryManager() {
           </div>
         ) : (
           <div className="admin-empty">
-            The archive is empty. Add the first gallery post here.
+            Das Archiv ist leer. Füge hier den ersten Galeriebeitrag hinzu.
           </div>
         )}
       </section>

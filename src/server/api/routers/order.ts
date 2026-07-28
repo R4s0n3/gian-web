@@ -43,7 +43,12 @@ export const orderRouter = createTRPCRouter({
               : error.code === "PAYMENT_PENDING"
                 ? "CONFLICT"
                 : "BAD_REQUEST",
-          message: error.message,
+          message:
+            error.code === "NOT_FOUND"
+              ? "Bestellung nicht gefunden"
+              : error.code === "PAYMENT_PENDING"
+                ? "Die Zahlung wird noch verarbeitet"
+                : "Diese Statusänderung ist für die Bestellung nicht möglich",
           cause: error,
         });
       }

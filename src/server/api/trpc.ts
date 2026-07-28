@@ -152,7 +152,7 @@ export const adminProcedure = t.procedure
     ) {
       throw new TRPCError({
         code: "FORBIDDEN",
-        message: "Administrator access required",
+        message: "Administratorzugriff erforderlich",
       });
     }
 

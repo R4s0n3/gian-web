@@ -1,6 +1,7 @@
 "use client";
 
 import { formatMoney } from "@/app/_lib/content-shared";
+import { adminStatusLabel } from "@/app/admin/_lib/labels";
 import { api } from "@/trpc/react";
 
 const orderStatuses = [
@@ -24,7 +25,7 @@ const allowedTransitions: Record<OrderStatus, readonly OrderStatus[]> = {
 };
 
 function formatDate(value: Date | string) {
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -67,7 +68,7 @@ export function OrderManager() {
   if (orders.isLoading) {
     return (
       <section className="admin-panel">
-        <div className="admin-loading">Loading the order ledger…</div>
+        <div className="admin-loading">Bestellungen werden geladen…</div>
       </section>
     );
   }
@@ -84,7 +85,8 @@ export function OrderManager() {
     return (
       <section className="admin-panel">
         <div className="admin-empty">
-          No orders yet. New Stripe checkouts will appear here automatically.
+          Noch keine Bestellungen. Neue Stripe-Checkouts erscheinen hier
+          automatisch.
         </div>
       </section>
     );
@@ -93,8 +95,8 @@ export function OrderManager() {
   return (
     <section className="admin-panel">
       <div className="admin-panel__head">
-        <h2>Order ledger</h2>
-        <span className="status-pill">{orders.data.length} orders</span>
+        <h2>Bestellübersicht</h2>
+        <span className="status-pill">{orders.data.length} Bestellungen</span>
       </div>
 
       {updateStatus.error && (
@@ -111,12 +113,12 @@ export function OrderManager() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Order</th>
-              <th>Customer</th>
-              <th>Contents</th>
-              <th>Total</th>
+              <th>Bestellung</th>
+              <th>Kundschaft</th>
+              <th>Inhalt</th>
+              <th>Gesamt</th>
               <th>Status</th>
-              <th>Received</th>
+              <th>Eingegangen</th>
             </tr>
           </thead>
           <tbody>
@@ -131,7 +133,7 @@ export function OrderManager() {
                         title={order.stripeCheckoutSessionId}
                         style={{ color: "var(--bone-dim)" }}
                       >
-                        Stripe linked
+                        Mit Stripe verknüpft
                       </span>
                     </>
                   )}
@@ -155,7 +157,7 @@ export function OrderManager() {
                   {addressLines(order.shippingAddress).length > 0 && (
                     <details style={{ marginTop: "0.5rem" }}>
                       <summary style={{ cursor: "pointer" }}>
-                        Shipping address
+                        Lieferadresse
                       </summary>
                       <address
                         style={{
@@ -183,13 +185,7 @@ export function OrderManager() {
                         (total, item) => total + item.quantity,
                         0,
                       )}{" "}
-                      item
-                      {order.items.reduce(
-                        (total, item) => total + item.quantity,
-                        0,
-                      ) === 1
-                        ? ""
-                        : "s"}
+                      Artikel
                     </summary>
                     <ul
                       style={{
@@ -212,7 +208,7 @@ export function OrderManager() {
                 <td>{formatMoney(order.totalCents, order.currency)}</td>
                 <td>
                   <label className="sr-only" htmlFor={`order-${order.id}`}>
-                    Status for order {order.id}
+                    Status für Bestellung {order.id}
                   </label>
                   <select
                     className="form-select"
@@ -227,8 +223,8 @@ export function OrderManager() {
                           ["CANCELLED", "REFUNDED"].includes(status) &&
                           !window.confirm(
                             status === "REFUNDED"
-                              ? `Issue a real Stripe refund of ${formatMoney(order.totalCents, order.currency)}? This action cannot be undone here.`
-                              : "Expire this checkout and release its reserved inventory?",
+                              ? `Eine echte Stripe-Rückerstattung über ${formatMoney(order.totalCents, order.currency)} veranlassen? Diese Aktion kann hier nicht rückgängig gemacht werden.`
+                              : "Diesen Checkout stornieren und den reservierten Bestand freigeben?",
                           )
                         ) {
                           event.target.value = order.status;
@@ -242,7 +238,7 @@ export function OrderManager() {
                   >
                     {allowedTransitions[order.status].map((status) => (
                       <option key={status} value={status}>
-                        {status}
+                        {adminStatusLabel(status)}
                       </option>
                     ))}
                   </select>

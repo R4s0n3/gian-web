@@ -3,12 +3,12 @@ import Link from "next/link";
 import { SignOutButton } from "@/app/admin/_components/sign-out-button";
 
 const adminNavigation = [
-  { href: "/admin", label: "Overview", index: "01" },
-  { href: "/admin/gallery", label: "Gallery", index: "02" },
-  { href: "/admin/media", label: "Media", index: "03" },
-  { href: "/admin/products", label: "Products", index: "04" },
-  { href: "/admin/orders", label: "Orders", index: "05" },
-  { href: "/admin/bookings", label: "Bookings", index: "06" },
+  { href: "/admin", label: "Übersicht", index: "01" },
+  { href: "/admin/gallery", label: "Galerie", index: "02" },
+  { href: "/admin/media", label: "Medien", index: "03" },
+  { href: "/admin/products", label: "Produkte", index: "04" },
+  { href: "/admin/orders", label: "Bestellungen", index: "05" },
+  { href: "/admin/bookings", label: "Termine", index: "06" },
 ];
 
 export function AdminSidebar({ email }: { email: string }) {
@@ -18,10 +18,10 @@ export function AdminSidebar({ email }: { email: string }) {
         <Link className="site-logo" href="/admin">
           <span className="site-logo__mark">Gian</span>
         </Link>
-        <span>Studio control / private</span>
+        <span>Studioverwaltung / privat</span>
       </div>
 
-      <nav className="admin-nav" aria-label="Studio administration">
+      <nav className="admin-nav" aria-label="Studioverwaltung">
         {adminNavigation.map((item) => (
           <Link href={item.href} key={item.href}>
             <span>{item.label}</span>
@@ -34,7 +34,7 @@ export function AdminSidebar({ email }: { email: string }) {
         <p title={email}>{email}</p>
         <div className="admin-actions">
           <Link className="admin-icon-button" href="/" target="_blank">
-            View site ↗
+            Website ansehen ↗
           </Link>
           <SignOutButton />
         </div>

@@ -5,10 +5,10 @@ export default function AdminMediaPage() {
     <>
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">Asset library / Cloudflare R2</p>
-          <h1 className="display">Studio media.</h1>
+          <p className="eyebrow">Medienbibliothek / Cloudflare R2</p>
+          <h1 className="display">Studiomedien.</h1>
         </div>
-        <span className="status-pill status-pill--active">Image storage</span>
+        <span className="status-pill status-pill--active">Bildspeicher</span>
       </header>
       <MediaManager />
     </>

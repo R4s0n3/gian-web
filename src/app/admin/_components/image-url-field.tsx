@@ -60,7 +60,7 @@ export function ImageUrlField({
   async function handleFile(file: File) {
     setStatus({
       state: "uploading",
-      message: `Uploading ${file.name}…`,
+      message: `${file.name} wird hochgeladen…`,
     });
     onBusyChange?.(true);
 
@@ -72,7 +72,7 @@ export function ImageUrlField({
       onChange(result.publicUrl);
       setStatus({
         state: "success",
-        message: `${file.name} uploaded. Save the form to keep this URL.`,
+        message: `${file.name} wurde hochgeladen. Speichere das Formular, um diese URL zu übernehmen.`,
       });
     } catch (error) {
       setStatus({
@@ -111,7 +111,7 @@ export function ImageUrlField({
           onClick={() => fileInputRef.current?.click()}
           type="button"
         >
-          {uploading ? "Uploading…" : "Upload"}
+          {uploading ? "Wird hochgeladen…" : "Hochladen"}
         </button>
         <input
           accept={MEDIA_FILE_ACCEPT}

@@ -28,7 +28,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
 
           if (!result || result.error) {
             setError(
-              "Access was not granted. Check your admin email and password.",
+              "Zugriff verweigert. Prüfe deine Admin-E-Mail-Adresse und dein Passwort.",
             );
             setPending(false);
             return;
@@ -37,13 +37,13 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
           router.replace(callbackUrl);
           router.refresh();
         } catch {
-          setError("The studio login is temporarily unavailable.");
+          setError("Die Studioanmeldung ist vorübergehend nicht verfügbar.");
           setPending(false);
         }
       }}
     >
       <div className="form-field">
-        <label htmlFor="admin-email">Admin email</label>
+        <label htmlFor="admin-email">Admin-E-Mail-Adresse</label>
         <input
           autoComplete="email"
           autoFocus
@@ -57,7 +57,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
         />
       </div>
       <div className="form-field">
-        <label htmlFor="admin-password">Password</label>
+        <label htmlFor="admin-password">Passwort</label>
         <input
           autoComplete="current-password"
           className="form-input"
@@ -81,11 +81,11 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
       )}
 
       <button className="button button--ember" disabled={pending} type="submit">
-        {pending ? "Verifying access…" : "Enter studio →"}
+        {pending ? "Zugriff wird geprüft…" : "Studio betreten →"}
       </button>
       <p className="form-note">
-        Access is restricted to addresses configured by the studio. Attempts
-        from other accounts are rejected server-side.
+        Der Zugriff ist auf die vom Studio hinterlegten Adressen beschränkt.
+        Andere Konten werden serverseitig abgewiesen.
       </p>
     </form>
   );

@@ -14,7 +14,7 @@ const slugSchema = z
   .max(120)
   .regex(
     /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-    "Use lowercase letters, numbers, and hyphens",
+    "Verwende Kleinbuchstaben, Zahlen und Bindestriche",
   );
 
 const galleryFields = {
@@ -63,7 +63,7 @@ const updateGalleryPostSchema = z
   .refine(
     ({ id: _id, ...changes }) =>
       Object.values(changes).some((value) => value !== undefined),
-    { message: "At least one field must be updated" },
+    { message: "Mindestens ein Feld muss aktualisiert werden" },
   );
 
 const galleryOrderBy = [

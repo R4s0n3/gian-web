@@ -5,10 +5,10 @@ export default function AdminOrdersPage() {
     <>
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">Commerce / fulfilment</p>
-          <h1 className="display">Orders.</h1>
+          <p className="eyebrow">Shop / Versand</p>
+          <h1 className="display">Bestellungen.</h1>
         </div>
-        <span className="status-pill">Stripe ledger</span>
+        <span className="status-pill">Stripe-Übersicht</span>
       </header>
       <OrderManager />
     </>

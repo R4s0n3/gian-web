@@ -5,10 +5,10 @@ export default function AdminProductsPage() {
     <>
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">Commerce / catalogue</p>
-          <h1 className="display">Studio editions.</h1>
+          <p className="eyebrow">Shop / Katalog</p>
+          <h1 className="display">Studioeditionen.</h1>
         </div>
-        <span className="status-pill status-pill--active">Stripe ready</span>
+        <span className="status-pill status-pill--active">Stripe bereit</span>
       </header>
       <ProductManager />
     </>

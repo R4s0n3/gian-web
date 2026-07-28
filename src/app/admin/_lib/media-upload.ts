@@ -30,15 +30,15 @@ type CreateUpload = (input: {
 
 export function validateMediaFile(file: File): asserts file is ValidMediaFile {
   if (!MEDIA_MIME_TYPES.some((type) => type === file.type)) {
-    throw new Error("Choose a JPEG, PNG, WebP, GIF, or AVIF image.");
+    throw new Error("Wähle ein Bild im Format JPEG, PNG, WebP, GIF oder AVIF.");
   }
 
   if (file.size === 0) {
-    throw new Error("The selected file is empty.");
+    throw new Error("Die ausgewählte Datei ist leer.");
   }
 
   if (file.size > MEDIA_MAX_FILE_SIZE) {
-    throw new Error("Images must be 20 MiB or smaller.");
+    throw new Error("Bilder dürfen höchstens 20 MiB groß sein.");
   }
 }
 
@@ -58,7 +58,7 @@ export async function uploadMediaFile(file: File, createUpload: CreateUpload) {
   });
 
   if (!response.ok) {
-    throw new Error(`R2 rejected the upload (${response.status}).`);
+    throw new Error(`R2 hat den Upload abgelehnt (${response.status}).`);
   }
 
   return {
@@ -70,5 +70,5 @@ export async function uploadMediaFile(file: File, createUpload: CreateUpload) {
 export function mediaErrorMessage(error: unknown) {
   return error instanceof Error
     ? error.message
-    : "The image could not be uploaded. Please try again.";
+    : "Das Bild konnte nicht hochgeladen werden. Bitte versuche es erneut.";
 }

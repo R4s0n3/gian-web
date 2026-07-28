@@ -32,7 +32,7 @@ const deleteSchema = z.object({
     .string()
     .min(1)
     .max(1024)
-    .refine(isManagedMediaKey, "Media key is invalid"),
+    .refine(isManagedMediaKey, "Der Medienschlüssel ist ungültig"),
 });
 
 async function runR2Operation<T>(operation: () => Promise<T>) {
@@ -46,7 +46,7 @@ async function runR2Operation<T>(operation: () => Promise<T>) {
     if (error instanceof R2ConfigurationError) {
       throw new TRPCError({
         code: "PRECONDITION_FAILED",
-        message: error.message,
+        message: "Der R2-Medienspeicher ist nicht korrekt konfiguriert",
         cause: error,
       });
     }
@@ -54,7 +54,7 @@ async function runR2Operation<T>(operation: () => Promise<T>) {
     console.error("Cloudflare R2 media operation failed", error);
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
-      message: "The media storage request failed",
+      message: "Die Anfrage an den Medienspeicher ist fehlgeschlagen",
       cause: error,
     });
   }
@@ -97,7 +97,7 @@ export const mediaRouter = createTRPCRouter({
         throw new TRPCError({
           code: "CONFLICT",
           message:
-            "This image is still used by a gallery post or product and cannot be deleted",
+            "Dieses Bild wird noch von einem Galeriebeitrag oder Produkt verwendet und kann nicht gelöscht werden",
         });
       }
 

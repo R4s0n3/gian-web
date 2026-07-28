@@ -5,10 +5,10 @@ export default function AdminOverviewPage() {
     <>
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">Private studio / overview</p>
-          <h1 className="display">Good work starts here.</h1>
+          <p className="eyebrow">Privates Studio / Übersicht</p>
+          <h1 className="display">Gute Arbeit beginnt hier.</h1>
         </div>
-        <span className="status-pill">Admin workspace</span>
+        <span className="status-pill">Adminbereich</span>
       </header>
       <OverviewClient />
     </>

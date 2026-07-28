@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Studio Admin",
+    default: "Studioverwaltung",
     template: "%s — Gian Studio",
   },
   robots: { index: false, follow: false },

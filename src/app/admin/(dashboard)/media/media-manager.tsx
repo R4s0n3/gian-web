@@ -11,6 +11,7 @@ import {
   uploadMediaFile,
   validateMediaFile,
 } from "@/app/admin/_lib/media-upload";
+import { uploadStateLabel } from "@/app/admin/_lib/labels";
 import { api } from "@/trpc/react";
 
 type UploadState = "queued" | "uploading" | "success" | "error";
@@ -36,12 +37,12 @@ function formatBytes(bytes: number) {
 }
 
 function formatDate(value: Date | string | null) {
-  if (!value) return "Unknown date";
+  if (!value) return "Unbekanntes Datum";
 
   const date = new Date(value);
   return Number.isNaN(date.getTime())
-    ? "Unknown date"
-    : new Intl.DateTimeFormat(undefined, {
+    ? "Unbekanntes Datum"
+    : new Intl.DateTimeFormat("de-DE", {
         dateStyle: "medium",
         timeStyle: "short",
       }).format(date);
@@ -83,7 +84,7 @@ export function MediaManager() {
   async function uploadOne(item: UploadItem) {
     updateUpload(item.id, {
       state: "uploading",
-      message: "Sending to R2…",
+      message: "Wird an R2 gesendet…",
       retryable: false,
     });
 
@@ -93,7 +94,7 @@ export function MediaManager() {
       );
       updateUpload(item.id, {
         state: "success",
-        message: "Uploaded",
+        message: "Hochgeladen",
         publicUrl: result.publicUrl,
         retryable: false,
       });
@@ -126,7 +127,9 @@ export function MediaManager() {
 
   function addFiles(fileList: FileList | File[]) {
     if (uploading) {
-      setBatchMessage("Wait for the current batch before adding more files.");
+      setBatchMessage(
+        "Warte auf den aktuellen Stapel, bevor du weitere Dateien hinzufügst.",
+      );
       return;
     }
 
@@ -136,7 +139,7 @@ export function MediaManager() {
     const limited = selected.slice(0, MEDIA_MAX_BATCH_SIZE);
     setBatchMessage(
       selected.length > MEDIA_MAX_BATCH_SIZE
-        ? `Only the first ${MEDIA_MAX_BATCH_SIZE} files were added.`
+        ? `Nur die ersten ${MEDIA_MAX_BATCH_SIZE} Dateien wurden hinzugefügt.`
         : "",
     );
 
@@ -148,7 +151,7 @@ export function MediaManager() {
           id: `${now}-${index}-${file.name}`,
           file,
           state: "queued",
-          message: "Waiting…",
+          message: "Wartet…",
           retryable: false,
         };
       } catch (error) {
@@ -175,7 +178,7 @@ export function MediaManager() {
       await navigator.clipboard.writeText(url);
       setCopiedKey(key);
       setLibraryStatus({
-        message: "Public URL copied to the clipboard.",
+        message: "Öffentliche URL wurde in die Zwischenablage kopiert.",
         tone: "info",
       });
       window.setTimeout(
@@ -184,7 +187,8 @@ export function MediaManager() {
       );
     } catch {
       setLibraryStatus({
-        message: "The URL could not be copied. Copy it manually instead.",
+        message:
+          "Die URL konnte nicht kopiert werden. Kopiere sie stattdessen manuell.",
         tone: "error",
       });
     }
@@ -193,7 +197,7 @@ export function MediaManager() {
   async function removeMedia(key: string) {
     if (
       !window.confirm(
-        `Delete “${mediaName(key)}” from R2? This cannot be undone, and copied URLs may still be used elsewhere.`,
+        `„${mediaName(key)}“ aus R2 löschen? Dies kann nicht rückgängig gemacht werden und kopierte URLs können noch an anderer Stelle verwendet werden.`,
       )
     ) {
       return;
@@ -204,7 +208,7 @@ export function MediaManager() {
     try {
       await deleteMedia.mutateAsync({ key });
       setLibraryStatus({
-        message: `${mediaName(key)} was deleted.`,
+        message: `${mediaName(key)} wurde gelöscht.`,
         tone: "info",
       });
       await utils.media.list.invalidate();
@@ -222,9 +226,9 @@ export function MediaManager() {
     <div className="media-admin">
       <section className="admin-panel">
         <div className="admin-panel__head">
-          <h2>Upload images</h2>
+          <h2>Bilder hochladen</h2>
           <span className="status-pill">
-            {uploading ? "Uploading" : "Ready"}
+            {uploading ? "Wird hochgeladen" : "Bereit"}
           </span>
         </div>
         <div className="admin-panel__body media-upload-panel">
@@ -252,8 +256,8 @@ export function MediaManager() {
             }}
           >
             <p>
-              <strong>Drop images here</strong>
-              <span>or choose up to 20 files at once</span>
+              <strong>Bilder hier ablegen</strong>
+              <span>oder bis zu 20 Dateien gleichzeitig auswählen</span>
             </p>
             <button
               className="button button--ember button--small"
@@ -261,7 +265,7 @@ export function MediaManager() {
               onClick={() => fileInputRef.current?.click()}
               type="button"
             >
-              Choose images
+              Bilder auswählen
             </button>
             <input
               accept={MEDIA_FILE_ACCEPT}
@@ -276,7 +280,9 @@ export function MediaManager() {
               tabIndex={-1}
               type="file"
             />
-            <small>JPEG, PNG, WebP, GIF, or AVIF · 20 MiB maximum each</small>
+            <small>
+              JPEG, PNG, WebP, GIF oder AVIF · jeweils maximal 20 MiB
+            </small>
           </div>
 
           {batchMessage && (
@@ -288,14 +294,14 @@ export function MediaManager() {
           {uploads.length > 0 && (
             <div className="media-upload-queue">
               <div className="media-upload-queue__head">
-                <h3>Current session</h3>
+                <h3>Aktuelle Sitzung</h3>
                 {!uploading && (
                   <button
                     className="admin-icon-button"
                     onClick={() => setUploads([])}
                     type="button"
                   >
-                    Clear list
+                    Liste leeren
                   </button>
                 )}
               </div>
@@ -315,7 +321,7 @@ export function MediaManager() {
                             : "pending"
                       }`}
                     >
-                      {item.state}
+                      {uploadStateLabel(item.state)}
                     </span>
                     <p
                       className={
@@ -333,7 +339,7 @@ export function MediaManager() {
                           }
                           type="button"
                         >
-                          {copiedKey === item.id ? "Copied" : "Copy URL"}
+                          {copiedKey === item.id ? "Kopiert" : "URL kopieren"}
                         </button>
                       )}
                       {item.retryable && (
@@ -347,7 +353,7 @@ export function MediaManager() {
                           }}
                           type="button"
                         >
-                          Retry
+                          Erneut versuchen
                         </button>
                       )}
                     </div>
@@ -361,14 +367,14 @@ export function MediaManager() {
 
       <section className="admin-panel">
         <div className="admin-panel__head">
-          <h2>R2 image library</h2>
+          <h2>R2-Bildbibliothek</h2>
           <button
             className="admin-icon-button"
             disabled={library.isFetching}
             onClick={() => void library.refetch()}
             type="button"
           >
-            {library.isFetching ? "Refreshing…" : "Refresh"}
+            {library.isFetching ? "Wird aktualisiert…" : "Aktualisieren"}
           </button>
         </div>
 
@@ -388,7 +394,7 @@ export function MediaManager() {
         )}
 
         {library.isLoading ? (
-          <div className="admin-loading">Loading the R2 library…</div>
+          <div className="admin-loading">R2-Bibliothek wird geladen…</div>
         ) : library.error ? (
           <div className="admin-empty">
             <div>
@@ -398,7 +404,7 @@ export function MediaManager() {
                 onClick={() => void library.refetch()}
                 type="button"
               >
-                Try again
+                Erneut versuchen
               </button>
             </div>
           </div>
@@ -424,7 +430,7 @@ export function MediaManager() {
                         onClick={() => void copyUrl(item.key, item.publicUrl)}
                         type="button"
                       >
-                        {copiedKey === item.key ? "Copied" : "Copy URL"}
+                        {copiedKey === item.key ? "Kopiert" : "URL kopieren"}
                       </button>
                       <button
                         className="admin-icon-button admin-icon-button--danger"
@@ -432,7 +438,9 @@ export function MediaManager() {
                         onClick={() => void removeMedia(item.key)}
                         type="button"
                       >
-                        {deletingKey === item.key ? "Deleting…" : "Delete"}
+                        {deletingKey === item.key
+                          ? "Wird gelöscht…"
+                          : "Löschen"}
                       </button>
                     </div>
                   </div>
@@ -448,9 +456,9 @@ export function MediaManager() {
                 }
                 type="button"
               >
-                ← Previous
+                ← Zurück
               </button>
-              <span>Page {cursorHistory.length}</span>
+              <span>Seite {cursorHistory.length}</span>
               <button
                 className="admin-icon-button"
                 disabled={!library.data.nextCursor || library.isFetching}
@@ -462,13 +470,13 @@ export function MediaManager() {
                 }}
                 type="button"
               >
-                Next →
+                Weiter →
               </button>
             </div>
           </>
         ) : (
           <div className="admin-empty">
-            No images have been uploaded to the media library yet.
+            Es wurden noch keine Bilder in die Medienbibliothek hochgeladen.
           </div>
         )}
       </section>

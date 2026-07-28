@@ -83,7 +83,7 @@ export function ProductManager() {
     <div className="admin-grid">
       <section className="admin-panel">
         <div className="admin-panel__head">
-          <h2>{editingId ? "Edit product" : "Add product"}</h2>
+          <h2>{editingId ? "Produkt bearbeiten" : "Produkt hinzufügen"}</h2>
           {editingId && (
             <button
               className="admin-icon-button"
@@ -94,7 +94,7 @@ export function ProductManager() {
               }}
               type="button"
             >
-              Cancel edit
+              Bearbeitung abbrechen
             </button>
           )}
         </div>
@@ -124,7 +124,7 @@ export function ProductManager() {
             }}
           >
             <div className="form-field">
-              <label htmlFor="product-name">Product name</label>
+              <label htmlFor="product-name">Produktname</label>
               <input
                 className="form-input"
                 id="product-name"
@@ -140,13 +140,13 @@ export function ProductManager() {
                         : current.slug,
                   }));
                 }}
-                placeholder="Threshold I / Archival print"
+                placeholder="Threshold I / Archivdruck"
                 required
                 value={form.name}
               />
             </div>
             <div className="form-field">
-              <label htmlFor="product-slug">URL slug</label>
+              <label htmlFor="product-slug">URL-Kürzel</label>
               <input
                 className="form-input"
                 id="product-slug"
@@ -161,25 +161,25 @@ export function ProductManager() {
               disabled={pending}
               id="product-image"
               key={editingId ?? "new"}
-              label="Image URL (optional)"
+              label="Bild-URL (optional)"
               onBusyChange={setImageUploading}
               onChange={(value) => update("imageUrl", value)}
               placeholder="/artworks/threshold-i.webp"
               value={form.imageUrl}
             />
             <div className="form-field">
-              <label htmlFor="product-description">Description</label>
+              <label htmlFor="product-description">Beschreibung</label>
               <textarea
                 className="form-textarea"
                 id="product-description"
                 onChange={(event) => update("description", event.target.value)}
-                placeholder="Edition, material, size, and fulfilment details."
+                placeholder="Details zu Edition, Material, Größe und Versand."
                 value={form.description}
               />
             </div>
             <div className="form-grid">
               <div className="form-field">
-                <label htmlFor="product-price">Price</label>
+                <label htmlFor="product-price">Preis</label>
                 <input
                   className="form-input"
                   id="product-price"
@@ -193,7 +193,7 @@ export function ProductManager() {
                 />
               </div>
               <div className="form-field">
-                <label htmlFor="product-currency">Currency (fixed)</label>
+                <label htmlFor="product-currency">Währung (fest)</label>
                 <input
                   className="form-input"
                   id="product-currency"
@@ -206,7 +206,7 @@ export function ProductManager() {
               </div>
               <div className="form-field">
                 <label htmlFor="product-inventory">
-                  Inventory (blank = unlimited)
+                  Bestand (leer = unbegrenzt)
                 </label>
                 <input
                   className="form-input"
@@ -218,7 +218,7 @@ export function ProductManager() {
                 />
               </div>
               <div className="form-field">
-                <label htmlFor="product-order">Sort order</label>
+                <label htmlFor="product-order">Sortierreihenfolge</label>
                 <input
                   className="form-input"
                   id="product-order"
@@ -234,7 +234,10 @@ export function ProductManager() {
                 onChange={(event) => update("active", event.target.checked)}
                 type="checkbox"
               />
-              <span>Active products appear publicly and can be purchased.</span>
+              <span>
+                Aktive Produkte sind öffentlich sichtbar und können gekauft
+                werden.
+              </span>
             </label>
 
             {mutationError && (
@@ -249,12 +252,12 @@ export function ProductManager() {
               type="submit"
             >
               {imageUploading
-                ? "Uploading image…"
+                ? "Bild wird hochgeladen…"
                 : pending
-                  ? "Saving…"
+                  ? "Wird gespeichert…"
                   : editingId
-                    ? "Update product"
-                    : "Create product"}
+                    ? "Produkt aktualisieren"
+                    : "Produkt erstellen"}
             </button>
           </form>
         </div>
@@ -262,13 +265,13 @@ export function ProductManager() {
 
       <section className="admin-panel">
         <div className="admin-panel__head">
-          <h2>Product catalogue</h2>
+          <h2>Produktkatalog</h2>
           <span className="status-pill">
-            {products.data?.length ?? 0} products
+            {products.data?.length ?? 0} Produkte
           </span>
         </div>
         {products.isLoading ? (
-          <div className="admin-loading">Loading the catalogue…</div>
+          <div className="admin-loading">Katalog wird geladen…</div>
         ) : products.error ? (
           <div className="admin-empty">{products.error.message}</div>
         ) : products.data?.length ? (
@@ -276,11 +279,11 @@ export function ProductManager() {
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Stock</th>
+                  <th>Produkt</th>
+                  <th>Preis</th>
+                  <th>Bestand</th>
                   <th>Status</th>
-                  <th>Actions</th>
+                  <th>Aktionen</th>
                 </tr>
               </thead>
               <tbody>
@@ -310,7 +313,7 @@ export function ProductManager() {
                       <span
                         className={`status-pill status-pill--${product.active ? "active" : "draft"}`}
                       >
-                        {product.active ? "Active" : "Hidden"}
+                        {product.active ? "Aktiv" : "Ausgeblendet"}
                       </span>
                     </td>
                     <td>
@@ -334,7 +337,7 @@ export function ProductManager() {
                           }}
                           type="button"
                         >
-                          Edit
+                          Bearbeiten
                         </button>
                         <button
                           className="admin-icon-button"
@@ -347,7 +350,7 @@ export function ProductManager() {
                           }
                           type="button"
                         >
-                          {product.active ? "Hide" : "Activate"}
+                          {product.active ? "Ausblenden" : "Aktivieren"}
                         </button>
                         <button
                           className="admin-icon-button admin-icon-button--danger"
@@ -355,7 +358,7 @@ export function ProductManager() {
                           onClick={() => {
                             if (
                               window.confirm(
-                                `Permanently delete “${product.name}”? Existing orders keep a snapshot.`,
+                                `„${product.name}“ dauerhaft löschen? Bestehende Bestellungen behalten eine Momentaufnahme.`,
                               )
                             ) {
                               deleteProduct.mutate({ id: product.id });
@@ -363,7 +366,7 @@ export function ProductManager() {
                           }}
                           type="button"
                         >
-                          Delete
+                          Löschen
                         </button>
                       </div>
                     </td>
@@ -374,7 +377,7 @@ export function ProductManager() {
           </div>
         ) : (
           <div className="admin-empty">
-            No products yet. Build the first studio edition here.
+            Noch keine Produkte. Lege hier die erste Studioedition an.
           </div>
         )}
       </section>

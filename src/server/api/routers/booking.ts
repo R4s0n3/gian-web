@@ -195,7 +195,7 @@ export const bookingRouter = createTRPCRouter({
             if (!allowedStatuses.includes(input.status)) {
               throw new TRPCError({
                 code: "BAD_REQUEST",
-                message: `Booking cannot move from ${booking.status} to ${input.status}`,
+                message: `Der Terminstatus kann nicht von ${booking.status} zu ${input.status} geändert werden`,
               });
             }
 
@@ -221,7 +221,7 @@ export const bookingRouter = createTRPCRouter({
                 throw new TRPCError({
                   code: "CONFLICT",
                   message:
-                    "Another confirmed booking already occupies that time slot",
+                    "Ein anderer bestätigter Termin belegt dieses Zeitfenster bereits",
                 });
               }
             }
@@ -240,7 +240,8 @@ export const bookingRouter = createTRPCRouter({
         if (isSerializableConflict(error)) {
           throw new TRPCError({
             code: "CONFLICT",
-            message: "Booking state changed concurrently. Please try again.",
+            message:
+              "Der Terminstatus wurde gleichzeitig geändert. Bitte versuche es erneut.",
           });
         }
         throw error;

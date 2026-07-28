@@ -13,13 +13,13 @@ const slugSchema = z
   .max(120)
   .regex(
     /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-    "Use lowercase letters, numbers, and hyphens",
+    "Verwende Kleinbuchstaben, Zahlen und Bindestriche",
   );
 const currencySchema = z
   .string()
   .trim()
   .transform((value) => value.toUpperCase())
-  .pipe(z.literal("EUR", { errorMap: () => ({ message: "Use EUR" }) }));
+  .pipe(z.literal("EUR", { errorMap: () => ({ message: "Verwende EUR" }) }));
 
 const productFields = {
   slug: slugSchema,
@@ -56,7 +56,7 @@ const updateProductSchema = z
   .refine(
     ({ id: _id, ...changes }) =>
       Object.values(changes).some((value) => value !== undefined),
-    { message: "At least one field must be updated" },
+    { message: "Mindestens ein Feld muss aktualisiert werden" },
   );
 
 const productOrderBy = [

@@ -14,7 +14,7 @@ export default async function AdminDashboardLayout({
 
   return (
     <div className="admin-layout">
-      <AdminSidebar email={session.user.email ?? "Administrator"} />
+      <AdminSidebar email={session.user.email ?? "Administration"} />
       <main className="admin-main" id="main-content">
         {children}
       </main>

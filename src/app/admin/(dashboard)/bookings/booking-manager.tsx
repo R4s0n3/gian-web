@@ -4,6 +4,7 @@ import {
   STUDIO_TIME_ZONE,
   STUDIO_TIME_ZONE_LABEL,
 } from "@/app/_lib/studio-time";
+import { adminStatusLabel } from "@/app/admin/_lib/labels";
 import { api } from "@/trpc/react";
 
 const bookingStatuses = [
@@ -23,7 +24,7 @@ const allowedTransitions: Record<BookingStatus, readonly BookingStatus[]> = {
 };
 
 function formatDate(value: Date | string) {
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat("de-DE", {
     weekday: "short",
     day: "2-digit",
     month: "short",
@@ -46,7 +47,7 @@ export function BookingManager() {
   if (bookings.isLoading) {
     return (
       <section className="admin-panel">
-        <div className="admin-loading">Opening the studio diary…</div>
+        <div className="admin-loading">Studiokalender wird geöffnet…</div>
       </section>
     );
   }
@@ -63,7 +64,7 @@ export function BookingManager() {
     return (
       <section className="admin-panel">
         <div className="admin-empty">
-          No appointment requests yet. Public requests will arrive here.
+          Noch keine Terminanfragen. Öffentliche Anfragen erscheinen hier.
         </div>
       </section>
     );
@@ -72,8 +73,8 @@ export function BookingManager() {
   return (
     <section className="admin-panel">
       <div className="admin-panel__head">
-        <h2>Appointment requests</h2>
-        <span className="status-pill">{bookings.data.length} requests</span>
+        <h2>Terminanfragen</h2>
+        <span className="status-pill">{bookings.data.length} Anfragen</span>
       </div>
 
       {updateStatus.error && (
@@ -90,12 +91,12 @@ export function BookingManager() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>Client</th>
-              <th>Project</th>
-              <th>Requested time</th>
-              <th>Notes</th>
+              <th>Kundschaft</th>
+              <th>Projekt</th>
+              <th>Gewünschter Termin</th>
+              <th>Notizen</th>
               <th>Status</th>
-              <th>Received</th>
+              <th>Eingegangen</th>
             </tr>
           </thead>
           <tbody>
@@ -117,14 +118,14 @@ export function BookingManager() {
                   {formatDate(booking.startAt)}
                   <br />
                   <span style={{ color: "var(--bone-dim)" }}>
-                    {booking.durationMinutes} minutes · {STUDIO_TIME_ZONE_LABEL}
+                    {booking.durationMinutes} Minuten · {STUDIO_TIME_ZONE_LABEL}
                   </span>
                 </td>
                 <td>
                   {booking.notes ? (
                     <details>
                       <summary style={{ cursor: "pointer" }}>
-                        Read request
+                        Anfrage lesen
                       </summary>
                       <p
                         style={{
@@ -143,7 +144,7 @@ export function BookingManager() {
                 </td>
                 <td>
                   <label className="sr-only" htmlFor={`booking-${booking.id}`}>
-                    Status for {booking.name}
+                    Status für {booking.name}
                   </label>
                   <select
                     className="form-select"
@@ -162,13 +163,13 @@ export function BookingManager() {
                   >
                     {allowedTransitions[booking.status].map((status) => (
                       <option key={status} value={status}>
-                        {status}
+                        {adminStatusLabel(status)}
                       </option>
                     ))}
                   </select>
                 </td>
                 <td>
-                  {new Intl.DateTimeFormat("en", {
+                  {new Intl.DateTimeFormat("de-DE", {
                     day: "2-digit",
                     month: "short",
                     year: "numeric",

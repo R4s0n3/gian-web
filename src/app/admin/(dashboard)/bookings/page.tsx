@@ -5,10 +5,10 @@ export default function AdminBookingsPage() {
     <>
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">Studio diary / requests</p>
-          <h1 className="display">Bookings.</h1>
+          <p className="eyebrow">Studiokalender / Anfragen</p>
+          <h1 className="display">Termine.</h1>
         </div>
-        <span className="status-pill status-pill--pending">Needs review</span>
+        <span className="status-pill status-pill--pending">Zu prüfen</span>
       </header>
       <BookingManager />
     </>

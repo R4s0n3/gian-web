@@ -7,7 +7,7 @@ import { LoginForm } from "@/app/admin/login/login-form";
 import { auth } from "@/server/auth";
 
 export const metadata: Metadata = {
-  title: "Admin Login",
+  title: "Admin-Anmeldung",
 };
 
 type LoginPageProps = {
@@ -48,23 +48,23 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
       <div className="admin-login__art" aria-hidden="true">
         <img src="/artworks/threshold-i.webp" alt="" />
         <div className="admin-login__brand">
-          <p className="eyebrow">Private studio system</p>
-          <h1 className="display">Behind the work.</h1>
+          <p className="eyebrow">Privates Studiosystem</p>
+          <h1 className="display">Hinter den Werken.</h1>
         </div>
       </div>
 
       <div className="admin-login__panel">
-        <Link className="site-logo" href="/" aria-label="Return to portfolio">
+        <Link className="site-logo" href="/" aria-label="Zurück zum Portfolio">
           <span className="site-logo__mark">Gian</span>
-          <span className="site-logo__descriptor">Return to portfolio</span>
+          <span className="site-logo__descriptor">Zurück zum Portfolio</span>
         </Link>
         <p className="eyebrow" style={{ marginTop: "4rem" }}>
-          Authorized administrators only
+          Nur für autorisierte Administratoren
         </p>
-        <h2 className="display">Studio access.</h2>
+        <h2 className="display">Studiozugang.</h2>
         <p>
-          Manage the work, editions, orders, and appointment requests from one
-          private space.
+          Verwalte Werke, Editionen, Bestellungen und Terminanfragen an einem
+          privaten Ort.
         </p>
         <LoginForm callbackUrl={destination} />
       </div>

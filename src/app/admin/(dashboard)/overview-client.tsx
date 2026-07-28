@@ -4,10 +4,11 @@ import Link from "next/link";
 
 import { formatMoney } from "@/app/_lib/content-shared";
 import { STUDIO_TIME_ZONE } from "@/app/_lib/studio-time";
+import { adminStatusLabel } from "@/app/admin/_lib/labels";
 import { api } from "@/trpc/react";
 
 function formatDate(value: Date | string, timeZone?: string) {
-  return new Intl.DateTimeFormat("en", {
+  return new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -53,19 +54,19 @@ export function OverviewClient() {
     <>
       {error && (
         <p className="form-status form-status--error" role="alert">
-          Dashboard data could not be loaded: {error.message}
+          Dashboarddaten konnten nicht geladen werden: {error.message}
         </p>
       )}
 
       <div className="admin-kpis" aria-busy={loading}>
         <article className="admin-kpi">
-          <span className="admin-kpi__label">Published works</span>
+          <span className="admin-kpi__label">Veröffentlichte Werke</span>
           <strong className="admin-kpi__value">
             {loading ? "—" : published}
           </strong>
         </article>
         <article className="admin-kpi">
-          <span className="admin-kpi__label">Active products</span>
+          <span className="admin-kpi__label">Aktive Produkte</span>
           <strong className="admin-kpi__value">
             {loading
               ? "—"
@@ -73,7 +74,9 @@ export function OverviewClient() {
           </strong>
         </article>
         <article className="admin-kpi">
-          <span className="admin-kpi__label">Gross paid orders</span>
+          <span className="admin-kpi__label">
+            Umsatz bezahlter Bestellungen
+          </span>
           <strong className="admin-kpi__value">
             {loading
               ? "—"
@@ -88,7 +91,7 @@ export function OverviewClient() {
           </strong>
         </article>
         <article className="admin-kpi">
-          <span className="admin-kpi__label">Booking requests</span>
+          <span className="admin-kpi__label">Offene Terminanfragen</span>
           <strong className="admin-kpi__value">
             {loading ? "—" : pendingBookings}
           </strong>
@@ -98,20 +101,20 @@ export function OverviewClient() {
       <div className="admin-grid">
         <section className="admin-panel">
           <div className="admin-panel__head">
-            <h2>Upcoming requests</h2>
+            <h2>Anstehende Anfragen</h2>
             <Link className="text-link" href="/admin/bookings">
-              All bookings
+              Alle Termine
             </Link>
           </div>
           {bookings.isLoading ? (
-            <div className="admin-loading">Loading the diary…</div>
+            <div className="admin-loading">Kalender wird geladen…</div>
           ) : upcomingBookings.length ? (
             <div className="admin-table-wrap">
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Client</th>
-                    <th>Date</th>
+                    <th>Kundschaft</th>
+                    <th>Datum</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -130,7 +133,7 @@ export function OverviewClient() {
                         <span
                           className={`status-pill status-pill--${booking.status.toLowerCase()}`}
                         >
-                          {booking.status}
+                          {adminStatusLabel(booking.status)}
                         </span>
                       </td>
                     </tr>
@@ -139,27 +142,27 @@ export function OverviewClient() {
               </table>
             </div>
           ) : (
-            <div className="admin-empty">No appointment requests yet.</div>
+            <div className="admin-empty">Noch keine Terminanfragen.</div>
           )}
         </section>
 
         <section className="admin-panel">
           <div className="admin-panel__head">
-            <h2>Recent orders</h2>
+            <h2>Neueste Bestellungen</h2>
             <Link className="text-link" href="/admin/orders">
-              All orders
+              Alle Bestellungen
             </Link>
           </div>
           {orders.isLoading ? (
-            <div className="admin-loading">Loading orders…</div>
+            <div className="admin-loading">Bestellungen werden geladen…</div>
           ) : orders.data?.length ? (
             <div className="admin-table-wrap">
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Customer</th>
-                    <th>Items</th>
-                    <th>Total</th>
+                    <th>Kundschaft</th>
+                    <th>Artikel</th>
+                    <th>Gesamt</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -184,7 +187,7 @@ export function OverviewClient() {
                         <span
                           className={`status-pill status-pill--${order.status.toLowerCase()}`}
                         >
-                          {order.status}
+                          {adminStatusLabel(order.status)}
                         </span>
                       </td>
                     </tr>
@@ -193,7 +196,7 @@ export function OverviewClient() {
               </table>
             </div>
           ) : (
-            <div className="admin-empty">No shop orders yet.</div>
+            <div className="admin-empty">Noch keine Shop-Bestellungen.</div>
           )}
         </section>
       </div>
