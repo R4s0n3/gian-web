@@ -82,22 +82,36 @@ export const mediaRouter = createTRPCRouter({
   delete: adminProcedure.input(deleteSchema).mutation(({ ctx, input }) =>
     runR2Operation(async () => {
       const publicUrl = getR2PublicMediaUrl(input.key);
-      const [galleryReference, productReference] = await Promise.all([
-        ctx.db.galleryPost.findFirst({
-          where: { imageUrl: publicUrl },
-          select: { id: true },
-        }),
-        ctx.db.product.findFirst({
-          where: { imageUrl: publicUrl },
-          select: { id: true },
-        }),
-      ]);
+      const [galleryReference, productReference, heroReference] =
+        await Promise.all([
+          ctx.db.galleryPost.findFirst({
+            where: {
+              OR: [
+                { imageUrl: publicUrl },
+                {
+                  images: {
+                    array_contains: [{ url: publicUrl }],
+                  },
+                },
+              ],
+            },
+            select: { id: true },
+          }),
+          ctx.db.product.findFirst({
+            where: { imageUrl: publicUrl },
+            select: { id: true },
+          }),
+          ctx.db.siteSettings.findFirst({
+            where: { heroImageUrl: publicUrl },
+            select: { id: true },
+          }),
+        ]);
 
-      if (galleryReference || productReference) {
+      if (galleryReference || productReference || heroReference) {
         throw new TRPCError({
           code: "CONFLICT",
           message:
-            "Dieses Bild wird noch von einem Galeriebeitrag oder Produkt verwendet und kann nicht gelöscht werden",
+            "Dieses Bild wird noch von einem Galeriebeitrag, Produkt oder als Hero verwendet und kann nicht gelöscht werden",
         });
       }
 

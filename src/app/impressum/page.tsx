@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-import { SiteFooter } from "@/app/_components/site-footer";
-import { SiteHeader } from "@/app/_components/site-header";
+import { PublicSite } from "@/app/_components/public-site";
 import { legalDetails, legalDetailsComplete } from "@/app/_lib/legal";
 
 export const metadata: Metadata = {
@@ -11,8 +10,7 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <>
-      <SiteHeader />
+    <PublicSite>
       <main id="main-content">
         <section className="page-hero">
           <div className="site-shell page-hero__grid">
@@ -102,7 +100,6 @@ export default function ImpressumPage() {
           </div>
         </section>
       </main>
-      <SiteFooter />
-    </>
+    </PublicSite>
   );
 }

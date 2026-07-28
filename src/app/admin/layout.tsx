@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -6,6 +6,11 @@ export const metadata: Metadata = {
     template: "%s — GIAN-LUCA Studio",
   },
   robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#10100e",
 };
 
 export default function AdminRootLayout({

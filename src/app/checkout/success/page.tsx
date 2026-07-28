@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { TRPCError } from "@trpc/server";
 
-import { SiteFooter } from "@/app/_components/site-footer";
-import { SiteHeader } from "@/app/_components/site-header";
+import { PublicSite } from "@/app/_components/public-site";
 import { api } from "@/trpc/server";
 
 export const metadata: Metadata = {
@@ -110,8 +109,7 @@ export default async function CheckoutSuccessPage({
   const message = content[state];
 
   return (
-    <>
-      <SiteHeader />
+    <PublicSite>
       <main className="success-page" id="main-content">
         <div className="site-shell success-page__inner">
           <p className="eyebrow">{message.eyebrow}</p>
@@ -122,12 +120,11 @@ export default async function CheckoutSuccessPage({
               Zurück zum Portfolio
             </Link>
             <Link className="button" href="/doom">
-              Digitale Galerie betreten ↗
+              Zur Galerie ↗
             </Link>
           </div>
         </div>
       </main>
-      <SiteFooter />
-    </>
+    </PublicSite>
   );
 }

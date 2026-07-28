@@ -3,6 +3,10 @@ export type GalleryImage = {
   alt: string;
 };
 
+export const GALLERY_CATEGORIES = ["PAINTING", "PHOTOGRAPHY"] as const;
+
+export type GalleryCategory = (typeof GALLERY_CATEGORIES)[number];
+
 export function parseGalleryImages(value: unknown): GalleryImage[] {
   if (!Array.isArray(value)) return [];
 
@@ -28,6 +32,7 @@ export type GalleryItem = {
   id: string;
   slug: string;
   title: string;
+  category: GalleryCategory;
   excerpt: string;
   description: string;
   imageUrl: string;
@@ -38,6 +43,11 @@ export type GalleryItem = {
   year: string;
   featured: boolean;
   sortOrder: number;
+};
+
+export type PublicSiteSettings = {
+  heroImageUrl: string | null;
+  heroImageAlt: string | null;
 };
 
 export type ProductItem = {

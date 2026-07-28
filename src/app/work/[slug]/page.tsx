@@ -4,9 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ArtworkCard } from "@/app/_components/artwork-card";
-import { SiteFooter } from "@/app/_components/site-footer";
-import { SiteHeader } from "@/app/_components/site-header";
+import { PublicSite } from "@/app/_components/public-site";
 import { getPublicGallery } from "@/app/_lib/content";
+import { galleryCategoryPresentation } from "@/app/_lib/gallery-categories";
 import { getSocialLinks } from "@/app/_lib/social-links";
 import { env } from "@/env";
 
@@ -31,7 +31,7 @@ export async function generateMetadata({
     title: artwork.title,
     description: artwork.excerpt,
     openGraph: {
-      title: `${artwork.title} — GIAN-LUCA`,
+      title: `${artwork.title} — Gian-Luca Blasius`,
       description: artwork.excerpt,
       images: [
         { url: artwork.imageUrl, alt: artwork.imageAlt },
@@ -54,8 +54,20 @@ export default async function WorkPage({ params }: WorkPageProps) {
     notFound();
   }
 
-  const related = gallery.filter((item) => item.id !== artwork.id).slice(0, 2);
-  const nextArtwork = gallery[(artworkIndex + 1) % gallery.length];
+  const category = galleryCategoryPresentation[artwork.category];
+  const categoryGallery = gallery.filter(
+    (item) => item.category === artwork.category,
+  );
+  const categoryArtworkIndex = categoryGallery.findIndex(
+    (item) => item.id === artwork.id,
+  );
+  const related = categoryGallery
+    .filter((item) => item.id !== artwork.id)
+    .slice(0, 2);
+  const nextArtwork =
+    categoryGallery.length > 1
+      ? categoryGallery[(categoryArtworkIndex + 1) % categoryGallery.length]
+      : undefined;
   const siteUrl = env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const artworkUrl = new URL(`/work/${artwork.slug}`, siteUrl).toString();
   const artworkImageUrl = new URL(artwork.imageUrl, siteUrl).toString();
@@ -70,18 +82,17 @@ export default async function WorkPage({ params }: WorkPageProps) {
   ];
 
   return (
-    <>
-      <SiteHeader />
+    <PublicSite>
       <main id="main-content">
         <article className="work-detail">
           <div className="site-shell">
             <div className="work-detail__topline">
-              <Link className="text-link" href="/#work">
-                ← Ausgewählte Arbeiten
+              <Link className="text-link" href={category.archiveHref}>
+                ← Alle {category.plural}
               </Link>
               {nextArtwork && (
                 <Link className="text-link" href={`/work/${nextArtwork.slug}`}>
-                  Nächste Arbeit →
+                  {category.nextLabel} →
                 </Link>
               )}
             </div>
@@ -100,7 +111,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
             <div className="work-detail__info">
               <div>
                 <p className="eyebrow">
-                  Arbeit {String(artworkIndex + 1).padStart(2, "0")}
+                  {category.singular}{" "}
+                  {String(categoryArtworkIndex + 1).padStart(2, "0")}
                 </p>
                 <h1 className="display work-detail__title">{artwork.title}</h1>
                 <p className="work-detail__description">
@@ -123,8 +135,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
                     <dd>{artwork.dimensions}</dd>
                   </div>
                   <div>
-                    <dt>Edition</dt>
-                    <dd>Originalarbeit</dd>
+                    <dt>Kategorie</dt>
+                    <dd>{category.singular}</dd>
                   </div>
                 </dl>
 
@@ -173,9 +185,9 @@ export default async function WorkPage({ params }: WorkPageProps) {
           >
             <div className="site-shell">
               <div className="section-head">
-                <p className="eyebrow">Weitersehen</p>
+                <p className="eyebrow">Weitersehen / {category.plural}</p>
                 <h2 className="display section-head__title" id="related-title">
-                  Aus demselben Studio.
+                  Weitere {category.plural}.
                 </h2>
               </div>
               <div className="artwork-grid">
@@ -187,7 +199,6 @@ export default async function WorkPage({ params }: WorkPageProps) {
           </section>
         )}
       </main>
-      <SiteFooter />
-    </>
+    </PublicSite>
   );
 }

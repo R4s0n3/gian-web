@@ -8,13 +8,13 @@ import { TRPCReactProvider } from "@/trpc/react";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: "GIAN-LUCA — Fine Art",
-    template: "%s — GIAN-LUCA",
+    default: "Gian-Luca Blasius — Zeitgenössische Kunst",
+    template: "%s — Gian-Luca Blasius",
   },
   description:
-    "Fine Art, Tattoos, limitierte Objekte und eine immersive digitale Galerie von GIAN-LUCA.",
-  applicationName: "GIAN-LUCA Studio",
-  authors: [{ name: "GIAN-LUCA" }],
+    "Gemälde, Fotografien, limitierte Editionen und eine digitale Galerie von Gian-Luca Blasius.",
+  applicationName: "Gian-Luca Blasius",
+  authors: [{ name: "Gian-Luca Blasius" }],
   keywords: [
     "zeitgenössische Kunst",
     "Tätowierer",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     "immersive Galerie",
   ],
   openGraph: {
-    title: "GIAN-LUCA — Fine Art",
+    title: "Gian-Luca Blasius — Zeitgenössische Kunst",
     description:
-      "Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen Raum.",
+      "Gemälde und Fotografien zwischen Kontrolle, Instinkt und bewusster Spur.",
     type: "website",
     locale: "de_DE",
     images: [
@@ -39,17 +39,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GIAN-LUCA — Fine Art",
+    title: "Gian-Luca Blasius — Zeitgenössische Kunst",
     description:
-      "Originalarbeiten auf Leinwand, Haut, Objekten und im digitalen Raum.",
+      "Gemälde und Fotografien zwischen Kontrolle, Instinkt und bewusster Spur.",
     images: ["/artworks/threshold-i.webp"],
   },
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export const viewport: Viewport = {
-  colorScheme: "dark",
-  themeColor: "#0a0a08",
+  colorScheme: "light",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({

@@ -22,9 +22,12 @@ const galleryImageSchema = z.object({
   alt: z.string().trim().min(1).max(250),
 });
 
+const galleryCategorySchema = z.enum(["PAINTING", "PHOTOGRAPHY"]);
+
 const galleryFields = {
   title: z.string().trim().min(1).max(160),
   slug: slugSchema,
+  category: galleryCategorySchema,
   excerpt: z.string().trim().max(320).nullish(),
   description: z.string().trim().max(20_000).nullish(),
   imageUrl: z.string().trim().min(1).max(500),
@@ -45,6 +48,7 @@ const galleryFields = {
 
 const createGalleryPostSchema = z.object({
   ...galleryFields,
+  category: galleryFields.category.default("PAINTING"),
   featured: galleryFields.featured.default(false),
   published: galleryFields.published.default(false),
   sortOrder: galleryFields.sortOrder.default(0),
@@ -56,6 +60,7 @@ const updateGalleryPostSchema = z
     id: z.string().cuid(),
     title: galleryFields.title.optional(),
     slug: galleryFields.slug.optional(),
+    category: galleryFields.category.optional(),
     excerpt: galleryFields.excerpt,
     description: galleryFields.description,
     imageUrl: galleryFields.imageUrl.optional(),
@@ -82,12 +87,25 @@ const galleryOrderBy = [
 ];
 
 export const galleryRouter = createTRPCRouter({
-  publicList: publicProcedure.query(({ ctx }) =>
-    ctx.db.galleryPost.findMany({
-      where: { published: true },
-      orderBy: galleryOrderBy,
-    }),
-  ),
+  publicList: publicProcedure
+    .input(
+      z
+        .object({
+          category: galleryCategorySchema.optional(),
+        })
+        .optional(),
+    )
+    .query(({ ctx, input }) =>
+      ctx.db.galleryPost.findMany({
+        where: {
+          published: true,
+          ...(input?.category === undefined
+            ? {}
+            : { category: input.category }),
+        },
+        orderBy: galleryOrderBy,
+      }),
+    ),
 
   adminList: adminProcedure.query(({ ctx }) =>
     ctx.db.galleryPost.findMany({

@@ -24,27 +24,42 @@ enum BookingStatus {
   CANCELLED
 }
 
+enum GalleryCategory {
+  PAINTING
+  PHOTOGRAPHY
+}
+
 model GalleryPost {
-  id          String    @id @default(cuid())
-  title       String    @db.VarChar(160)
-  slug        String    @unique @db.VarChar(120)
-  excerpt     String?   @db.VarChar(320)
-  description String?   @db.Text
-  imageUrl    String    @db.VarChar(500)
-  imageAlt    String    @db.VarChar(250)
-  images      Json      @default("[]")
-  medium      String?   @db.VarChar(160)
-  dimensions  String?   @db.VarChar(120)
+  id          String          @id @default(cuid())
+  title       String          @db.VarChar(160)
+  slug        String          @unique @db.VarChar(120)
+  category    GalleryCategory @default(PAINTING)
+  excerpt     String?         @db.VarChar(320)
+  description String?         @db.Text
+  imageUrl    String          @db.VarChar(500)
+  imageAlt    String          @db.VarChar(250)
+  images      Json            @default("[]")
+  medium      String?         @db.VarChar(160)
+  dimensions  String?         @db.VarChar(120)
   year        Int?
-  featured    Boolean   @default(false)
-  published   Boolean   @default(false)
-  sortOrder   Int       @default(0)
+  featured    Boolean         @default(false)
+  published   Boolean         @default(false)
+  sortOrder   Int             @default(0)
   publishedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 
   @@index([published, sortOrder, publishedAt])
+  @@index([category, published, sortOrder, publishedAt])
   @@index([featured, published])
+}
+
+model SiteSettings {
+  id           String   @id @default("primary") @db.VarChar(32)
+  heroImageUrl String?  @db.VarChar(500)
+  heroImageAlt String?  @db.VarChar(250)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Product {

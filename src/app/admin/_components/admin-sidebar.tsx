@@ -9,6 +9,7 @@ const adminNavigation = [
   { href: "/admin/products", label: "Produkte", index: "04" },
   { href: "/admin/orders", label: "Bestellungen", index: "05" },
   { href: "/admin/bookings", label: "Termine", index: "06" },
+  { href: "/admin/website", label: "Website", index: "07" },
 ];
 
 export function AdminSidebar({ email }: { email: string }) {

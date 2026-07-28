@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/index.js";
+import { GalleryCategory, PrismaClient } from "../generated/prisma/index.js";
 
 const prisma = new PrismaClient();
 
@@ -6,6 +6,7 @@ const galleryPosts = [
   {
     slug: "threshold-i",
     title: "Threshold I",
+    category: GalleryCategory.PAINTING,
     excerpt:
       "Eine Studie über Licht, das sich am Rand eines Durchgangs sammelt.",
     description:
@@ -23,6 +24,7 @@ const galleryPosts = [
   {
     slug: "blue-reliquary",
     title: "Blue Reliquary",
+    category: GalleryCategory.PAINTING,
     excerpt: "Ein imaginäres Gefäß, das Spuren von Erinnerung in Blau bewahrt.",
     description:
       "Blue Reliquary schichtet leuchtende Pigmente und verwitterte Formen zu einem stillen Andachtsobjekt.",
@@ -39,6 +41,7 @@ const galleryPosts = [
   {
     slug: "signal-bloom",
     title: "Signal Bloom",
+    category: GalleryCategory.PAINTING,
     excerpt: "Ein strahlendes Signal, das organische Form annimmt.",
     description:
       "Signal Bloom verbindet elektronischen Rhythmus und botanisches Wachstum in einem Feld gesättigter Farbe.",
@@ -95,6 +98,11 @@ const products = [
 
 async function main() {
   await prisma.$transaction([
+    prisma.siteSettings.upsert({
+      where: { id: "primary" },
+      update: {},
+      create: { id: "primary" },
+    }),
     ...galleryPosts.map(({ slug, ...data }) =>
       prisma.galleryPost.upsert({
         where: { slug },

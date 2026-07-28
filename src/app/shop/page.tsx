@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-import { SiteFooter } from "@/app/_components/site-footer";
-import { SiteHeader } from "@/app/_components/site-header";
+import { PublicSite } from "@/app/_components/public-site";
 import { getPublicProducts } from "@/app/_lib/content";
 import { ShopClient } from "@/app/shop/shop-client";
 
@@ -17,8 +16,7 @@ export default async function ShopPage() {
   const products = await getPublicProducts();
 
   return (
-    <>
-      <SiteHeader />
+    <PublicSite>
       <main id="main-content">
         <section className="page-hero">
           <div className="site-shell page-hero__grid">
@@ -57,7 +55,6 @@ export default async function ShopPage() {
           </div>
         </section>
       </main>
-      <SiteFooter />
-    </>
+    </PublicSite>
   );
 }

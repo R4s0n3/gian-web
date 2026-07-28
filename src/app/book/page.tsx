@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
 import { BookingForm } from "@/app/book/booking-form";
-import { SiteFooter } from "@/app/_components/site-footer";
-import { SiteHeader } from "@/app/_components/site-header";
+import { PublicSite } from "@/app/_components/public-site";
 
 export const metadata: Metadata = {
   title: "Projekt anfragen",
@@ -18,8 +17,7 @@ export default async function BookPage({ searchParams }: BookPageProps) {
   const { service, work } = await searchParams;
 
   return (
-    <>
-      <SiteHeader />
+    <PublicSite>
       <main id="main-content">
         <section className="page-hero">
           <div className="site-shell page-hero__grid">
@@ -61,7 +59,6 @@ export default async function BookPage({ searchParams }: BookPageProps) {
           <BookingForm initialService={service} referencedWork={work} />
         </div>
       </main>
-      <SiteFooter />
-    </>
+    </PublicSite>
   );
 }

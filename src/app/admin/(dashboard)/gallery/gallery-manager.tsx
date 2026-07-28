@@ -7,9 +7,12 @@ import { parseGalleryImages } from "@/app/_lib/content-shared";
 import { ImageUrlField } from "@/app/admin/_components/image-url-field";
 import { api } from "@/trpc/react";
 
+type GalleryCategory = "PAINTING" | "PHOTOGRAPHY";
+
 type GalleryFormState = {
   title: string;
   slug: string;
+  category: GalleryCategory;
   excerpt: string;
   description: string;
   imageUrl: string;
@@ -26,6 +29,7 @@ type GalleryFormState = {
 const emptyForm: GalleryFormState = {
   title: "",
   slug: "",
+  category: "PAINTING",
   excerpt: "",
   description: "",
   imageUrl: "",
@@ -131,6 +135,7 @@ export function GalleryManager() {
               const values = {
                 title: form.title.trim(),
                 slug: form.slug.trim(),
+                category: form.category,
                 excerpt: form.excerpt.trim() || null,
                 description: form.description.trim() || null,
                 imageUrl: form.imageUrl.trim(),
@@ -175,6 +180,21 @@ export function GalleryManager() {
                 required
                 value={form.title}
               />
+            </div>
+            <div className="form-field">
+              <label htmlFor="gallery-category">Kategorie</label>
+              <select
+                className="form-select"
+                id="gallery-category"
+                onChange={(event) =>
+                  update("category", event.target.value as GalleryCategory)
+                }
+                required
+                value={form.category}
+              >
+                <option value="PAINTING">Gemälde</option>
+                <option value="PHOTOGRAPHY">Fotografie</option>
+              </select>
             </div>
             <fieldset className="gallery-images-fieldset">
               <legend>Weitere Bilder</legend>
@@ -411,6 +431,7 @@ export function GalleryManager() {
               <thead>
                 <tr>
                   <th>Werk</th>
+                  <th>Kategorie</th>
                   <th>Jahr</th>
                   <th>Sichtbarkeit</th>
                   <th>Reihenfolge</th>
@@ -436,6 +457,11 @@ export function GalleryManager() {
                         </span>
                       </div>
                     </td>
+                    <td>
+                      {item.category === "PHOTOGRAPHY"
+                        ? "Fotografie"
+                        : "Gemälde"}
+                    </td>
                     <td>{item.year ?? "—"}</td>
                     <td>
                       <span
@@ -455,6 +481,7 @@ export function GalleryManager() {
                             setForm({
                               title: item.title,
                               slug: item.slug,
+                              category: item.category,
                               excerpt: item.excerpt ?? "",
                               description: item.description ?? "",
                               imageUrl: item.imageUrl,

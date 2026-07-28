@@ -1,12 +1,10 @@
 import Link from "next/link";
 
-import { SiteFooter } from "@/app/_components/site-footer";
-import { SiteHeader } from "@/app/_components/site-header";
+import { PublicSite } from "@/app/_components/public-site";
 
 export default function NotFound() {
   return (
-    <>
-      <SiteHeader />
+    <PublicSite>
       <main className="success-page" id="main-content">
         <div className="site-shell success-page__inner">
           <p className="eyebrow">404 / Seite nicht gefunden</p>
@@ -22,7 +20,6 @@ export default function NotFound() {
           </Link>
         </div>
       </main>
-      <SiteFooter />
-    </>
+    </PublicSite>
   );
 }

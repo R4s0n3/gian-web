@@ -125,6 +125,7 @@ exports.Prisma.GalleryPostScalarFieldEnum = {
   id: 'id',
   title: 'title',
   slug: 'slug',
+  category: 'category',
   excerpt: 'excerpt',
   description: 'description',
   imageUrl: 'imageUrl',
@@ -137,6 +138,14 @@ exports.Prisma.GalleryPostScalarFieldEnum = {
   published: 'published',
   sortOrder: 'sortOrder',
   publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SiteSettingsScalarFieldEnum = {
+  id: 'id',
+  heroImageUrl: 'heroImageUrl',
+  heroImageAlt: 'heroImageAlt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -262,6 +271,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.GalleryCategory = exports.$Enums.GalleryCategory = {
+  PAINTING: 'PAINTING',
+  PHOTOGRAPHY: 'PHOTOGRAPHY'
+};
+
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   PENDING: 'PENDING',
   PAID: 'PAID',
@@ -280,6 +294,7 @@ exports.BookingStatus = exports.$Enums.BookingStatus = {
 
 exports.Prisma.ModelName = {
   GalleryPost: 'GalleryPost',
+  SiteSettings: 'SiteSettings',
   Product: 'Product',
   Order: 'Order',
   OrderItem: 'OrderItem',

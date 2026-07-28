@@ -4,6 +4,7 @@ import { galleryRouter } from "@/server/api/routers/gallery";
 import { mediaRouter } from "@/server/api/routers/media";
 import { orderRouter } from "@/server/api/routers/order";
 import { productRouter } from "@/server/api/routers/product";
+import { siteSettingsRouter } from "@/server/api/routers/site-settings";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
 /**
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   media: mediaRouter,
   order: orderRouter,
   product: productRouter,
+  siteSettings: siteSettingsRouter,
 });
 
 // export type definition of API

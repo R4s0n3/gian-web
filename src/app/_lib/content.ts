@@ -2,7 +2,12 @@ import "server-only";
 
 import { cache } from "react";
 
-import type { GalleryItem, ProductItem } from "@/app/_lib/content-shared";
+import type {
+  GalleryCategory,
+  GalleryItem,
+  ProductItem,
+  PublicSiteSettings,
+} from "@/app/_lib/content-shared";
 import { parseGalleryImages } from "@/app/_lib/content-shared";
 import { api } from "@/trpc/server";
 
@@ -11,6 +16,7 @@ const fallbackGallery: GalleryItem[] = [
     id: "fallback-threshold-i",
     slug: "threshold-i",
     title: "Threshold I",
+    category: "PAINTING",
     excerpt:
       "Ein versengter Durchgang zwischen architektonischer Erinnerung und lebendiger Spur.",
     description:
@@ -29,6 +35,7 @@ const fallbackGallery: GalleryItem[] = [
     id: "fallback-signal-bloom",
     slug: "signal-bloom",
     title: "Signal Bloom",
+    category: "PAINTING",
     excerpt:
       "Ockerfarbenes Wachstum, geschwärzter Grund und ein Signal, das wie ein erinnerter Organismus Wurzeln schlägt.",
     description:
@@ -47,6 +54,7 @@ const fallbackGallery: GalleryItem[] = [
     id: "fallback-blue-reliquary",
     slug: "blue-reliquary",
     title: "Blue Reliquary",
+    category: "PAINTING",
     excerpt:
       "Ein Gefäß für Fragmente: hingebungsvolle Geometrie, gestört von handgemachtem Rauschen.",
     description:
@@ -109,6 +117,7 @@ function normalizeGallery(
     id: String(row.id),
     slug: row.slug,
     title: row.title,
+    category: row.category,
     excerpt:
       row.excerpt ??
       row.description ??
@@ -146,15 +155,38 @@ function normalizeProduct(
   };
 }
 
-export const getPublicGallery = cache(async (): Promise<GalleryItem[]> => {
-  try {
-    const rows = await api.gallery.publicList();
-    return rows.map(normalizeGallery);
-  } catch {
-    // Bundled work is a development preview, never a production outage mask.
-    return process.env.NODE_ENV === "production" ? [] : fallbackGallery;
-  }
-});
+export const getPublicGallery = cache(
+  async (category?: GalleryCategory): Promise<GalleryItem[]> => {
+    try {
+      const rows = await api.gallery.publicList(
+        category === undefined ? undefined : { category },
+      );
+      return rows.map(normalizeGallery);
+    } catch {
+      // Bundled work is a development preview, never a production outage mask.
+      if (process.env.NODE_ENV === "production") return [];
+
+      return category === undefined
+        ? fallbackGallery
+        : fallbackGallery.filter((item) => item.category === category);
+    }
+  },
+);
+
+const emptySiteSettings: PublicSiteSettings = {
+  heroImageUrl: null,
+  heroImageAlt: null,
+};
+
+export const getPublicSiteSettings = cache(
+  async (): Promise<PublicSiteSettings> => {
+    try {
+      return await api.siteSettings.publicGet();
+    } catch {
+      return emptySiteSettings;
+    }
+  },
+);
 
 export const getPublicProducts = cache(async (): Promise<ProductItem[]> => {
   try {
