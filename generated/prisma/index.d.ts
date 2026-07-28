@@ -1793,6 +1793,7 @@ export namespace Prisma {
     description: number
     imageUrl: number
     imageAlt: number
+    images: number
     medium: number
     dimensions: number
     year: number
@@ -1862,6 +1863,7 @@ export namespace Prisma {
     description?: true
     imageUrl?: true
     imageAlt?: true
+    images?: true
     medium?: true
     dimensions?: true
     year?: true
@@ -1968,6 +1970,7 @@ export namespace Prisma {
     description: string | null
     imageUrl: string
     imageAlt: string
+    images: JsonValue
     medium: string | null
     dimensions: string | null
     year: number | null
@@ -2006,6 +2009,7 @@ export namespace Prisma {
     description?: boolean
     imageUrl?: boolean
     imageAlt?: boolean
+    images?: boolean
     medium?: boolean
     dimensions?: boolean
     year?: boolean
@@ -2025,6 +2029,7 @@ export namespace Prisma {
     description?: boolean
     imageUrl?: boolean
     imageAlt?: boolean
+    images?: boolean
     medium?: boolean
     dimensions?: boolean
     year?: boolean
@@ -2044,6 +2049,7 @@ export namespace Prisma {
     description?: boolean
     imageUrl?: boolean
     imageAlt?: boolean
+    images?: boolean
     medium?: boolean
     dimensions?: boolean
     year?: boolean
@@ -2063,6 +2069,7 @@ export namespace Prisma {
     description?: boolean
     imageUrl?: boolean
     imageAlt?: boolean
+    images?: boolean
     medium?: boolean
     dimensions?: boolean
     year?: boolean
@@ -2074,7 +2081,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type GalleryPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "description" | "imageUrl" | "imageAlt" | "medium" | "dimensions" | "year" | "featured" | "published" | "sortOrder" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["galleryPost"]>
+  export type GalleryPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "excerpt" | "description" | "imageUrl" | "imageAlt" | "images" | "medium" | "dimensions" | "year" | "featured" | "published" | "sortOrder" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["galleryPost"]>
 
   export type $GalleryPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "GalleryPost"
@@ -2087,6 +2094,7 @@ export namespace Prisma {
       description: string | null
       imageUrl: string
       imageAlt: string
+      images: Prisma.JsonValue
       medium: string | null
       dimensions: string | null
       year: number | null
@@ -2526,6 +2534,7 @@ export namespace Prisma {
     readonly description: FieldRef<"GalleryPost", 'String'>
     readonly imageUrl: FieldRef<"GalleryPost", 'String'>
     readonly imageAlt: FieldRef<"GalleryPost", 'String'>
+    readonly images: FieldRef<"GalleryPost", 'Json'>
     readonly medium: FieldRef<"GalleryPost", 'String'>
     readonly dimensions: FieldRef<"GalleryPost", 'String'>
     readonly year: FieldRef<"GalleryPost", 'Int'>
@@ -11902,6 +11911,7 @@ export namespace Prisma {
     description: 'description',
     imageUrl: 'imageUrl',
     imageAlt: 'imageAlt',
+    images: 'images',
     medium: 'medium',
     dimensions: 'dimensions',
     year: 'year',
@@ -12040,6 +12050,13 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
@@ -12056,14 +12073,6 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -12071,6 +12080,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -12089,6 +12106,20 @@ export namespace Prisma {
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -12124,20 +12155,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -12197,6 +12214,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"GalleryPost"> | string | null
     imageUrl?: StringFilter<"GalleryPost"> | string
     imageAlt?: StringFilter<"GalleryPost"> | string
+    images?: JsonFilter<"GalleryPost">
     medium?: StringNullableFilter<"GalleryPost"> | string | null
     dimensions?: StringNullableFilter<"GalleryPost"> | string | null
     year?: IntNullableFilter<"GalleryPost"> | number | null
@@ -12216,6 +12234,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     imageUrl?: SortOrder
     imageAlt?: SortOrder
+    images?: SortOrder
     medium?: SortOrderInput | SortOrder
     dimensions?: SortOrderInput | SortOrder
     year?: SortOrderInput | SortOrder
@@ -12238,6 +12257,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"GalleryPost"> | string | null
     imageUrl?: StringFilter<"GalleryPost"> | string
     imageAlt?: StringFilter<"GalleryPost"> | string
+    images?: JsonFilter<"GalleryPost">
     medium?: StringNullableFilter<"GalleryPost"> | string | null
     dimensions?: StringNullableFilter<"GalleryPost"> | string | null
     year?: IntNullableFilter<"GalleryPost"> | number | null
@@ -12257,6 +12277,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     imageUrl?: SortOrder
     imageAlt?: SortOrder
+    images?: SortOrder
     medium?: SortOrderInput | SortOrder
     dimensions?: SortOrderInput | SortOrder
     year?: SortOrderInput | SortOrder
@@ -12284,6 +12305,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"GalleryPost"> | string | null
     imageUrl?: StringWithAggregatesFilter<"GalleryPost"> | string
     imageAlt?: StringWithAggregatesFilter<"GalleryPost"> | string
+    images?: JsonWithAggregatesFilter<"GalleryPost">
     medium?: StringNullableWithAggregatesFilter<"GalleryPost"> | string | null
     dimensions?: StringNullableWithAggregatesFilter<"GalleryPost"> | string | null
     year?: IntNullableWithAggregatesFilter<"GalleryPost"> | number | null
@@ -12895,6 +12917,7 @@ export namespace Prisma {
     description?: string | null
     imageUrl: string
     imageAlt: string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: string | null
     dimensions?: string | null
     year?: number | null
@@ -12914,6 +12937,7 @@ export namespace Prisma {
     description?: string | null
     imageUrl: string
     imageAlt: string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: string | null
     dimensions?: string | null
     year?: number | null
@@ -12933,6 +12957,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     imageAlt?: StringFieldUpdateOperationsInput | string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: NullableStringFieldUpdateOperationsInput | string | null
     dimensions?: NullableStringFieldUpdateOperationsInput | string | null
     year?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12952,6 +12977,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     imageAlt?: StringFieldUpdateOperationsInput | string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: NullableStringFieldUpdateOperationsInput | string | null
     dimensions?: NullableStringFieldUpdateOperationsInput | string | null
     year?: NullableIntFieldUpdateOperationsInput | number | null
@@ -12971,6 +12997,7 @@ export namespace Prisma {
     description?: string | null
     imageUrl: string
     imageAlt: string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: string | null
     dimensions?: string | null
     year?: number | null
@@ -12990,6 +13017,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     imageAlt?: StringFieldUpdateOperationsInput | string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: NullableStringFieldUpdateOperationsInput | string | null
     dimensions?: NullableStringFieldUpdateOperationsInput | string | null
     year?: NullableIntFieldUpdateOperationsInput | number | null
@@ -13009,6 +13037,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     imageUrl?: StringFieldUpdateOperationsInput | string
     imageAlt?: StringFieldUpdateOperationsInput | string
+    images?: JsonNullValueInput | InputJsonValue
     medium?: NullableStringFieldUpdateOperationsInput | string | null
     dimensions?: NullableStringFieldUpdateOperationsInput | string | null
     year?: NullableIntFieldUpdateOperationsInput | number | null
@@ -13705,6 +13734,29 @@ export namespace Prisma {
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
@@ -13768,6 +13820,7 @@ export namespace Prisma {
     description?: SortOrder
     imageUrl?: SortOrder
     imageAlt?: SortOrder
+    images?: SortOrder
     medium?: SortOrder
     dimensions?: SortOrder
     year?: SortOrder
@@ -13861,6 +13914,32 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14772,6 +14851,29 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {

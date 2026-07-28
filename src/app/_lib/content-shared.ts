@@ -1,3 +1,29 @@
+export type GalleryImage = {
+  url: string;
+  alt: string;
+};
+
+export function parseGalleryImages(value: unknown): GalleryImage[] {
+  if (!Array.isArray(value)) return [];
+
+  const images: unknown[] = value;
+
+  return images.flatMap((image) => {
+    if (
+      typeof image === "object" &&
+      image !== null &&
+      "url" in image &&
+      "alt" in image &&
+      typeof image.url === "string" &&
+      typeof image.alt === "string"
+    ) {
+      return [{ url: image.url, alt: image.alt }];
+    }
+
+    return [];
+  });
+}
+
 export type GalleryItem = {
   id: string;
   slug: string;
@@ -6,6 +32,7 @@ export type GalleryItem = {
   description: string;
   imageUrl: string;
   imageAlt: string;
+  images: GalleryImage[];
   medium: string;
   dimensions: string;
   year: string;

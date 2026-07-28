@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 
+import { parseGalleryImages } from "@/app/_lib/content-shared";
 import { ImageUrlField } from "@/app/admin/_components/image-url-field";
 import { api } from "@/trpc/react";
 
@@ -13,6 +14,7 @@ type GalleryFormState = {
   description: string;
   imageUrl: string;
   imageAlt: string;
+  images: Array<{ url: string; alt: string }>;
   medium: string;
   dimensions: string;
   year: string;
@@ -28,6 +30,7 @@ const emptyForm: GalleryFormState = {
   description: "",
   imageUrl: "",
   imageAlt: "",
+  images: [],
   medium: "",
   dimensions: "",
   year: String(new Date().getFullYear()),
@@ -84,6 +87,19 @@ export function GalleryManager() {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
+  function updateAdditionalImage(
+    index: number,
+    key: "url" | "alt",
+    value: string,
+  ) {
+    setForm((current) => ({
+      ...current,
+      images: current.images.map((image, imageIndex) =>
+        imageIndex === index ? { ...image, [key]: value } : image,
+      ),
+    }));
+  }
+
   return (
     <div className="admin-grid">
       <section className="admin-panel">
@@ -119,6 +135,10 @@ export function GalleryManager() {
                 description: form.description.trim() || null,
                 imageUrl: form.imageUrl.trim(),
                 imageAlt: form.imageAlt.trim(),
+                images: form.images.map((image) => ({
+                  url: image.url.trim(),
+                  alt: image.alt.trim(),
+                })),
                 medium: form.medium.trim() || null,
                 dimensions: form.dimensions.trim() || null,
                 year: form.year ? Number(form.year) : null,
@@ -156,6 +176,80 @@ export function GalleryManager() {
                 value={form.title}
               />
             </div>
+            <fieldset className="gallery-images-fieldset">
+              <legend>Weitere Bilder</legend>
+              <p className="gallery-images-fieldset__help">
+                Diese Bilder erscheinen auf der Werkseite nach dem Titelbild.
+              </p>
+              <div className="gallery-images-list">
+                {form.images.map((image, index) => (
+                  <div className="gallery-image-fields" key={index}>
+                    <div className="gallery-image-fields__head">
+                      <strong>Bild {index + 2}</strong>
+                      <button
+                        className="admin-icon-button admin-icon-button--danger"
+                        disabled={busy}
+                        onClick={() =>
+                          setForm((current) => ({
+                            ...current,
+                            images: current.images.filter(
+                              (_, imageIndex) => imageIndex !== index,
+                            ),
+                          }))
+                        }
+                        type="button"
+                      >
+                        Entfernen
+                      </button>
+                    </div>
+                    <ImageUrlField
+                      disabled={pending}
+                      id={`gallery-image-${index + 2}`}
+                      label="Bild-URL"
+                      onBusyChange={setImageUploading}
+                      onChange={(value) =>
+                        updateAdditionalImage(index, "url", value)
+                      }
+                      placeholder="/artworks/work-name-detail.webp"
+                      required
+                      value={image.url}
+                    />
+                    <div className="form-field">
+                      <label htmlFor={`gallery-alt-${index + 2}`}>
+                        Bildbeschreibung
+                      </label>
+                      <input
+                        className="form-input"
+                        id={`gallery-alt-${index + 2}`}
+                        onChange={(event) =>
+                          updateAdditionalImage(
+                            index,
+                            "alt",
+                            event.target.value,
+                          )
+                        }
+                        placeholder="Beschreibe dieses Bild für Screenreader"
+                        required
+                        value={image.alt}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button
+                className="admin-icon-button"
+                disabled={busy || form.images.length >= 30}
+                onClick={() =>
+                  setForm((current) => ({
+                    ...current,
+                    images: [...current.images, { url: "", alt: "" }],
+                  }))
+                }
+                type="button"
+              >
+                + Weiteres Bild hinzufügen
+              </button>
+            </fieldset>
             <div className="form-field">
               <label htmlFor="gallery-slug">URL-Kürzel</label>
               <input
@@ -365,6 +459,7 @@ export function GalleryManager() {
                               description: item.description ?? "",
                               imageUrl: item.imageUrl,
                               imageAlt: item.imageAlt,
+                              images: parseGalleryImages(item.images),
                               medium: item.medium ?? "",
                               dimensions: item.dimensions ?? "",
                               year: item.year?.toString() ?? "",

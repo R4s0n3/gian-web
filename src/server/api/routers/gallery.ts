@@ -17,6 +17,11 @@ const slugSchema = z
     "Verwende Kleinbuchstaben, Zahlen und Bindestriche",
   );
 
+const galleryImageSchema = z.object({
+  url: z.string().trim().min(1).max(500),
+  alt: z.string().trim().min(1).max(250),
+});
+
 const galleryFields = {
   title: z.string().trim().min(1).max(160),
   slug: slugSchema,
@@ -24,6 +29,7 @@ const galleryFields = {
   description: z.string().trim().max(20_000).nullish(),
   imageUrl: z.string().trim().min(1).max(500),
   imageAlt: z.string().trim().min(1).max(250),
+  images: z.array(galleryImageSchema).max(30),
   medium: z.string().trim().max(160).nullish(),
   dimensions: z.string().trim().max(120).nullish(),
   year: z
@@ -42,6 +48,7 @@ const createGalleryPostSchema = z.object({
   featured: galleryFields.featured.default(false),
   published: galleryFields.published.default(false),
   sortOrder: galleryFields.sortOrder.default(0),
+  images: galleryFields.images.default([]),
 });
 
 const updateGalleryPostSchema = z
@@ -53,6 +60,7 @@ const updateGalleryPostSchema = z
     description: galleryFields.description,
     imageUrl: galleryFields.imageUrl.optional(),
     imageAlt: galleryFields.imageAlt.optional(),
+    images: galleryFields.images.optional(),
     medium: galleryFields.medium,
     dimensions: galleryFields.dimensions,
     year: galleryFields.year,

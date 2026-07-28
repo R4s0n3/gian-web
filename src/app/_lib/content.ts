@@ -3,6 +3,7 @@ import "server-only";
 import { cache } from "react";
 
 import type { GalleryItem, ProductItem } from "@/app/_lib/content-shared";
+import { parseGalleryImages } from "@/app/_lib/content-shared";
 import { api } from "@/trpc/server";
 
 const fallbackGallery: GalleryItem[] = [
@@ -17,6 +18,7 @@ const fallbackGallery: GalleryItem[] = [
     imageUrl: "/artworks/threshold-i.webp",
     imageAlt:
       "Dunkle abstrakte Mixed-Media-Arbeit mit knochenfarbenem Bogen und glutrotem Durchgang",
+    images: [],
     medium: "Mixed Media auf Holz",
     dimensions: "112 × 140 cm",
     year: "2026",
@@ -34,6 +36,7 @@ const fallbackGallery: GalleryItem[] = [
     imageUrl: "/artworks/signal-bloom.webp",
     imageAlt:
       "Ockerfarbene und schwarze abstrakte Arbeit mit hellen botanischen, wurzelartigen Spuren",
+    images: [],
     medium: "Pigment, Kohle & Öl",
     dimensions: "90 × 120 cm",
     year: "2026",
@@ -51,6 +54,7 @@ const fallbackGallery: GalleryItem[] = [
     imageUrl: "/artworks/blue-reliquary.webp",
     imageAlt:
       "Dunkle zeitgenössische Arbeit in Kobaltblau mit hellen, rituell anmutenden Linien",
+    images: [],
     medium: "Acryl & Transfer auf Leinwand",
     dimensions: "100 × 125 cm",
     year: "2025",
@@ -115,6 +119,7 @@ function normalizeGallery(
       "Eine Originalarbeit aus der aktuellen Studiopraxis von GIAN-LUCA.",
     imageUrl: row.imageUrl,
     imageAlt: row.imageAlt,
+    images: parseGalleryImages(row.images),
     medium: row.medium ?? "Mixed Media",
     dimensions: row.dimensions ?? "Unikat",
     year: row.year?.toString() ?? "Aktuell",

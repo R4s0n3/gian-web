@@ -7,6 +7,8 @@ import { ArtworkCard } from "@/app/_components/artwork-card";
 import { SiteFooter } from "@/app/_components/site-footer";
 import { SiteHeader } from "@/app/_components/site-header";
 import { getPublicGallery } from "@/app/_lib/content";
+import { getSocialLinks } from "@/app/_lib/social-links";
+import { env } from "@/env";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +33,13 @@ export async function generateMetadata({
     openGraph: {
       title: `${artwork.title} — GIAN-LUCA`,
       description: artwork.excerpt,
-      images: [{ url: artwork.imageUrl, alt: artwork.imageAlt }],
+      images: [
+        { url: artwork.imageUrl, alt: artwork.imageAlt },
+        ...artwork.images.map((image) => ({
+          url: image.url,
+          alt: image.alt,
+        })),
+      ],
     },
   };
 }
@@ -48,6 +56,18 @@ export default async function WorkPage({ params }: WorkPageProps) {
 
   const related = gallery.filter((item) => item.id !== artwork.id).slice(0, 2);
   const nextArtwork = gallery[(artworkIndex + 1) % gallery.length];
+  const siteUrl = env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const artworkUrl = new URL(`/work/${artwork.slug}`, siteUrl).toString();
+  const artworkImageUrl = new URL(artwork.imageUrl, siteUrl).toString();
+  const socialLinks = getSocialLinks({
+    title: artwork.title,
+    url: artworkUrl,
+    imageUrl: artworkImageUrl,
+  });
+  const artworkImages = [
+    { url: artwork.imageUrl, alt: artwork.imageAlt },
+    ...artwork.images,
+  ];
 
   return (
     <>
@@ -66,8 +86,15 @@ export default async function WorkPage({ params }: WorkPageProps) {
               )}
             </div>
 
-            <div className="work-detail__visual">
-              <img alt={artwork.imageAlt} src={artwork.imageUrl} />
+            <div className="work-detail__visuals">
+              {artworkImages.map((image, index) => (
+                <figure
+                  className="work-detail__visual"
+                  key={`${image.url}-${index}`}
+                >
+                  <img alt={image.alt} src={image.url} />
+                </figure>
+              ))}
             </div>
 
             <div className="work-detail__info">
@@ -117,6 +144,22 @@ export default async function WorkPage({ params }: WorkPageProps) {
                   <Link className="button" href="/doom">
                     In der digitalen Galerie ansehen ↗
                   </Link>
+                </div>
+                <div className="work-detail__social">
+                  <p className="eyebrow">Arbeit teilen</p>
+                  <div className="work-detail__social-links">
+                    {socialLinks.map((socialLink) => (
+                      <a
+                        className="button"
+                        href={socialLink.href}
+                        key={socialLink.label}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        {socialLink.label} ↗
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -1230,9 +1230,15 @@ img {
   margin-bottom: 2rem;
 }
 
+.work-detail__visuals {
+  display: grid;
+  gap: clamp(1rem, 3vw, 3rem);
+}
+
 .work-detail__visual {
   display: grid;
   min-height: 72svh;
+  margin: 0;
   place-items: center;
   padding: clamp(1rem, 4vw, 4rem);
   background: var(--ink-soft);
@@ -1262,6 +1268,20 @@ img {
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.2rem, 2vw, 1.7rem);
   line-height: 1.45;
+}
+
+.work-detail__social {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.work-detail__social-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.75rem;
 }
 
 .meta-list {
@@ -1849,6 +1869,48 @@ img {
 
 .admin-form .form-grid {
   gap: 1rem 1.2rem;
+}
+
+.gallery-images-fieldset {
+  display: grid;
+  min-width: 0;
+  gap: 1rem;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+}
+
+.gallery-images-fieldset legend,
+.gallery-image-fields__head strong {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gallery-images-fieldset__help {
+  margin: 0;
+  color: var(--bone-dim);
+  font-size: 0.75rem;
+}
+
+.gallery-images-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.gallery-image-fields {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(242, 235, 220, 0.04);
+}
+
+.gallery-image-fields__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .admin-table-wrap {

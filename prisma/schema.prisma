@@ -32,6 +32,7 @@ model GalleryPost {
   description String?   @db.Text
   imageUrl    String    @db.VarChar(500)
   imageAlt    String    @db.VarChar(250)
+  images      Json      @default("[]")
   medium      String?   @db.VarChar(160)
   dimensions  String?   @db.VarChar(120)
   year        Int?
