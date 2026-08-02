@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     locale: "de_DE",
     images: [
       {
-        url: "/artworks/threshold-i.webp",
-        width: 1122,
-        height: 1402,
+        url: "/logo.svg",
+        width: 1024,
+        height: 1024,
         alt: "Threshold I, eine originale Mixed-Media-Arbeit von GIAN-LUCA",
       },
     ],
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Gian-Luca Blasius — Zeitgenössische Kunst",
     description:
       "Gemälde und Fotografien zwischen Kontrolle, Instinkt und bewusster Spur.",
-    images: ["/artworks/threshold-i.webp"],
+    images: ["/logo.svg"],
   },
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
