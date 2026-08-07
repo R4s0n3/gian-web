@@ -21,15 +21,19 @@ function CategoryFeature({
   description,
   href,
   index,
+  featured = false,
 }: {
   artwork: GalleryItem | undefined;
   category: string;
   description: string;
   href: string;
   index: string;
+  featured?: boolean;
 }) {
   return (
-    <article className="category-feature">
+    <article
+      className={`category-feature${featured ? "category-feature--featured" : ""}`}
+    >
       <div className="category-feature__header">
         <p className="eyebrow">
           {index} / {category}
@@ -76,6 +80,7 @@ export default async function Home() {
   ]);
   const featuredPainting = featuredWork(gallery, "PAINTING");
   const featuredPhotography = featuredWork(gallery, "PHOTOGRAPHY");
+  const featuredCommission = featuredWork(gallery, "COMMISSION");
   const hasHero = Boolean(
     siteSettings.heroImageUrl && siteSettings.heroImageAlt,
   );
@@ -141,29 +146,52 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="category-features section">
-          <div className="site-shell category-features__grid">
-            <CategoryFeature
-              artwork={featuredPainting}
-              category="Gemälde"
-              description="Originalarbeiten und malerische Studien aus dem aktuellen Atelierarchiv."
-              href="/gemaelde"
-              index="01"
-            />
-            <CategoryFeature
-              artwork={featuredPhotography}
-              category="Fotografien"
-              description="Fotografische Beobachtungen zwischen Landschaft, Struktur und Erinnerung."
-              href="/fotografien"
-              index="02"
-            />
+        <section
+          className="category-features section"
+          aria-labelledby="portfolio-title"
+        >
+          <div className="site-shell">
+            <div className="section-head">
+              <p className="eyebrow">Portfolio / Kategorien</p>
+              <h2 className="display section-head__title" id="portfolio-title">
+                Arbeiten im Überblick.
+              </h2>
+            </div>
+
+            <div className="category-features__featured">
+              <CategoryFeature
+                artwork={featuredPainting}
+                category="Gemälde"
+                description="Originalarbeiten und malerische Studien aus dem aktuellen Atelierarchiv."
+                href="/gemaelde"
+                index="01"
+                featured
+              />
+            </div>
+
+            <div className="category-features__grid">
+              <CategoryFeature
+                artwork={featuredPhotography}
+                category="Fotografien"
+                description="Fotografische Beobachtungen zwischen Landschaft, Struktur und Erinnerung."
+                href="/fotografien"
+                index="02"
+              />
+              <CategoryFeature
+                artwork={featuredCommission}
+                category="Auftragsarbeiten"
+                description="Gemälde und fotografische Arbeiten, die im Dialog mit einem Auftrag entstanden sind."
+                href="/auftragsarbeiten"
+                index="03"
+              />
+            </div>
           </div>
         </section>
 
         <section className="gallery-invitation section">
           <div className="site-shell">
             <div className="gallery-invitation__panel">
-              <p className="eyebrow">03 / Digitale Galerie</p>
+              <p className="eyebrow">04 / Digitale Galerie</p>
               <h2 className="display">
                 Das Portfolio wird zum begehbaren Raum.
               </h2>

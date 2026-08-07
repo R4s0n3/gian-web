@@ -92,7 +92,8 @@ export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
 
 export const GalleryCategory: {
   PAINTING: 'PAINTING',
-  PHOTOGRAPHY: 'PHOTOGRAPHY'
+  PHOTOGRAPHY: 'PHOTOGRAPHY',
+  COMMISSION: 'COMMISSION'
 };
 
 export type GalleryCategory = (typeof GalleryCategory)[keyof typeof GalleryCategory]

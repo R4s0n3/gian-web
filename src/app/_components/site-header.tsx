@@ -4,6 +4,7 @@ import Link from "next/link";
 const navigation = [
   { href: "/gemaelde", label: "Gemälde" },
   { href: "/fotografien", label: "Fotografien" },
+  { href: "/auftragsarbeiten", label: "Auftragsarbeiten" },
   { href: "/doom", label: "Galerie" },
 ];
 

@@ -273,7 +273,8 @@ exports.Prisma.NullsOrder = {
 };
 exports.GalleryCategory = exports.$Enums.GalleryCategory = {
   PAINTING: 'PAINTING',
-  PHOTOGRAPHY: 'PHOTOGRAPHY'
+  PHOTOGRAPHY: 'PHOTOGRAPHY',
+  COMMISSION: 'COMMISSION'
 };
 
 exports.OrderStatus = exports.$Enums.OrderStatus = {

@@ -27,6 +27,7 @@ enum BookingStatus {
 enum GalleryCategory {
   PAINTING
   PHOTOGRAPHY
+  COMMISSION
 }
 
 model GalleryPost {

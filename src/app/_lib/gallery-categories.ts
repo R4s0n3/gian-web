@@ -23,4 +23,11 @@ export const galleryCategoryPresentation = {
     nextLabel: "Nächste Fotografie",
     className: "photography",
   },
+  COMMISSION: {
+    archiveHref: "/auftragsarbeiten",
+    singular: "Auftragsarbeit",
+    plural: "Auftragsarbeiten",
+    nextLabel: "Nächste Auftragsarbeit",
+    className: "commission",
+  },
 } satisfies Record<GalleryCategory, GalleryCategoryPresentation>;

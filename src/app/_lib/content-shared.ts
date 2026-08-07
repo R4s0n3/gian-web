@@ -3,7 +3,11 @@ export type GalleryImage = {
   alt: string;
 };
 
-export const GALLERY_CATEGORIES = ["PAINTING", "PHOTOGRAPHY"] as const;
+export const GALLERY_CATEGORIES = [
+  "PAINTING",
+  "PHOTOGRAPHY",
+  "COMMISSION",
+] as const;
 
 export type GalleryCategory = (typeof GALLERY_CATEGORIES)[number];
 

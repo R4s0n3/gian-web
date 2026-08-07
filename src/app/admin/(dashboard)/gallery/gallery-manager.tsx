@@ -7,7 +7,7 @@ import { parseGalleryImages } from "@/app/_lib/content-shared";
 import { ImageUrlField } from "@/app/admin/_components/image-url-field";
 import { api } from "@/trpc/react";
 
-type GalleryCategory = "PAINTING" | "PHOTOGRAPHY";
+type GalleryCategory = "PAINTING" | "PHOTOGRAPHY" | "COMMISSION";
 
 type GalleryFormState = {
   title: string;
@@ -194,6 +194,7 @@ export function GalleryManager() {
               >
                 <option value="PAINTING">Gemälde</option>
                 <option value="PHOTOGRAPHY">Fotografie</option>
+                <option value="COMMISSION">Auftragsarbeit</option>
               </select>
             </div>
             <fieldset className="gallery-images-fieldset">
@@ -458,9 +459,11 @@ export function GalleryManager() {
                       </div>
                     </td>
                     <td>
-                      {item.category === "PHOTOGRAPHY"
-                        ? "Fotografie"
-                        : "Gemälde"}
+                      {item.category === "COMMISSION"
+                        ? "Auftragsarbeit"
+                        : item.category === "PHOTOGRAPHY"
+                          ? "Fotografie"
+                          : "Gemälde"}
                     </td>
                     <td>{item.year ?? "—"}</td>
                     <td>

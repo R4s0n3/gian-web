@@ -22,7 +22,7 @@ const galleryImageSchema = z.object({
   alt: z.string().trim().min(1).max(250),
 });
 
-const galleryCategorySchema = z.enum(["PAINTING", "PHOTOGRAPHY"]);
+const galleryCategorySchema = z.enum(["PAINTING", "PHOTOGRAPHY", "COMMISSION"]);
 
 const galleryFields = {
   title: z.string().trim().min(1).max(160),

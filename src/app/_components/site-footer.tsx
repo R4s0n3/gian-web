@@ -19,6 +19,7 @@ export function SiteFooter() {
           <nav aria-label="Portfolio-Navigation im Footer">
             <Link href="/gemaelde">Gemälde</Link>
             <Link href="/fotografien">Fotografien</Link>
+            <Link href="/auftragsarbeiten">Auftragsarbeiten</Link>
             <Link href="/doom">Galerie</Link>
           </nav>
         </div>
@@ -36,7 +37,7 @@ export function SiteFooter() {
 
       <div className="site-shell site-footer__base">
         <span>© {new Date().getFullYear()} Gian-Luca Blasius</span>
-        <span>Gemälde · Fotografien · Zeitgenössische Kunst</span>
+        <span>Gemälde · Fotografien · Auftragsarbeiten</span>
       </div>
     </footer>
   );
