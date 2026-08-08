@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { MobileMenu } from "@/app/_components/mobile-menu";
+
 const navigation = [
   { href: "/gemaelde", label: "Gemälde" },
   { href: "/fotografien", label: "Fotografien" },
@@ -29,16 +31,7 @@ export function SiteHeader() {
 
         <span className="site-header__name">Gian-Luca Blasius</span>
 
-        <details className="mobile-menu">
-          <summary>Menü</summary>
-          <nav className="mobile-menu__panel" aria-label="Hauptnavigation">
-            {navigation.map((item) => (
-              <Link href={item.href} key={item.href}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </details>
+        <MobileMenu navigation={navigation} />
       </div>
     </header>
   );
