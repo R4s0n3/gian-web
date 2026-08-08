@@ -158,7 +158,7 @@ export default async function Home() {
               </h2>
             </div>
 
-            <div className="category-features__featured">
+            <div className="category-features__split">
               <CategoryFeature
                 artwork={featuredPainting}
                 category="Gemälde"
@@ -167,23 +167,22 @@ export default async function Home() {
                 index="01"
                 featured
               />
-            </div>
-
-            <div className="category-features__grid">
-              <CategoryFeature
-                artwork={featuredPhotography}
-                category="Fotografien"
-                description="Fotografische Beobachtungen zwischen Landschaft, Struktur und Erinnerung."
-                href="/fotografien"
-                index="02"
-              />
-              <CategoryFeature
-                artwork={featuredCommission}
-                category="Auftragsarbeiten"
-                description="Gemälde und fotografische Arbeiten, die im Dialog mit einem Auftrag entstanden sind."
-                href="/auftragsarbeiten"
-                index="03"
-              />
+              <div className="category-features__stack">
+                <CategoryFeature
+                  artwork={featuredPhotography}
+                  category="Fotografien"
+                  description="Fotografische Beobachtungen zwischen Landschaft, Struktur und Erinnerung."
+                  href="/fotografien"
+                  index="02"
+                />
+                <CategoryFeature
+                  artwork={featuredCommission}
+                  category="Auftragsarbeiten"
+                  description="Gemälde und fotografische Arbeiten, die im Dialog mit einem Auftrag entstanden sind."
+                  href="/auftragsarbeiten"
+                  index="03"
+                />
+              </div>
             </div>
           </div>
         </section>
