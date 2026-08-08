@@ -90,10 +90,7 @@ export default async function Home() {
       <main id="main-content">
         <section className="editorial-hero" aria-labelledby="hero-title">
           <div className="site-shell">
-            <div className="editorial-hero__masthead">
-              <h1 id="hero-title">Gian-Luca Blasius</h1>
-              <p>zeitgenössische Kunst</p>
-            </div>
+            <h1 className="sr-only" id="hero-title">Gian-Luca Blasius</h1>
 
             <div className="editorial-hero__frame">
               <div
@@ -121,10 +118,14 @@ export default async function Home() {
                 />
               </div>
             </div>
+
           </div>
         </section>
 
-        <section className="editorial-statement section">
+        <section
+          className="editorial-statement section"
+          id="editorial-statement"
+        >
           <div className="site-shell editorial-statement__grid">
             <p className="eyebrow">Über die Arbeit</p>
             <blockquote>

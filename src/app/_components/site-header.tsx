@@ -27,17 +27,11 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="site-nav" aria-label="Hauptnavigation">
-          {navigation.map((item) => (
-            <Link href={item.href} key={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <span className="site-header__name">Gian-Luca Blasius</span>
 
         <details className="mobile-menu">
           <summary>Menü</summary>
-          <nav className="mobile-menu__panel" aria-label="Mobile Navigation">
+          <nav className="mobile-menu__panel" aria-label="Hauptnavigation">
             {navigation.map((item) => (
               <Link href={item.href} key={item.href}>
                 {item.label}
