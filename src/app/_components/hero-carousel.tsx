@@ -10,16 +10,11 @@ import type { HeroImage } from "@/app/_lib/content-shared";
 
 const AUTOPLAY_DELAY = 6_000;
 
-function formatSlideNumber(value: number) {
-  return String(value).padStart(2, "0");
-}
-
 export function HeroCarousel({ images }: { images: HeroImage[] }) {
   const hasImages = images.length > 0;
   const hasMultipleSlides = images.length > 1;
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [autoplayEnabled, setAutoplayEnabled] = useState(true);
-  const autoplayEnabledRef = useRef(true);
+  const autoplayAllowedRef = useRef(true);
   const hoveredRef = useRef(false);
   const focusedRef = useRef(false);
   const interactingRef = useRef(false);
@@ -39,7 +34,7 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
 
   const syncAutoplay = useCallback(() => {
     const shouldPause =
-      !autoplayEnabledRef.current ||
+      !autoplayAllowedRef.current ||
       hoveredRef.current ||
       focusedRef.current ||
       interactingRef.current;
@@ -51,13 +46,6 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
     }
   }, [autoplay]);
 
-  const selectSlide = useCallback(
-    (index: number) => {
-      emblaApi?.scrollTo(index);
-    },
-    [emblaApi],
-  );
-
   const selectPrevious = useCallback(() => {
     emblaApi?.scrollPrev();
   }, [emblaApi]);
@@ -65,18 +53,6 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
   const selectNext = useCallback(() => {
     emblaApi?.scrollNext();
   }, [emblaApi]);
-
-  const toggleAutoplay = useCallback(() => {
-    const nextEnabled = !autoplayEnabledRef.current;
-    autoplayEnabledRef.current = nextEnabled;
-    setAutoplayEnabled(nextEnabled);
-
-    if (nextEnabled) {
-      syncAutoplay();
-    } else {
-      autoplay.stop();
-    }
-  }, [autoplay, syncAutoplay]);
 
   const pauseForHover = useCallback(() => {
     hoveredRef.current = true;
@@ -142,9 +118,7 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const applyMotionPreference = () => {
-      const enabled = !reducedMotion.matches;
-      autoplayEnabledRef.current = enabled;
-      setAutoplayEnabled(enabled);
+      autoplayAllowedRef.current = !reducedMotion.matches;
       syncAutoplay();
     };
 
@@ -224,100 +198,35 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
           className="hero-carousel__controls"
           role="group"
         >
-          <div className="hero-carousel__arrows">
-            <button
-              aria-label="Vorheriges Bild"
-              className="hero-carousel__button hero-carousel__button--previous"
-              onClick={selectPrevious}
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                className="hero-carousel__icon"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path d="m12.5 4.5-5 5.5 5 5.5M8 10h8" stroke="currentColor" />
-              </svg>
-            </button>
-            <button
-              aria-label="Nächstes Bild"
-              className="hero-carousel__button hero-carousel__button--next"
-              onClick={selectNext}
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                className="hero-carousel__icon"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path d="m7.5 4.5 5 5.5-5 5.5M12 10H4" stroke="currentColor" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="hero-carousel__pagination">
-            <div className="hero-carousel__dots">
-              {images.map((image, index) => {
-                const isSelected = selectedIndex === index;
-
-                return (
-                  <button
-                    aria-current={isSelected ? "true" : undefined}
-                    aria-label={`Bild ${index + 1} anzeigen: ${image.alt}`}
-                    className={
-                      isSelected
-                        ? "hero-carousel__dot is-selected"
-                        : "hero-carousel__dot"
-                    }
-                    key={`${image.url}-${index}`}
-                    onClick={() => selectSlide(index)}
-                    type="button"
-                  />
-                );
-              })}
-            </div>
-            <span aria-hidden="true" className="hero-carousel__count">
-              {formatSlideNumber(selectedIndex + 1)} /{" "}
-              {formatSlideNumber(images.length)}
-            </span>
-            <span aria-atomic="true" aria-live="polite" className="sr-only">
-              Bild {selectedIndex + 1} von {images.length}:{" "}
-              {images[selectedIndex]?.alt}
-            </span>
-          </div>
-
           <button
-            aria-label={
-              autoplayEnabled
-                ? "Automatische Wiedergabe pausieren"
-                : "Automatische Wiedergabe starten"
-            }
-            aria-pressed={!autoplayEnabled}
-            className="hero-carousel__autoplay"
-            onClick={toggleAutoplay}
+            aria-label="Vorheriges Bild"
+            className="hero-carousel__button hero-carousel__button--previous"
+            onClick={selectPrevious}
             type="button"
           >
-            {autoplayEnabled ? (
-              <svg
-                aria-hidden="true"
-                className="hero-carousel__icon"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path d="M7 5v10M13 5v10" stroke="currentColor" />
-              </svg>
-            ) : (
-              <svg
-                aria-hidden="true"
-                className="hero-carousel__icon"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="m7 4 8 6-8 6V4Z" />
-              </svg>
-            )}
+            <svg
+              aria-hidden="true"
+              className="hero-carousel__icon"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path d="m12.5 4.5-5 5.5 5 5.5M8 10h8" stroke="currentColor" />
+            </svg>
+          </button>
+          <button
+            aria-label="Nächstes Bild"
+            className="hero-carousel__button hero-carousel__button--next"
+            onClick={selectNext}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              className="hero-carousel__icon"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path d="m7.5 4.5 5 5.5-5 5.5M12 10H4" stroke="currentColor" />
+            </svg>
           </button>
         </div>
       )}
