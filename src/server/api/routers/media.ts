@@ -102,7 +102,16 @@ export const mediaRouter = createTRPCRouter({
             select: { id: true },
           }),
           ctx.db.siteSettings.findFirst({
-            where: { heroImageUrl: publicUrl },
+            where: {
+              OR: [
+                { heroImageUrl: publicUrl },
+                {
+                  heroImages: {
+                    array_contains: [{ url: publicUrl }],
+                  },
+                },
+              ],
+            },
             select: { id: true },
           }),
         ]);

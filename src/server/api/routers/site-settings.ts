@@ -1,3 +1,4 @@
+import { normalizePublicSiteSettings } from "@/app/_lib/content-shared";
 import { siteSettingsUpdateSchema } from "@/server/api/routers/site-settings-schema";
 import {
   adminProcedure,
@@ -7,6 +8,7 @@ import {
 
 const PRIMARY_SETTINGS_ID = "primary";
 const heroSettingsSelect = {
+  heroImages: true,
   heroImageUrl: true,
   heroImageAlt: true,
 } as const;
@@ -18,32 +20,38 @@ export const siteSettingsRouter = createTRPCRouter({
       select: heroSettingsSelect,
     });
 
-    return (
-      settings ?? {
-        heroImageUrl: null,
-        heroImageAlt: null,
-      }
-    );
+    return normalizePublicSiteSettings(settings);
   }),
 
-  adminGet: adminProcedure.query(({ ctx }) =>
-    ctx.db.siteSettings.findUnique({
+  adminGet: adminProcedure.query(async ({ ctx }) => {
+    const settings = await ctx.db.siteSettings.findUnique({
       where: { id: PRIMARY_SETTINGS_ID },
       select: heroSettingsSelect,
-    }),
-  ),
+    });
+
+    return normalizePublicSiteSettings(settings);
+  }),
 
   update: adminProcedure
     .input(siteSettingsUpdateSchema)
-    .mutation(({ ctx, input }) =>
-      ctx.db.siteSettings.upsert({
+    .mutation(async ({ ctx, input }) => {
+      const firstImage = input.heroImages[0];
+      const settings = await ctx.db.siteSettings.upsert({
         where: { id: PRIMARY_SETTINGS_ID },
         create: {
           id: PRIMARY_SETTINGS_ID,
-          ...input,
+          heroImages: input.heroImages,
+          heroImageUrl: firstImage?.url ?? null,
+          heroImageAlt: firstImage?.alt ?? null,
         },
-        update: input,
+        update: {
+          heroImages: input.heroImages,
+          heroImageUrl: firstImage?.url ?? null,
+          heroImageAlt: firstImage?.alt ?? null,
+        },
         select: heroSettingsSelect,
-      }),
-    ),
+      });
+
+      return normalizePublicSiteSettings(settings);
+    }),
 });

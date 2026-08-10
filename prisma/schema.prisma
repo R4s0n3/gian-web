@@ -59,6 +59,7 @@ model SiteSettings {
   id           String   @id @default("primary") @db.VarChar(32)
   heroImageUrl String?  @db.VarChar(500)
   heroImageAlt String?  @db.VarChar(250)
+  heroImages   Json     @default("[]")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

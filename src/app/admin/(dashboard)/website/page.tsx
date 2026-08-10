@@ -8,9 +8,7 @@ export default function AdminWebsitePage() {
           <p className="eyebrow">Öffentlicher Auftritt</p>
           <h1 className="display">Website.</h1>
         </div>
-        <span className="status-pill status-pill--active">
-          Hero-Einstellungen
-        </span>
+        <span className="status-pill status-pill--active">Hero-Karussell</span>
       </header>
       <WebsiteSettingsForm />
     </>

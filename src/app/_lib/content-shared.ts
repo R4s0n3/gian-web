@@ -3,6 +3,13 @@ export type GalleryImage = {
   alt: string;
 };
 
+export type HeroImage = {
+  url: string;
+  alt: string;
+};
+
+export const MAX_HERO_IMAGES = 10;
+
 export const GALLERY_CATEGORIES = [
   "PAINTING",
   "PHOTOGRAPHY",
@@ -32,6 +39,41 @@ export function parseGalleryImages(value: unknown): GalleryImage[] {
   });
 }
 
+export function parseHeroImages(value: unknown): HeroImage[] {
+  if (!Array.isArray(value)) return [];
+
+  const images: unknown[] = value;
+
+  return images
+    .flatMap((image) => {
+      if (
+        typeof image !== "object" ||
+        image === null ||
+        !("url" in image) ||
+        !("alt" in image) ||
+        typeof image.url !== "string" ||
+        typeof image.alt !== "string"
+      ) {
+        return [];
+      }
+
+      const url = image.url.trim();
+      const alt = image.alt.trim();
+
+      if (
+        url.length === 0 ||
+        url.length > 500 ||
+        alt.length === 0 ||
+        alt.length > 250
+      ) {
+        return [];
+      }
+
+      return [{ url, alt }];
+    })
+    .slice(0, MAX_HERO_IMAGES);
+}
+
 export type GalleryItem = {
   id: string;
   slug: string;
@@ -50,9 +92,39 @@ export type GalleryItem = {
 };
 
 export type PublicSiteSettings = {
+  heroImages: HeroImage[];
   heroImageUrl: string | null;
   heroImageAlt: string | null;
 };
+
+type StoredSiteSettings = {
+  heroImages?: unknown;
+  heroImageUrl?: string | null;
+  heroImageAlt?: string | null;
+};
+
+export function normalizePublicSiteSettings(
+  settings: StoredSiteSettings | null | undefined,
+): PublicSiteSettings {
+  let heroImages = parseHeroImages(settings?.heroImages);
+
+  if (heroImages.length === 0) {
+    heroImages = parseHeroImages([
+      {
+        url: settings?.heroImageUrl,
+        alt: settings?.heroImageAlt,
+      },
+    ]);
+  }
+
+  const firstImage = heroImages[0];
+
+  return {
+    heroImages,
+    heroImageUrl: firstImage?.url ?? null,
+    heroImageAlt: firstImage?.alt ?? null,
+  };
+}
 
 export type ProductItem = {
   id: string;

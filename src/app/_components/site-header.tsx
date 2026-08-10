@@ -10,9 +10,21 @@ const navigation = [
   { href: "/doom", label: "Galerie" },
 ];
 
-export function SiteHeader() {
+export type SiteHeaderVariant = "default" | "overlay";
+
+export function SiteHeader({
+  variant = "default",
+}: {
+  variant?: SiteHeaderVariant;
+}) {
   return (
-    <header className="site-header">
+    <header
+      className={
+        variant === "overlay"
+          ? "site-header site-header--overlay"
+          : "site-header"
+      }
+    >
       <div className="site-shell site-header__inner">
         <Link
           className="site-logo"

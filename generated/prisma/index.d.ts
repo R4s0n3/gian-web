@@ -3057,6 +3057,7 @@ export namespace Prisma {
     id: number
     heroImageUrl: number
     heroImageAlt: number
+    heroImages: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3083,6 +3084,7 @@ export namespace Prisma {
     id?: true
     heroImageUrl?: true
     heroImageAlt?: true
+    heroImages?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3164,6 +3166,7 @@ export namespace Prisma {
     id: string
     heroImageUrl: string | null
     heroImageAlt: string | null
+    heroImages: JsonValue
     createdAt: Date
     updatedAt: Date
     _count: SiteSettingsCountAggregateOutputType | null
@@ -3189,6 +3192,7 @@ export namespace Prisma {
     id?: boolean
     heroImageUrl?: boolean
     heroImageAlt?: boolean
+    heroImages?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["siteSettings"]>
@@ -3197,6 +3201,7 @@ export namespace Prisma {
     id?: boolean
     heroImageUrl?: boolean
     heroImageAlt?: boolean
+    heroImages?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["siteSettings"]>
@@ -3205,6 +3210,7 @@ export namespace Prisma {
     id?: boolean
     heroImageUrl?: boolean
     heroImageAlt?: boolean
+    heroImages?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["siteSettings"]>
@@ -3213,11 +3219,12 @@ export namespace Prisma {
     id?: boolean
     heroImageUrl?: boolean
     heroImageAlt?: boolean
+    heroImages?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SiteSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "heroImageUrl" | "heroImageAlt" | "createdAt" | "updatedAt", ExtArgs["result"]["siteSettings"]>
+  export type SiteSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "heroImageUrl" | "heroImageAlt" | "heroImages" | "createdAt" | "updatedAt", ExtArgs["result"]["siteSettings"]>
 
   export type $SiteSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SiteSettings"
@@ -3226,6 +3233,7 @@ export namespace Prisma {
       id: string
       heroImageUrl: string | null
       heroImageAlt: string | null
+      heroImages: Prisma.JsonValue
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["siteSettings"]>
@@ -3654,6 +3662,7 @@ export namespace Prisma {
     readonly id: FieldRef<"SiteSettings", 'String'>
     readonly heroImageUrl: FieldRef<"SiteSettings", 'String'>
     readonly heroImageAlt: FieldRef<"SiteSettings", 'String'>
+    readonly heroImages: FieldRef<"SiteSettings", 'Json'>
     readonly createdAt: FieldRef<"SiteSettings", 'DateTime'>
     readonly updatedAt: FieldRef<"SiteSettings", 'DateTime'>
   }
@@ -13043,6 +13052,7 @@ export namespace Prisma {
     id: 'id',
     heroImageUrl: 'heroImageUrl',
     heroImageAlt: 'heroImageAlt',
+    heroImages: 'heroImages',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -13467,6 +13477,7 @@ export namespace Prisma {
     id?: StringFilter<"SiteSettings"> | string
     heroImageUrl?: StringNullableFilter<"SiteSettings"> | string | null
     heroImageAlt?: StringNullableFilter<"SiteSettings"> | string | null
+    heroImages?: JsonFilter<"SiteSettings">
     createdAt?: DateTimeFilter<"SiteSettings"> | Date | string
     updatedAt?: DateTimeFilter<"SiteSettings"> | Date | string
   }
@@ -13475,6 +13486,7 @@ export namespace Prisma {
     id?: SortOrder
     heroImageUrl?: SortOrderInput | SortOrder
     heroImageAlt?: SortOrderInput | SortOrder
+    heroImages?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13486,6 +13498,7 @@ export namespace Prisma {
     NOT?: SiteSettingsWhereInput | SiteSettingsWhereInput[]
     heroImageUrl?: StringNullableFilter<"SiteSettings"> | string | null
     heroImageAlt?: StringNullableFilter<"SiteSettings"> | string | null
+    heroImages?: JsonFilter<"SiteSettings">
     createdAt?: DateTimeFilter<"SiteSettings"> | Date | string
     updatedAt?: DateTimeFilter<"SiteSettings"> | Date | string
   }, "id">
@@ -13494,6 +13507,7 @@ export namespace Prisma {
     id?: SortOrder
     heroImageUrl?: SortOrderInput | SortOrder
     heroImageAlt?: SortOrderInput | SortOrder
+    heroImages?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SiteSettingsCountOrderByAggregateInput
@@ -13508,6 +13522,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"SiteSettings"> | string
     heroImageUrl?: StringNullableWithAggregatesFilter<"SiteSettings"> | string | null
     heroImageAlt?: StringNullableWithAggregatesFilter<"SiteSettings"> | string | null
+    heroImages?: JsonWithAggregatesFilter<"SiteSettings">
     createdAt?: DateTimeWithAggregatesFilter<"SiteSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SiteSettings"> | Date | string
   }
@@ -14255,6 +14270,7 @@ export namespace Prisma {
     id?: string
     heroImageUrl?: string | null
     heroImageAlt?: string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14263,6 +14279,7 @@ export namespace Prisma {
     id?: string
     heroImageUrl?: string | null
     heroImageAlt?: string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14271,6 +14288,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14279,6 +14297,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14287,6 +14306,7 @@ export namespace Prisma {
     id?: string
     heroImageUrl?: string | null
     heroImageAlt?: string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14295,6 +14315,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14303,6 +14324,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
+    heroImages?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15292,6 +15314,7 @@ export namespace Prisma {
     id?: SortOrder
     heroImageUrl?: SortOrder
     heroImageAlt?: SortOrder
+    heroImages?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }

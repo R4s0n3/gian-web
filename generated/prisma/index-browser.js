@@ -146,6 +146,7 @@ exports.Prisma.SiteSettingsScalarFieldEnum = {
   id: 'id',
   heroImageUrl: 'heroImageUrl',
   heroImageAlt: 'heroImageAlt',
+  heroImages: 'heroImages',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

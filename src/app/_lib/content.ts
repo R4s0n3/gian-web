@@ -174,6 +174,7 @@ export const getPublicGallery = cache(
 );
 
 const emptySiteSettings: PublicSiteSettings = {
+  heroImages: [],
   heroImageUrl: null,
   heroImageAlt: null,
 };

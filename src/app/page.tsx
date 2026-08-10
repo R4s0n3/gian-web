@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
+import { HeroCarousel } from "@/app/_components/hero-carousel";
 import { PublicSite } from "@/app/_components/public-site";
 import { getPublicGallery, getPublicSiteSettings } from "@/app/_lib/content";
 import type { GalleryCategory, GalleryItem } from "@/app/_lib/content-shared";
@@ -81,45 +82,18 @@ export default async function Home() {
   const featuredPainting = featuredWork(gallery, "PAINTING");
   const featuredPhotography = featuredWork(gallery, "PHOTOGRAPHY");
   const featuredCommission = featuredWork(gallery, "COMMISSION");
-  const hasHero = Boolean(
-    siteSettings.heroImageUrl && siteSettings.heroImageAlt,
-  );
 
   return (
-    <PublicSite>
+    <PublicSite headerVariant="overlay">
       <main id="main-content">
-        <section className="editorial-hero" aria-labelledby="hero-title">
-          <div className="site-shell">
-            <h1 className="sr-only" id="hero-title">Gian-Luca Blasius</h1>
-
-            <div className="editorial-hero__frame">
-              <div
-                className={
-                  hasHero
-                    ? "editorial-hero__media"
-                    : "editorial-hero__media editorial-hero__media--empty"
-                }
-              >
-                {hasHero && (
-                  <img
-                    alt={siteSettings.heroImageAlt ?? ""}
-                    className="editorial-hero__photo"
-                    fetchPriority="high"
-                    src={siteSettings.heroImageUrl ?? ""}
-                  />
-                )}
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  className="editorial-hero__monogram"
-                  height="184"
-                  src="/logo.svg"
-                  width="227"
-                />
-              </div>
-            </div>
-
-          </div>
+        <section
+          className="editorial-hero editorial-hero--carousel"
+          aria-labelledby="hero-title"
+        >
+          <h1 className="sr-only" id="hero-title">
+            Gian-Luca Blasius
+          </h1>
+          <HeroCarousel images={siteSettings.heroImages} />
         </section>
 
         <section
