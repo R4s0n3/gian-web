@@ -2908,14 +2908,10 @@ img {
   top: 0;
   right: 0;
   left: 0;
-  border-bottom-color: rgba(255, 255, 255, 0.28);
-  background: linear-gradient(
-    to bottom,
-    rgba(8, 8, 7, 0.74),
-    rgba(8, 8, 7, 0.56)
-  );
+  border-bottom-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
-  backdrop-filter: blur(12px) saturate(0.8);
+  backdrop-filter: blur(16px) saturate(1.15);
 }
 
 .public-site--header-overlay > main {
@@ -3144,7 +3140,7 @@ img {
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 999px;
-  background: rgba(8, 8, 7, 0.08);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   cursor: pointer;
   backdrop-filter: blur(8px);
