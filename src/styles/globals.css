@@ -2908,10 +2908,10 @@ img {
   top: 0;
   right: 0;
   left: 0;
-  border-bottom-color: rgba(255, 255, 255, 0.32);
-  background: rgba(255, 255, 255, 0.08);
+  border-bottom-color: transparent;
+  background: transparent;
   color: #fff;
-  backdrop-filter: blur(16px) saturate(1.15);
+  backdrop-filter: none;
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
@@ -2919,8 +2919,8 @@ img {
 }
 
 .public-site .site-header--overlay.site-header--past-hero {
-  border-bottom-color: transparent;
-  background: transparent;
+  border-bottom-color: var(--public-line);
+  background: var(--public-paper);
   box-shadow: none;
   backdrop-filter: none;
 }
