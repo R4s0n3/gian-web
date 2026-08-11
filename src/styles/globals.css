@@ -3095,7 +3095,7 @@ img {
 
 .editorial-hero--carousel {
   position: relative;
-  height: 85dvh;
+  height: 100dvh;
   min-height: 0;
   padding: 0;
   background: #20201d;
@@ -4148,7 +4148,7 @@ img {
 
   .editorial-hero--carousel,
   .hero-carousel {
-    height: 80dvh;
+    height: 100dvh;
     min-height: 0;
   }
 
