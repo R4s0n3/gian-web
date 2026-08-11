@@ -326,7 +326,6 @@ img {
 .site-header {
   position: relative;
   z-index: 50;
-  border-bottom: 1px solid var(--line);
   background: rgba(10, 10, 8, 0.94);
   backdrop-filter: blur(14px);
 }
