@@ -3025,6 +3025,28 @@ img {
   color: var(--public-ink);
 }
 
+.public-site .site-header--overlay .mobile-menu__panel {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(16px) saturate(1.15);
+}
+
+.public-site .site-header--overlay .mobile-menu__panel a {
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 1px 1rem rgba(0, 0, 0, 0.2);
+}
+
+.public-site .site-header--overlay .mobile-menu__panel a:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.public-site .site-header--overlay .mobile-menu__panel a.is-active,
+.public-site .site-header--overlay .mobile-menu__panel a::after {
+  color: #fff;
+}
+
 /* Homepage hero carousel */
 
 .editorial-hero--carousel {
