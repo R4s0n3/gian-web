@@ -2919,10 +2919,10 @@ img {
 }
 
 .public-site .site-header--overlay.site-header--past-hero {
-  border-bottom-color: rgba(117, 110, 98, 0.28);
-  background: rgba(241, 239, 233, 0.9);
-  box-shadow: 0 0.75rem 2.5rem rgba(76, 70, 61, 0.1);
-  backdrop-filter: blur(18px) saturate(0.9);
+  border-bottom-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .public-site--header-overlay > main {
@@ -2962,7 +2962,7 @@ img {
 .public-site
   .site-header--overlay.site-header--past-hero
   .site-logo__image {
-  filter: brightness(0) invert(39%);
+  filter: invert(1);
 }
 
 .public-site .site-header__name {
@@ -2988,7 +2988,7 @@ img {
 .public-site
   .site-header--overlay.site-header--past-hero
   .site-header__name {
-  color: #625e57;
+  color: var(--public-ink);
   text-shadow: none;
 }
 
@@ -3027,17 +3027,17 @@ img {
 .public-site
   .site-header--overlay.site-header--past-hero
   .mobile-menu__toggle {
-  border-color: rgba(98, 94, 87, 0.62);
-  color: #625e57;
+  border-color: var(--public-ink);
+  color: var(--public-ink);
   text-shadow: none;
 }
 
 .public-site
   .site-header--overlay.site-header--past-hero
   .mobile-menu__toggle:hover {
-  border-color: #625e57;
-  background: rgba(255, 255, 255, 0.52);
-  color: #4f4b45;
+  border-color: var(--public-ink);
+  background: var(--public-ink);
+  color: var(--public-paper);
 }
 
 .public-site .mobile-menu__panel {
