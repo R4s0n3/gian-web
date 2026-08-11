@@ -2896,7 +2896,6 @@ img {
   position: sticky;
   z-index: 30;
   top: 0;
-  border-bottom: 1px solid var(--public-line);
   background: var(--public-paper);
   color: var(--public-ink);
 }
@@ -2907,18 +2906,15 @@ img {
   top: 0;
   right: 0;
   left: 0;
-  border-bottom-color: transparent;
   background: transparent;
   color: #fff;
   backdrop-filter: none;
   transition:
     background-color 180ms ease,
-    border-color 180ms ease,
     box-shadow 180ms ease;
 }
 
 .public-site .site-header--overlay.site-header--past-hero {
-  border-bottom-color: var(--public-line);
   background: var(--public-paper);
   box-shadow: none;
   backdrop-filter: none;
