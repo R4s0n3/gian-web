@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 import { MobileMenu } from "@/app/_components/mobile-menu";
 
@@ -17,8 +20,45 @@ export function SiteHeader({
 }: {
   variant?: SiteHeaderVariant;
 }) {
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (variant !== "overlay") return;
+
+    const header = headerRef.current;
+    const hero = document.querySelector<HTMLElement>(
+      ".editorial-hero--carousel",
+    );
+    if (!header || !hero) return;
+
+    let frame = 0;
+    const updateContrast = () => {
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const isPastHero =
+          hero.getBoundingClientRect().bottom <=
+          header.getBoundingClientRect().bottom;
+        header.classList.toggle("site-header--past-hero", isPastHero);
+      });
+    };
+
+    updateContrast();
+    window.addEventListener("resize", updateContrast);
+    window.addEventListener("scroll", updateContrast, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("resize", updateContrast);
+      window.removeEventListener("scroll", updateContrast);
+      header.classList.remove("site-header--past-hero");
+    };
+  }, [variant]);
+
   return (
     <header
+      ref={headerRef}
       className={
         variant === "overlay"
           ? "site-header site-header--overlay"

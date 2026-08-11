@@ -2912,6 +2912,17 @@ img {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
   backdrop-filter: blur(16px) saturate(1.15);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.public-site .site-header--overlay.site-header--past-hero {
+  border-bottom-color: rgba(117, 110, 98, 0.28);
+  background: rgba(241, 239, 233, 0.9);
+  box-shadow: 0 0.75rem 2.5rem rgba(76, 70, 61, 0.1);
+  backdrop-filter: blur(18px) saturate(0.9);
 }
 
 .public-site--header-overlay > main {
@@ -2945,6 +2956,13 @@ img {
 
 .public-site .site-header--overlay .site-logo__image {
   filter: none;
+  transition: filter 180ms ease;
+}
+
+.public-site
+  .site-header--overlay.site-header--past-hero
+  .site-logo__image {
+  filter: brightness(0) invert(39%);
 }
 
 .public-site .site-header__name {
@@ -2962,6 +2980,16 @@ img {
 .public-site .site-header--overlay .site-header__name {
   color: #fff;
   text-shadow: 0 1px 1.5rem rgba(0, 0, 0, 0.28);
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.public-site
+  .site-header--overlay.site-header--past-hero
+  .site-header__name {
+  color: #625e57;
+  text-shadow: none;
 }
 
 .public-site .mobile-menu {
@@ -2992,8 +3020,24 @@ img {
 .public-site .site-header--overlay .mobile-menu__toggle:hover {
   border-color: #fff;
   background: #fff;
-  color: #111;
+  color: #4f4b45;
   text-shadow: none;
+}
+
+.public-site
+  .site-header--overlay.site-header--past-hero
+  .mobile-menu__toggle {
+  border-color: rgba(98, 94, 87, 0.62);
+  color: #625e57;
+  text-shadow: none;
+}
+
+.public-site
+  .site-header--overlay.site-header--past-hero
+  .mobile-menu__toggle:hover {
+  border-color: #625e57;
+  background: rgba(255, 255, 255, 0.52);
+  color: #4f4b45;
 }
 
 .public-site .mobile-menu__panel {
@@ -3026,25 +3070,25 @@ img {
 }
 
 .public-site .site-header--overlay .mobile-menu__panel {
-  border-color: rgba(255, 255, 255, 0.32);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(16px) saturate(1.15);
+  border-color: rgba(117, 110, 98, 0.28);
+  background: rgba(241, 239, 233, 0.9);
+  box-shadow: 0 1rem 3rem rgba(76, 70, 61, 0.18);
+  backdrop-filter: blur(18px) saturate(0.9);
 }
 
 .public-site .site-header--overlay .mobile-menu__panel a {
-  color: rgba(255, 255, 255, 0.72);
-  text-shadow: 0 1px 1rem rgba(0, 0, 0, 0.2);
+  color: #625e57;
+  text-shadow: none;
 }
 
 .public-site .site-header--overlay .mobile-menu__panel a:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.46);
+  color: #4f4b45;
 }
 
 .public-site .site-header--overlay .mobile-menu__panel a.is-active,
 .public-site .site-header--overlay .mobile-menu__panel a::after {
-  color: #fff;
+  color: #4f4b45;
 }
 
 /* Homepage hero carousel */
