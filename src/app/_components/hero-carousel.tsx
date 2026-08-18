@@ -46,13 +46,12 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
     }
   }, [autoplay]);
 
-  const selectPrevious = useCallback(() => {
-    emblaApi?.scrollPrev();
-  }, [emblaApi]);
-
-  const selectNext = useCallback(() => {
-    emblaApi?.scrollNext();
-  }, [emblaApi]);
+  const selectSlide = useCallback(
+    (index: number) => {
+      emblaApi?.scrollTo(index);
+    },
+    [emblaApi],
+  );
 
   const pauseForHover = useCallback(() => {
     hoveredRef.current = true;
@@ -195,39 +194,21 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
       {hasMultipleSlides && (
         <div
           aria-label="Karussell-Steuerung"
-          className="hero-carousel__controls"
+          className="hero-carousel__dots"
           role="group"
         >
-          <button
-            aria-label="Vorheriges Bild"
-            className="hero-carousel__button hero-carousel__button--previous"
-            onClick={selectPrevious}
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              className="hero-carousel__icon"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path d="m12.5 4.5-5 5.5 5 5.5M8 10h8" stroke="currentColor" />
-            </svg>
-          </button>
-          <button
-            aria-label="Nächstes Bild"
-            className="hero-carousel__button hero-carousel__button--next"
-            onClick={selectNext}
-            type="button"
-          >
-            <svg
-              aria-hidden="true"
-              className="hero-carousel__icon"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path d="m7.5 4.5 5 5.5-5 5.5M12 10H4" stroke="currentColor" />
-            </svg>
-          </button>
+          {images.map((image, index) => (
+            <button
+              aria-current={selectedIndex === index}
+              aria-label={`Zu Bild ${index + 1}`}
+              className={`hero-carousel__dot${
+                selectedIndex === index ? "is-active" : ""
+              }`}
+              key={`${image.url}-${index}`}
+              onClick={() => selectSlide(index)}
+              type="button"
+            />
+          ))}
         </div>
       )}
     </div>
