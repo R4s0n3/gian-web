@@ -3011,7 +3011,7 @@ img {
 .public-site .site-header--overlay .mobile-menu__toggle:hover {
   border-color: #fff;
   background: #fff;
-  color: #4f4b45;
+  color: var(--public-ink);
   text-shadow: none;
 }
 
@@ -3059,25 +3059,24 @@ img {
 }
 
 .public-site .site-header--overlay .mobile-menu__panel {
-  border-color: rgba(117, 110, 98, 0.28);
-  background: rgba(241, 239, 233, 0.9);
-  box-shadow: 0 1rem 3rem rgba(76, 70, 61, 0.18);
-  backdrop-filter: blur(18px) saturate(0.9);
+  border-color: var(--public-line);
+  background: var(--public-paper);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.12);
 }
 
 .public-site .site-header--overlay .mobile-menu__panel a {
-  color: #625e57;
+  color: var(--public-muted);
   text-shadow: none;
 }
 
 .public-site .site-header--overlay .mobile-menu__panel a:hover {
-  background: rgba(255, 255, 255, 0.46);
-  color: #4f4b45;
+  background: var(--public-soft);
+  color: var(--public-ink);
 }
 
 .public-site .site-header--overlay .mobile-menu__panel a.is-active,
 .public-site .site-header--overlay .mobile-menu__panel a::after {
-  color: #4f4b45;
+  color: var(--public-ink);
 }
 
 /* Homepage hero carousel */
