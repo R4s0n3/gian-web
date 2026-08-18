@@ -201,7 +201,7 @@ export function HeroCarousel({ images }: { images: HeroImage[] }) {
             <button
               aria-current={selectedIndex === index}
               aria-label={`Zu Bild ${index + 1}`}
-              className={`hero-carousel__dot${
+              className={`hero-carousel__dot ${
                 selectedIndex === index ? "is-active" : ""
               }`}
               key={`${image.url}-${index}`}
