@@ -7,8 +7,8 @@
  */
 export const legalDetails = {
   providerName: "Gian-Luca Blasius",
-  streetAddress: "Saarlouis",
-  postalCodeAndCity: "Roden",
+  streetAddress: "Winterstraße 41",
+  postalCodeAndCity: "66740 Saarlouis",
   email: "anfrage@gian-luca.art",
   phone: "",
   vatId: "",
