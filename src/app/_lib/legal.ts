@@ -7,8 +7,8 @@
  */
 export const legalDetails = {
   providerName: "Gian-Luca Blasius",
-  streetAddress: "Winterstraße 41",
-  postalCodeAndCity: "66740 Saarlouis",
+  streetAddress: "",
+  postalCodeAndCity: "",
   email: "anfrage@gian-luca.art",
   phone: "",
   vatId: "",
@@ -22,4 +22,6 @@ export const legalDetailsComplete = [
   legalDetails.postalCodeAndCity,
   legalDetails.email,
   legalDetails.phone,
-].every((value) => !value.startsWith("BITTE"));
+].every(
+  (value) => value.trim().length > 0 && !value.trim().startsWith("BITTE"),
+);
