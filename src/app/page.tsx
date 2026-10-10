@@ -95,12 +95,6 @@ export default async function Home() {
                 description="Beobachtungen zwischen Landschaft, Struktur und Erinnerung."
                 href="/fotografien"
               />
-              <CategoryCarousel
-                artworks={categoryPreviews(gallery, "COMMISSION")}
-                category="Auftragsarbeiten"
-                description="Kunst, die im Dialog mit einem Auftrag entstanden ist."
-                href="/auftragsarbeiten"
-              />
             </div>
           </div>
         </section>
