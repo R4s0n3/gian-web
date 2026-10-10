@@ -3415,8 +3415,8 @@ img {
 }
 
 .gallery-invitation__panel h2 {
-  max-width: 10ch;
-  font-size: clamp(3rem, 7.7vw, 8rem);
+  max-width: 12ch;
+  font-size: clamp(3rem, 6vw, 6rem);
 }
 
 .gallery-invitation__aside {
@@ -3512,6 +3512,10 @@ img {
 
 .portfolio-archive__title {
   font-size: clamp(4rem, 9.5vw, 9rem);
+}
+
+.portfolio-archive--commission .portfolio-archive__title {
+  font-size: clamp(2rem, 5.5vw, 6rem);
 }
 
 .portfolio-archive__description {
@@ -3709,6 +3713,15 @@ img {
 
 /* Shop, forms, booking, success and legal */
 
+.shop-checkout-email {
+  display: grid;
+  max-width: 42rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 3rem;
+}
+
 .public-site .shop-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(2rem, 3.5vw, 4rem);
@@ -3818,6 +3831,10 @@ img {
   background: var(--public-paper);
 }
 
+.public-site .success-page h1 {
+  font-size: clamp(4rem, 8vw, 7rem);
+}
+
 .public-site .success-page p {
   color: var(--public-muted);
 }
@@ -3829,6 +3846,7 @@ img {
 .public-site .legal-page__notice {
   border-color: var(--public-ink);
   background: var(--public-soft);
+  overflow-wrap: anywhere;
 }
 
 .public-site .legal-page__notice strong,
@@ -4086,6 +4104,20 @@ img {
 }
 
 @media (max-width: 1080px) {
+  .gallery-invitation__panel,
+  .public-site .page-hero__grid,
+  .public-site .booking-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .public-site .site-footer__main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .public-site .site-footer__brand {
+    grid-column: 1 / -1;
+  }
+
   .editorial-statement__grid {
     grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr);
   }
@@ -4104,6 +4136,52 @@ img {
 @media (max-width: 760px) {
   .public-site .site-shell {
     padding-inline: 1rem;
+  }
+
+  .public-site .display {
+    overflow-wrap: anywhere;
+    line-height: 1.02;
+  }
+
+  .public-site .eyebrow,
+  .public-site .button,
+  .public-site .text-link,
+  .public-site .form-field label,
+  .public-site .form-label {
+    font-size: 0.75rem;
+  }
+
+  .public-site .form-note,
+  .public-site .form-status,
+  .public-site .checkbox {
+    font-size: 0.85rem;
+  }
+
+  .public-site .form-input,
+  .public-site .form-select,
+  .public-site .form-textarea {
+    font-size: 1rem;
+  }
+
+  .public-site .shop-checkout-email {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .public-site .page-hero h1,
+  .public-site .work-detail__title,
+  .public-site .success-page h1 {
+    font-size: clamp(2.25rem, 10vw, 4.5rem);
+  }
+
+  .public-site .section-head__title,
+  .public-site .booking-intro h2 {
+    font-size: clamp(2rem, 8.5vw, 3.5rem);
+  }
+
+  .public-site .legal-page__content h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    overflow-wrap: anywhere;
+    line-height: 1.1;
   }
 
   .public-site .site-header__inner {
@@ -4151,7 +4229,7 @@ img {
   .public-site .work-detail__info,
   .public-site .booking-layout,
   .public-site .legal-page__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .editorial-statement__copy,
@@ -4183,7 +4261,7 @@ img {
   }
 
   .gallery-invitation__panel h2 {
-    font-size: clamp(2.2rem, 10vw, 4rem);
+    font-size: clamp(1.6rem, 8vw, 3.5rem);
   }
 
   .studio-paths__grid {
@@ -4195,7 +4273,11 @@ img {
   }
 
   .portfolio-archive__title {
-    font-size: clamp(3.8rem, 18vw, 6rem);
+    font-size: clamp(2rem, 11vw, 5rem);
+  }
+
+  .portfolio-archive--commission .portfolio-archive__title {
+    font-size: clamp(1.5rem, 8vw, 3.75rem);
   }
 
   .public-site .artwork-grid,
@@ -4215,6 +4297,10 @@ img {
 
   .public-site .site-footer__brand {
     grid-column: 1;
+  }
+
+  .public-site .site-footer__name {
+    font-size: clamp(1.7rem, 8.8vw, 2.3rem);
   }
 
   .public-site .site-footer__base {

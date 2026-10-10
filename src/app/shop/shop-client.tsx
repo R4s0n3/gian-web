@@ -60,16 +60,7 @@ export function ShopClient({ products }: { products: ProductItem[] }) {
 
   return (
     <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1fr) auto",
-          gap: "1rem",
-          alignItems: "end",
-          maxWidth: "42rem",
-          marginBottom: "3rem",
-        }}
-      >
+      <div className="shop-checkout-email">
         <div className="form-field">
           <label htmlFor="checkout-email">E-Mail für den Beleg</label>
           <input
