@@ -2961,7 +2961,7 @@ img {
 .public-site .site-header__name {
   justify-self: center;
   color: var(--public-ink);
-  font-size: clamp(0.95rem, 1.6vw, 1.4rem);
+  font-size: clamp(0.95rem, 1.8vw, 1.6rem);
   font-weight: 400;
   letter-spacing: 0.14em;
   line-height: 1;
@@ -2990,7 +2990,7 @@ img {
 }
 
 .public-site .mobile-menu__toggle {
-  border-color: var(--public-ink);
+  border: none;
   color: var(--public-ink);
   font-size: 0.62rem;
   font-weight: 650;
