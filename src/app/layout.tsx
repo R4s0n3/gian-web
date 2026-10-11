@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 
 import { env } from "@/env";
+import { PostHogAnalytics } from "@/app/_components/posthog-analytics";
 import { TRPCReactProvider } from "@/trpc/react";
 
 export const metadata: Metadata = {
@@ -61,6 +62,7 @@ export default function RootLayout({
           Zum Inhalt springen
         </a>
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <PostHogAnalytics />
       </body>
     </html>
   );

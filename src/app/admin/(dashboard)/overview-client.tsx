@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { AnalyticsOverview } from "@/app/admin/(dashboard)/analytics-overview";
 
 import { formatMoney } from "@/app/_lib/content-shared";
 import { STUDIO_TIME_ZONE } from "@/app/_lib/studio-time";
@@ -200,6 +201,7 @@ export function OverviewClient() {
           )}
         </section>
       </div>
+      <AnalyticsOverview />
     </>
   );
 }

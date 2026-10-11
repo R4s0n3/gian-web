@@ -1,6 +1,25 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
+const posthogHostSchema = z
+  .string()
+  .url()
+  .refine((value) => {
+    try {
+      const url = new URL(value);
+      return (
+        (url.protocol === "https:" || url.protocol === "http:") &&
+        !url.username &&
+        !url.password &&
+        url.pathname === "/" &&
+        !url.search &&
+        !url.hash
+      );
+    } catch {
+      return false;
+    }
+  }, "Use an HTTP(S) origin without credentials, a path, a query, or a fragment");
+
 const siteUrlSchema = z
   .string()
   .url()
@@ -67,6 +86,9 @@ export const env = createEnv({
     R2_PUBLIC_BASE_URL: z.string().url().optional(),
     STRIPE_SECRET_KEY: z.string().optional(),
     STRIPE_ALLOWED_SHIPPING_COUNTRIES: z.string().optional(),
+    POSTHOG_PROJECT_ID: z.string().regex(/^\d+$/).optional(),
+    POSTHOG_PERSONAL_API_KEY: z.string().min(1).optional(),
+    POSTHOG_API_HOST: posthogHostSchema.optional(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -78,6 +100,8 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1).optional(),
+    NEXT_PUBLIC_POSTHOG_HOST: posthogHostSchema.optional(),
     NEXT_PUBLIC_SITE_URL:
       process.env.NODE_ENV === "production"
         ? siteUrlSchema
@@ -101,6 +125,11 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_ALLOWED_SHIPPING_COUNTRIES:
       process.env.STRIPE_ALLOWED_SHIPPING_COUNTRIES,
+    POSTHOG_PROJECT_ID: process.env.POSTHOG_PROJECT_ID,
+    POSTHOG_PERSONAL_API_KEY: process.env.POSTHOG_PERSONAL_API_KEY,
+    POSTHOG_API_HOST: process.env.POSTHOG_API_HOST,
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },

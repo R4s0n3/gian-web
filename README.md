@@ -6,6 +6,7 @@ practice. It includes:
 - an editorial portfolio driven by published gallery posts;
 - a downloadable portfolio PDF managed through the admin dashboard;
 - a private admin dashboard for gallery posts, products, orders, and bookings;
+- PostHog website analytics and Web Vitals in the admin overview;
 - server-priced Stripe Checkout with return-time server verification and
   inventory reservation;
 - tattoo, artwork, and collaboration appointment requests.
@@ -35,20 +36,25 @@ bundled original artworks and three purchasable studio editions.
 
 ## Environment
 
-| Variable                            | Purpose                                                            |
-| ----------------------------------- | ------------------------------------------------------------------ |
-| `DATABASE_URL`                      | PostgreSQL connection string                                       |
-| `AUTH_SECRET`                       | Auth.js signing secret; generate with `bunx auth secret`           |
-| `ALLOWED_ADMIN_MAILS`               | Comma-, semicolon-, or whitespace-separated admin email allowlist  |
-| `ADMIN_PASSWORD`                    | Shared admin password (minimum 16 characters); keep it server-side |
-| `NEXT_PUBLIC_SITE_URL`              | Trusted canonical origin for metadata and Stripe redirects         |
-| `STRIPE_SECRET_KEY`                 | Stripe secret API key used only on the server                      |
-| `STRIPE_ALLOWED_SHIPPING_COUNTRIES` | Comma-separated shipping destinations; defaults to `DE`            |
-| `R2_S3_ENDPOINT`                    | Account-scoped R2 S3 endpoint containing the Cloudflare Account ID |
-| `R2_BUCKET_NAME`                    | Bucket used for admin media                                        |
-| `R2_ACCESS_KEY_ID`                  | Server-only R2 API-token access key                                |
-| `R2_SECRET_ACCESS_KEY`              | Server-only R2 API-token secret key                                |
-| `R2_PUBLIC_BASE_URL`                | Public custom-domain origin used to build permanent media URLs     |
+| Variable                            | Purpose                                                                 |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| `DATABASE_URL`                      | PostgreSQL connection string                                            |
+| `AUTH_SECRET`                       | Auth.js signing secret; generate with `bunx auth secret`                |
+| `ALLOWED_ADMIN_MAILS`               | Comma-, semicolon-, or whitespace-separated admin email allowlist       |
+| `ADMIN_PASSWORD`                    | Shared admin password (minimum 16 characters); keep it server-side      |
+| `NEXT_PUBLIC_SITE_URL`              | Trusted canonical origin for metadata and Stripe redirects              |
+| `NEXT_PUBLIC_POSTHOG_KEY`           | Public PostHog project token for browser analytics                      |
+| `NEXT_PUBLIC_POSTHOG_HOST`          | PostHog ingestion origin (`https://eu.i.posthog.com` or US equivalent)  |
+| `POSTHOG_PROJECT_ID`                | Numeric PostHog project ID                                              |
+| `POSTHOG_PERSONAL_API_KEY`          | Server-only personal API key with project-restricted `query:read` scope |
+| `POSTHOG_API_HOST`                  | Private PostHog API origin (`https://eu.posthog.com` or US equivalent)  |
+| `STRIPE_SECRET_KEY`                 | Stripe secret API key used only on the server                           |
+| `STRIPE_ALLOWED_SHIPPING_COUNTRIES` | Comma-separated shipping destinations; defaults to `DE`                 |
+| `R2_S3_ENDPOINT`                    | Account-scoped R2 S3 endpoint containing the Cloudflare Account ID      |
+| `R2_BUCKET_NAME`                    | Bucket used for admin media                                             |
+| `R2_ACCESS_KEY_ID`                  | Server-only R2 API-token access key                                     |
+| `R2_SECRET_ACCESS_KEY`              | Server-only R2 API-token secret key                                     |
+| `R2_PUBLIC_BASE_URL`                | Public custom-domain origin used to build permanent media URLs          |
 
 Admin authentication is deliberately disabled if `AUTH_SECRET`,
 `ALLOWED_ADMIN_MAILS`, or `ADMIN_PASSWORD` is missing. Email matching is
@@ -107,12 +113,64 @@ paid session, and otherwise expires the session and safely releases inventory.
 Visit `/admin/login` and sign in with an email present in
 `ALLOWED_ADMIN_MAILS` plus `ADMIN_PASSWORD`.
 
+- `/admin` — studio overview, website traffic, acquisition, and Web Vitals
 - `/admin/gallery` — create, edit, order, feature, publish, and delete work
 - `/admin/media` — upload, browse, copy, and delete images stored in R2
 - `/admin/website` — manage the hero carousel and upload or replace the portfolio PDF
 - `/admin/products` — manage products, prices, stock, and visibility
 - `/admin/orders` — inspect line items and update fulfilment status
 - `/admin/bookings` — review client requests and update appointment status
+
+## PostHog analytics
+
+Create a PostHog project and copy its public project token and numeric project
+ID from **Project settings**. Create a **personal API key** with `query:read`
+scope, restricted to this project. The project token is for browser ingestion;
+the personal API key is for reading the dashboard and stays on the server.
+See [PostHog API authentication](https://posthog.com/docs/api) and
+[query API permissions](https://posthog.com/docs/api/query).
+
+Configure the five PostHog variables in `.env.example` and set
+`NEXT_PUBLIC_SITE_URL` to the public website's exact origin. Use the same region
+for both hosts: EU uses `https://eu.i.posthog.com` for ingestion and
+`https://eu.posthog.com` for queries; US uses `https://us.i.posthog.com` and
+`https://us.posthog.com`. Self-hosted HTTP(S) origins are also supported.
+Rebuild after changing `NEXT_PUBLIC_*` values, because Next.js embeds them in
+the browser bundle. No database migration is needed for analytics.
+
+The overview at `/admin` shows 7, 30, or 90 calendar days including the current
+day: anonymous visitors, pageviews, sessions, bounce rate, average session
+duration, daily traffic, top pages, referrers/UTM sources, UTM campaigns,
+countries, devices, and p75 LCP/INP/CLS/FCP. Days use UTC. Sessions and sources
+are attributed to their entry time; pageview metrics use event time. A session
+crossing the period boundary can therefore have pageviews in a different period.
+Country data uses PostHog GeoIP enrichment; disablement or blocked tracking
+can leave locations unknown. Use `utm_source`, `utm_medium`, and `utm_campaign`
+on campaign links for useful acquisition data.
+
+Bounce rate uses [PostHog's native session definition](https://posthog.com/docs/web-analytics/dashboard):
+one pageview, no autocaptured interactions, and less than 10 seconds. Click
+autocapture and pageleave events are enabled for this purpose. Web Vitals use
+the [SDK's performance capture](https://posthog.com/docs/web-analytics/web-vitals);
+missing measurements display as unavailable, and INP needs a visitor interaction.
+
+Tracking loads lazily on public routes and only on the canonical origin, so
+preview URLs and local development do not pollute production data. To test
+ingestion locally, explicitly set the canonical origin to the localhost origin
+and use a separate PostHog test project. Admin and API routes are excluded.
+Tracking is anonymous, honors Do Not Track, masks autocaptured text/attributes,
+and disables session replay, person profiles, surveys, and feature flags.
+PostHog uses its standard first-party browser persistence for anonymous IDs and
+sessions. URL fragments and query parameters other than `utm_*` campaign
+parameters are removed from captured URLs, including nested Web Vital payloads.
+
+The dashboard uses the existing administrator allowlist on every request. It
+executes fixed, bounded HogQL queries on the server, with 20-second request
+timeouts and a five-minute process-local cache for each period. Concurrent
+requests share the same query work. Failed queries are not cached or shown as
+zero traffic. If any variable is missing, the overview displays an unconfigured
+state; the rest of the application continues to work. Data appears only after
+visits have been captured and processed by PostHog.
 
 ## Cloudflare R2 media
 

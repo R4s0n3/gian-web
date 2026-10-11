@@ -1,3 +1,4 @@
+import { analyticsRouter } from "@/server/api/routers/analytics";
 import { bookingRouter } from "@/server/api/routers/booking";
 import { checkoutRouter } from "@/server/api/routers/checkout";
 import { galleryRouter } from "@/server/api/routers/gallery";
@@ -13,6 +14,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
+  analytics: analyticsRouter,
   booking: bookingRouter,
   checkout: checkoutRouter,
   gallery: galleryRouter,
