@@ -3455,11 +3455,11 @@ img {
   background: var(--public-ink);
 }
 
-.gallery-invitation {
+.portfolio-download {
   padding-top: 0;
 }
 
-.gallery-invitation__panel {
+.portfolio-download__panel {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.45fr);
   gap: clamp(3rem, 8vw, 9rem);
@@ -3469,35 +3469,36 @@ img {
   color: var(--public-paper);
 }
 
-.gallery-invitation__panel .eyebrow {
+.portfolio-download__panel .eyebrow {
   grid-column: 1 / -1;
   color: #aaa;
 }
 
-.gallery-invitation__panel h2 {
-  max-width: 12ch;
-  font-size: clamp(3rem, 6vw, 6rem);
+.portfolio-download__panel h2 {
+  max-width: 18ch;
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  overflow-wrap: anywhere;
 }
 
-.gallery-invitation__aside {
+.portfolio-download__aside {
   display: grid;
   gap: 2rem;
 }
 
-.gallery-invitation__aside p {
+.portfolio-download__aside p {
   margin: 0;
   color: #c7c7c4;
   line-height: 1.7;
 }
 
-.gallery-invitation__panel .button {
+.portfolio-download__panel .button {
   width: fit-content;
   border-color: var(--public-paper);
   background: var(--public-paper);
   color: var(--public-ink);
 }
 
-.gallery-invitation__panel .button:hover {
+.portfolio-download__panel .button:hover {
   border-color: var(--public-paper);
   background: transparent;
   color: var(--public-paper);
@@ -4210,7 +4211,7 @@ img {
 }
 
 @media (max-width: 1080px) {
-  .gallery-invitation__panel,
+  .portfolio-download__panel,
   .public-site .page-hero__grid,
   .public-site .booking-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -4327,7 +4328,7 @@ img {
 
   .editorial-statement__grid,
   .category-features__grid,
-  .gallery-invitation__panel,
+  .portfolio-download__panel,
   .studio-paths__grid,
   .portfolio-archive__intro,
   .public-site .page-hero__grid,
@@ -4362,11 +4363,11 @@ img {
     font-size: clamp(2rem, 8vw, 3rem);
   }
 
-  .gallery-invitation__panel {
+  .portfolio-download__panel {
     gap: 2.5rem;
   }
 
-  .gallery-invitation__panel h2 {
+  .portfolio-download__panel h2 {
     font-size: clamp(1.6rem, 8vw, 3.5rem);
   }
 
@@ -4432,4 +4433,27 @@ img {
     gap: 0;
     padding: 0.55rem 0.7rem;
   }
+}
+
+.portfolio-download__panel .button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.portfolio-download__aside .portfolio-download__availability {
+  font-size: 0.85rem;
+}
+
+.portfolio-settings {
+  margin-top: 2rem;
+}
+
+.portfolio-settings__body,
+.portfolio-settings__current {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.portfolio-settings__current {
+  overflow-wrap: anywhere;
 }

@@ -4,8 +4,7 @@ Gian Studio is a T3/Next.js platform for a contemporary artist and tattoo
 practice. It includes:
 
 - an editorial portfolio driven by published gallery posts;
-- **The Black Index**, an original first-person Canvas raycasting exhibition at
-  `/doom/`;
+- a downloadable portfolio PDF managed through the admin dashboard;
 - a private admin dashboard for gallery posts, products, orders, and bookings;
 - server-priced Stripe Checkout with return-time server verification and
   inventory reservation;
@@ -110,6 +109,7 @@ Visit `/admin/login` and sign in with an email present in
 
 - `/admin/gallery` — create, edit, order, feature, publish, and delete work
 - `/admin/media` — upload, browse, copy, and delete images stored in R2
+- `/admin/website` — manage the hero carousel and upload or replace the portfolio PDF
 - `/admin/products` — manage products, prices, stock, and visibility
 - `/admin/orders` — inspect line items and update fulfilment status
 - `/admin/bookings` — review client requests and update appointment status
@@ -149,16 +149,20 @@ All five R2 variables are required together for media management. If the R2
 configuration is absent or incomplete, the rest of the application continues
 to work and the Media page reports the configuration problem.
 
-## The Black Index
+## Portfolio download
 
-The game source lives directly in `public/doom/`, so it ships with Gian Studio
-as part of the same build and deployment. Edit `index.html`, `style.css`,
-`game.js`, or the files in `public/doom/assets/` in place; no separate project
-or sync step is required.
+Upload the portfolio under **Admin → Website → Portfolio-PDF**. PDFs can be up
+to 30 MiB. The browser uploads to the existing R2 bucket using its current PUT
+CORS policy; the server checks the uploaded file before publishing the download.
+Only the published PDF is linked on the homepage. Replacing or removing it does
+not change the hero carousel. Previous files remain in R2.
 
-When served by Gian Studio, the game reads published artwork from
-`GET /api/gallery`. It falls back to its bundled exhibition when the API or
-database is unavailable.
+`GET /portfolio/download` streams the current PDF as an attachment, so the button
+downloads the file directly. Until a PDF is published, the homepage displays a
+preparation message and disables the download button.
+
+Run `bun run db:migrate` before deploying this change to add the portfolio fields
+to `SiteSettings`.
 
 ## Verification
 

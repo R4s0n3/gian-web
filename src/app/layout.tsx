@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s — Gian-Luca Blasius",
   },
   description:
-    "Gemälde, Fotografien, limitierte Editionen und eine digitale Galerie von Gian-Luca Blasius.",
+    "Gemälde, Fotografien, limitierte Editionen und das Portfolio von Gian-Luca Blasius.",
   applicationName: "Gian-Luca Blasius",
   authors: [{ name: "Gian-Luca Blasius" }],
   keywords: [
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     "Tätowierer",
     "Kunst",
     "Künstlerportfolio",
-    "immersive Galerie",
   ],
   openGraph: {
     title: "Gian-Luca Blasius — Zeitgenössische Kunst",

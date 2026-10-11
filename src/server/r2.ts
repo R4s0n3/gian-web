@@ -2,6 +2,8 @@ import "server-only";
 
 import {
   DeleteObjectCommand,
+  GetObjectCommand,
+  HeadObjectCommand,
   ListObjectsV2Command,
   PutObjectCommand,
   S3Client,
@@ -19,6 +21,11 @@ import {
   publicMediaUrl,
   type MediaContentType,
 } from "@/lib/media";
+import {
+  hasPdfHeader,
+  isPortfolioPdfKey,
+  MAX_PORTFOLIO_PDF_SIZE,
+} from "@/lib/portfolio";
 
 const r2EnvironmentNames = [
   "R2_S3_ENDPOINT",
@@ -278,4 +285,62 @@ export function getR2PublicMediaUrl(key: string) {
   }
 
   return publicMediaUrl(getR2Storage().configuration.publicBaseUrl, key);
+}
+
+export async function createR2PortfolioUpload() {
+  const { client, configuration } = getR2Storage();
+  const key = `portfolio/${crypto.randomUUID()}.pdf`;
+  const command = new PutObjectCommand({
+    Bucket: configuration.bucketName,
+    Key: key,
+    ContentType: "application/pdf",
+    CacheControl: MEDIA_CACHE_CONTROL,
+  });
+  const uploadUrl = await getSignedUrl(client, command, {
+    expiresIn: MEDIA_UPLOAD_EXPIRY_SECONDS,
+    signableHeaders: new Set(["content-type", "cache-control"]),
+  });
+
+  return {
+    key,
+    uploadUrl,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Cache-Control": MEDIA_CACHE_CONTROL,
+    },
+  };
+}
+
+export async function verifyR2PortfolioPdf(key: string) {
+  if (!isPortfolioPdfKey(key)) throw new TypeError("Ungültiger PDF-Schlüssel");
+  const { client, configuration } = getR2Storage();
+  const metadata = await client.send(
+    new HeadObjectCommand({ Bucket: configuration.bucketName, Key: key }),
+  );
+  if (
+    metadata.ContentType !== "application/pdf" ||
+    !metadata.ContentLength ||
+    metadata.ContentLength > MAX_PORTFOLIO_PDF_SIZE
+  ) {
+    throw new TypeError("Bitte lade eine PDF mit höchstens 30 MiB hoch.");
+  }
+  const result = await client.send(
+    new GetObjectCommand({
+      Bucket: configuration.bucketName,
+      Key: key,
+      Range: "bytes=0-4",
+    }),
+  );
+  const header = await result.Body?.transformToByteArray();
+  if (!header || !hasPdfHeader(header)) {
+    throw new TypeError("Die hochgeladene Datei ist keine gültige PDF.");
+  }
+}
+
+export async function getR2PortfolioPdf(key: string) {
+  if (!isPortfolioPdfKey(key)) throw new TypeError("Ungültiger PDF-Schlüssel");
+  const { client, configuration } = getR2Storage();
+  return client.send(
+    new GetObjectCommand({ Bucket: configuration.bucketName, Key: key }),
+  );
 }

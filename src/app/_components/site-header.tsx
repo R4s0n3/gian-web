@@ -10,7 +10,6 @@ const navigation = [
   { href: "/gemaelde", label: "Gemälde" },
   { href: "/fotografien", label: "Fotografien" },
   { href: "/auftragsarbeiten", label: "Auftragsarbeiten" },
-  { href: "/doom", label: "Galerie" },
 ];
 
 export type SiteHeaderVariant = "default" | "overlay";

@@ -20,7 +20,6 @@ export function SiteFooter() {
             <Link href="/gemaelde">Gemälde</Link>
             <Link href="/fotografien">Fotografien</Link>
             <Link href="/auftragsarbeiten">Auftragsarbeiten</Link>
-            <Link href="/doom">Galerie</Link>
           </nav>
         </div>
 

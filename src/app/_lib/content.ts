@@ -177,6 +177,7 @@ const emptySiteSettings: PublicSiteSettings = {
   heroImages: [],
   heroImageUrl: null,
   heroImageAlt: null,
+  portfolioPdf: null,
 };
 
 export const getPublicSiteSettings = cache(

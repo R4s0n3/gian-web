@@ -3041,6 +3041,8 @@ export namespace Prisma {
     id: string | null
     heroImageUrl: string | null
     heroImageAlt: string | null
+    portfolioPdfKey: string | null
+    portfolioPdfName: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3049,6 +3051,8 @@ export namespace Prisma {
     id: string | null
     heroImageUrl: string | null
     heroImageAlt: string | null
+    portfolioPdfKey: string | null
+    portfolioPdfName: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3058,6 +3062,8 @@ export namespace Prisma {
     heroImageUrl: number
     heroImageAlt: number
     heroImages: number
+    portfolioPdfKey: number
+    portfolioPdfName: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3068,6 +3074,8 @@ export namespace Prisma {
     id?: true
     heroImageUrl?: true
     heroImageAlt?: true
+    portfolioPdfKey?: true
+    portfolioPdfName?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3076,6 +3084,8 @@ export namespace Prisma {
     id?: true
     heroImageUrl?: true
     heroImageAlt?: true
+    portfolioPdfKey?: true
+    portfolioPdfName?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3085,6 +3095,8 @@ export namespace Prisma {
     heroImageUrl?: true
     heroImageAlt?: true
     heroImages?: true
+    portfolioPdfKey?: true
+    portfolioPdfName?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3167,6 +3179,8 @@ export namespace Prisma {
     heroImageUrl: string | null
     heroImageAlt: string | null
     heroImages: JsonValue
+    portfolioPdfKey: string | null
+    portfolioPdfName: string | null
     createdAt: Date
     updatedAt: Date
     _count: SiteSettingsCountAggregateOutputType | null
@@ -3193,6 +3207,8 @@ export namespace Prisma {
     heroImageUrl?: boolean
     heroImageAlt?: boolean
     heroImages?: boolean
+    portfolioPdfKey?: boolean
+    portfolioPdfName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["siteSettings"]>
@@ -3202,6 +3218,8 @@ export namespace Prisma {
     heroImageUrl?: boolean
     heroImageAlt?: boolean
     heroImages?: boolean
+    portfolioPdfKey?: boolean
+    portfolioPdfName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["siteSettings"]>
@@ -3211,6 +3229,8 @@ export namespace Prisma {
     heroImageUrl?: boolean
     heroImageAlt?: boolean
     heroImages?: boolean
+    portfolioPdfKey?: boolean
+    portfolioPdfName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["siteSettings"]>
@@ -3220,11 +3240,13 @@ export namespace Prisma {
     heroImageUrl?: boolean
     heroImageAlt?: boolean
     heroImages?: boolean
+    portfolioPdfKey?: boolean
+    portfolioPdfName?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SiteSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "heroImageUrl" | "heroImageAlt" | "heroImages" | "createdAt" | "updatedAt", ExtArgs["result"]["siteSettings"]>
+  export type SiteSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "heroImageUrl" | "heroImageAlt" | "heroImages" | "portfolioPdfKey" | "portfolioPdfName" | "createdAt" | "updatedAt", ExtArgs["result"]["siteSettings"]>
 
   export type $SiteSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SiteSettings"
@@ -3234,6 +3256,8 @@ export namespace Prisma {
       heroImageUrl: string | null
       heroImageAlt: string | null
       heroImages: Prisma.JsonValue
+      portfolioPdfKey: string | null
+      portfolioPdfName: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["siteSettings"]>
@@ -3663,6 +3687,8 @@ export namespace Prisma {
     readonly heroImageUrl: FieldRef<"SiteSettings", 'String'>
     readonly heroImageAlt: FieldRef<"SiteSettings", 'String'>
     readonly heroImages: FieldRef<"SiteSettings", 'Json'>
+    readonly portfolioPdfKey: FieldRef<"SiteSettings", 'String'>
+    readonly portfolioPdfName: FieldRef<"SiteSettings", 'String'>
     readonly createdAt: FieldRef<"SiteSettings", 'DateTime'>
     readonly updatedAt: FieldRef<"SiteSettings", 'DateTime'>
   }
@@ -13053,6 +13079,8 @@ export namespace Prisma {
     heroImageUrl: 'heroImageUrl',
     heroImageAlt: 'heroImageAlt',
     heroImages: 'heroImages',
+    portfolioPdfKey: 'portfolioPdfKey',
+    portfolioPdfName: 'portfolioPdfName',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -13478,6 +13506,8 @@ export namespace Prisma {
     heroImageUrl?: StringNullableFilter<"SiteSettings"> | string | null
     heroImageAlt?: StringNullableFilter<"SiteSettings"> | string | null
     heroImages?: JsonFilter<"SiteSettings">
+    portfolioPdfKey?: StringNullableFilter<"SiteSettings"> | string | null
+    portfolioPdfName?: StringNullableFilter<"SiteSettings"> | string | null
     createdAt?: DateTimeFilter<"SiteSettings"> | Date | string
     updatedAt?: DateTimeFilter<"SiteSettings"> | Date | string
   }
@@ -13487,6 +13517,8 @@ export namespace Prisma {
     heroImageUrl?: SortOrderInput | SortOrder
     heroImageAlt?: SortOrderInput | SortOrder
     heroImages?: SortOrder
+    portfolioPdfKey?: SortOrderInput | SortOrder
+    portfolioPdfName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13499,6 +13531,8 @@ export namespace Prisma {
     heroImageUrl?: StringNullableFilter<"SiteSettings"> | string | null
     heroImageAlt?: StringNullableFilter<"SiteSettings"> | string | null
     heroImages?: JsonFilter<"SiteSettings">
+    portfolioPdfKey?: StringNullableFilter<"SiteSettings"> | string | null
+    portfolioPdfName?: StringNullableFilter<"SiteSettings"> | string | null
     createdAt?: DateTimeFilter<"SiteSettings"> | Date | string
     updatedAt?: DateTimeFilter<"SiteSettings"> | Date | string
   }, "id">
@@ -13508,6 +13542,8 @@ export namespace Prisma {
     heroImageUrl?: SortOrderInput | SortOrder
     heroImageAlt?: SortOrderInput | SortOrder
     heroImages?: SortOrder
+    portfolioPdfKey?: SortOrderInput | SortOrder
+    portfolioPdfName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SiteSettingsCountOrderByAggregateInput
@@ -13523,6 +13559,8 @@ export namespace Prisma {
     heroImageUrl?: StringNullableWithAggregatesFilter<"SiteSettings"> | string | null
     heroImageAlt?: StringNullableWithAggregatesFilter<"SiteSettings"> | string | null
     heroImages?: JsonWithAggregatesFilter<"SiteSettings">
+    portfolioPdfKey?: StringNullableWithAggregatesFilter<"SiteSettings"> | string | null
+    portfolioPdfName?: StringNullableWithAggregatesFilter<"SiteSettings"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SiteSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SiteSettings"> | Date | string
   }
@@ -14271,6 +14309,8 @@ export namespace Prisma {
     heroImageUrl?: string | null
     heroImageAlt?: string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: string | null
+    portfolioPdfName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14280,6 +14320,8 @@ export namespace Prisma {
     heroImageUrl?: string | null
     heroImageAlt?: string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: string | null
+    portfolioPdfName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14289,6 +14331,8 @@ export namespace Prisma {
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioPdfName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14298,6 +14342,8 @@ export namespace Prisma {
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioPdfName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14307,6 +14353,8 @@ export namespace Prisma {
     heroImageUrl?: string | null
     heroImageAlt?: string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: string | null
+    portfolioPdfName?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14316,6 +14364,8 @@ export namespace Prisma {
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioPdfName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14325,6 +14375,8 @@ export namespace Prisma {
     heroImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     heroImageAlt?: NullableStringFieldUpdateOperationsInput | string | null
     heroImages?: JsonNullValueInput | InputJsonValue
+    portfolioPdfKey?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioPdfName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15315,6 +15367,8 @@ export namespace Prisma {
     heroImageUrl?: SortOrder
     heroImageAlt?: SortOrder
     heroImages?: SortOrder
+    portfolioPdfKey?: SortOrder
+    portfolioPdfName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15323,6 +15377,8 @@ export namespace Prisma {
     id?: SortOrder
     heroImageUrl?: SortOrder
     heroImageAlt?: SortOrder
+    portfolioPdfKey?: SortOrder
+    portfolioPdfName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15331,6 +15387,8 @@ export namespace Prisma {
     id?: SortOrder
     heroImageUrl?: SortOrder
     heroImageAlt?: SortOrder
+    portfolioPdfKey?: SortOrder
+    portfolioPdfName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }

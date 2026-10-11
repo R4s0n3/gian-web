@@ -1,3 +1,5 @@
+import { isPortfolioPdfKey } from "@/lib/portfolio";
+
 export type GalleryImage = {
   url: string;
   alt: string;
@@ -95,12 +97,15 @@ export type PublicSiteSettings = {
   heroImages: HeroImage[];
   heroImageUrl: string | null;
   heroImageAlt: string | null;
+  portfolioPdf: { key: string; fileName: string } | null;
 };
 
 type StoredSiteSettings = {
   heroImages?: unknown;
   heroImageUrl?: string | null;
   heroImageAlt?: string | null;
+  portfolioPdfKey?: string | null;
+  portfolioPdfName?: string | null;
 };
 
 export function normalizePublicSiteSettings(
@@ -123,6 +128,12 @@ export function normalizePublicSiteSettings(
     heroImages,
     heroImageUrl: firstImage?.url ?? null,
     heroImageAlt: firstImage?.alt ?? null,
+    portfolioPdf:
+      settings?.portfolioPdfKey &&
+      isPortfolioPdfKey(settings.portfolioPdfKey) &&
+      settings.portfolioPdfName
+        ? { key: settings.portfolioPdfKey, fileName: settings.portfolioPdfName }
+        : null,
   };
 }
 

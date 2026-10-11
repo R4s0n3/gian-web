@@ -101,6 +101,7 @@ void describe("hero image normalization", () => {
         heroImages: [{ url: "/legacy-hero.webp", alt: "Legacy-Hero" }],
         heroImageUrl: "/legacy-hero.webp",
         heroImageAlt: "Legacy-Hero",
+        portfolioPdf: null,
       },
     );
   });
@@ -116,6 +117,7 @@ void describe("hero image normalization", () => {
         heroImages: [{ url: "/current.webp", alt: "Aktuelles Hero" }],
         heroImageUrl: "/current.webp",
         heroImageAlt: "Aktuelles Hero",
+        portfolioPdf: null,
       },
     );
   });
@@ -131,6 +133,7 @@ void describe("hero image normalization", () => {
         heroImages: [],
         heroImageUrl: null,
         heroImageAlt: null,
+        portfolioPdf: null,
       },
     );
   });

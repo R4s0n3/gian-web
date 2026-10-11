@@ -119,8 +119,8 @@ export default async function CheckoutSuccessPage({
             <Link className="button button--ember" href="/">
               Zurück zum Portfolio
             </Link>
-            <Link className="button" href="/doom">
-              Zur Galerie ↗
+            <Link className="button" href="/gemaelde">
+              Gemälde ansehen ↗
             </Link>
           </div>
         </div>

@@ -25,14 +25,6 @@ const config = {
       },
     ];
   },
-  async rewrites() {
-    return [
-      {
-        source: "/doom",
-        destination: "/doom/index.html",
-      },
-    ];
-  },
 };
 
 export default config;

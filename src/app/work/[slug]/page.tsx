@@ -136,9 +136,6 @@ export default async function WorkPage({ params }: WorkPageProps) {
                   >
                     Diese Arbeit anfragen
                   </Link>
-                  <Link className="button" href="/doom">
-                    In der digitalen Galerie ansehen ↗
-                  </Link>
                 </div>
                 <div className="work-detail__social">
                   <p className="eyebrow">Arbeit teilen</p>

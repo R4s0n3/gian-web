@@ -99,21 +99,35 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="gallery-invitation section">
+        <section
+          className="portfolio-download section"
+          aria-labelledby="portfolio-download-title"
+        >
           <div className="site-shell">
-            <div className="gallery-invitation__panel">
-              <p className="eyebrow">Digitale Galerie</p>
-              <h2 className="display">
-                Das Portfolio wird zum begehbaren Raum.
+            <div className="portfolio-download__panel">
+              <p className="eyebrow">Portfolio / PDF</p>
+              <h2 className="display" id="portfolio-download-title">
+                Mein Portfolio zum Herunterladen.
               </h2>
-              <div className="gallery-invitation__aside">
+              <div className="portfolio-download__aside">
                 <p>
-                  Eine eigens für den Browser entwickelte Ausstellung. Nähere
-                  dich den Arbeiten, erkunde die Räume und nimm dir Zeit.
+                  Eine Auswahl meiner Gemälde und Fotografien als PDF – zum
+                  Entdecken, Aufbewahren und Weitergeben.
                 </p>
-                <Link className="button" href="/doom">
-                  Galerie öffnen <span aria-hidden="true">↗</span>
-                </Link>
+                {siteSettings.portfolioPdf ? (
+                  <a className="button" href="/portfolio/download" download>
+                    Portfolio herunterladen <span aria-hidden="true">↓</span>
+                  </a>
+                ) : (
+                  <>
+                    <button className="button" disabled type="button">
+                      Portfolio herunterladen <span aria-hidden="true">↓</span>
+                    </button>
+                    <p className="portfolio-download__availability">
+                      Das Portfolio wird gerade vorbereitet.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
