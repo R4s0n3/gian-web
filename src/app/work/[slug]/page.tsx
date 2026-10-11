@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ArtworkCard } from "@/app/_components/artwork-card";
 import { PublicSite } from "@/app/_components/public-site";
+import { WorkCarousel } from "@/app/_components/work-carousel";
 import { getPublicGallery } from "@/app/_lib/content";
 import { galleryCategoryPresentation } from "@/app/_lib/gallery-categories";
 import { getSocialLinks } from "@/app/_lib/social-links";
@@ -89,16 +89,7 @@ export default async function WorkPage({ params }: WorkPageProps) {
               )}
             </div>
 
-            <div className="work-detail__visuals">
-              {artworkImages.map((image, index) => (
-                <figure
-                  className="work-detail__visual"
-                  key={`${image.url}-${index}`}
-                >
-                  <img alt={image.alt} src={image.url} />
-                </figure>
-              ))}
-            </div>
+            <WorkCarousel images={artworkImages} title={artwork.title} />
 
             <div className="work-detail__info">
               <div>
