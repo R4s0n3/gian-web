@@ -175,7 +175,36 @@ bunx prisma validate
 NEXT_PUBLIC_SITE_URL=https://your-production-origin.example bun run build
 ```
 
-The included migration is a from-empty PostgreSQL migration. Run
+The migration history includes the initial PostgreSQL schema. Run
 `bun run db:migrate` for every production release. Run `bun run db:seed` only
 when initializing a new database; the seed is create-only and will not reset
 dashboard edits or sold inventory when repeated.
+
+### Existing databases without migration history (P3005)
+
+If the database was initialized with `prisma db push`, Prisma Migrate may report
+`P3005: The database schema is not empty`. `bun run db:migrate` now handles this
+case by checking the existing pre-PDF schema, recording its baseline, and
+retrying the deployment. The deployment command remains:
+
+```sh
+bun run db:migrate
+```
+
+To run the baseline step separately (including resuming a partially recorded
+baseline), use:
+
+```sh
+bun run db:baseline
+bun run db:migrate
+```
+
+The baseline command first compares the database with the frozen
+`prisma/baseline.prisma` schema. Only an exact match allows it to record the
+initial, commission-category, and hero-carousel migrations as already applied.
+It preserves existing tables and rows and leaves the PDF migration pending.
+If the schema differs or a migration has failed, it stops for inspection. A
+database that already has these baseline records requires no changes.
+
+For a new, empty database, use `bun run db:migrate` directly. Do not reset or
+reseed an existing production database to fix P3005.
