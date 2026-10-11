@@ -1,8 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
 
-import { PrismaClient } from "../generated/prisma";
-
 const projectRoot = resolve(import.meta.dirname, "..");
 const prismaCli = resolve(projectRoot, "node_modules/prisma/build/index.js");
 const baselineMigrations = [
@@ -11,44 +9,43 @@ const baselineMigrations = [
   "20260811000000_add_site_settings_hero_images",
 ];
 
-function prisma(args: string[]) {
+function prisma(args: string[], input?: string) {
   const result = spawnSync("node", [prismaCli, ...args], {
     cwd: projectRoot,
     encoding: "utf8",
+    input,
   });
   if (result.error) throw result.error;
   return result;
 }
 
-const db = new PrismaClient();
-
 try {
-  const tables = await db.$queryRaw<{ exists: boolean }[]>`
-    SELECT to_regclass(format('%I.%I', current_schema(), '_prisma_migrations'))
-      IS NOT NULL AS "exists"
-  `;
-  const history = tables[0]?.exists
-    ? await db.$queryRaw<
-        {
-          migration_name: string;
-          finished_at: Date | null;
-          rolled_back_at: Date | null;
-        }[]
-      >`SELECT migration_name, finished_at, rolled_back_at FROM "_prisma_migrations"`
-    : [];
-  if (history.some((row) => !row.finished_at && !row.rolled_back_at)) {
+  // Run a read-only guard through the schema engine. Do not load Prisma Client:
+  // its native query library may be unavailable in a deployment shell.
+  const guard = prisma(
+    ["db", "execute", "--stdin", "--schema", "prisma/schema.prisma"],
+    `DO $$
+      DECLARE failed BOOLEAN;
+      BEGIN
+        IF to_regclass(format('%I.%I', current_schema(), '_prisma_migrations')) IS NOT NULL THEN
+          EXECUTE 'SELECT EXISTS (SELECT 1 FROM "_prisma_migrations" WHERE finished_at IS NULL AND rolled_back_at IS NULL)' INTO failed;
+          IF failed THEN
+            RAISE EXCEPTION 'A failed migration needs to be resolved before baselining.';
+          END IF;
+        END IF;
+      END
+    $$;`,
+  );
+  if (guard.status !== 0) {
+    console.error(guard.stdout);
+    console.error(guard.stderr);
     throw new Error(
-      "A failed migration needs to be resolved before baselining. No changes made.",
+      "Migration history could not be verified. No changes made.",
     );
   }
-  const applied = new Set(
-    history
-      .filter((row) => row.finished_at && !row.rolled_back_at)
-      .map((row) => row.migration_name),
-  );
-  const missing = baselineMigrations.filter((name) => !applied.has(name));
+  const status = prisma(["migrate", "status"]);
 
-  if (missing.length === 0) {
+  if (status.status === 0) {
     console.log("The database baseline is already recorded.");
   } else {
     // Read-only comparison against the frozen schema that predates the PDF change.
@@ -69,8 +66,15 @@ try {
       );
     }
 
-    for (const migration of missing) {
+    for (const migration of baselineMigrations) {
       const result = prisma(["migrate", "resolve", "--applied", migration]);
+      if (
+        result.status !== 0 &&
+        /\bP3008\b/.test(`${result.stdout}\n${result.stderr}`)
+      ) {
+        console.log(`Already recorded: ${migration}`);
+        continue;
+      }
       if (result.status !== 0) {
         console.error(result.stdout);
         console.error(result.stderr);
@@ -85,6 +89,4 @@ try {
 } catch (error) {
   console.error(error instanceof Error ? error.message : error);
   process.exitCode = 1;
-} finally {
-  await db.$disconnect();
 }

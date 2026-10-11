@@ -1,0 +1,3 @@
+# Prisma's native query engine requires OpenSSL at runtime as well as build time.
+[phases.setup]
+nixLibs = ["...", "openssl"]

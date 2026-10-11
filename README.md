@@ -206,5 +206,10 @@ It preserves existing tables and rows and leaves the PDF migration pending.
 If the schema differs or a migration has failed, it stops for inspection. A
 database that already has these baseline records requires no changes.
 
+Baseline checks use Prisma's migration CLI and schema engine, without loading
+the application's native query library. `nixpacks.toml` adds OpenSSL to the
+runtime library path for the application's Prisma Client. Rebuild the image
+after changing this configuration; restarting an older image will not add it.
+
 For a new, empty database, use `bun run db:migrate` directly. Do not reset or
 reseed an existing production database to fix P3005.
